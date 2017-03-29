@@ -1,0 +1,56 @@
+%!TEX root =  tfg.tex
+\chapter{Objetivos del proyecto}
+
+\begin{quotation}[Novelist]{Sir James Matthew Barrie (1860--1937)}
+The secret of happiness is not in doing what one likes, but in liking what one does. 
+\end{quotation}
+
+\begin{abstract}
+La siguiente sección presenta más detalladamente el proyecto, la razón de ser del mismo y un listado de objetivos, tantos del producto como individuales, que se pretenden alcanzar en el transcurso de su realización.
+\end{abstract}
+
+\section{Motivación}
+
+Dada la saturación del mercado con productos similares o clónicos se pretende crear un videojuego que, siguiendo la filosofía indie que se describía previamente, consiga ser innovador mezclando géneros, que se salga del esquema predominante y rete al jugador siendo desafiante con sus \glspl{mecanica} y haciéndole pensar, haga uso de la principalmente primera persona para tener la posibilidad de aprovechar el auge de la tecnología de realidad virtual y que, premeditadamente, deje bastante de lado la historia, personajes o desarrollo de los mismos y, por tanto, se centre plenamente en la \gls{jugabilidad}. El jugador deberá ir haciendo uso de todas las \glspl{mecanica} de las que dispone para sortear obstáculos, esquivar trampas, solucionar puzzles y hallar el camino correcto para ir avanzando en el juego.
+
+El \gls{gameplay} se basaría en la repetición y memorización de niveles, esquive y \gls{timing}, así como en la gestión de adrenalina y, en menor medida, en la resolución de pequeños puzles y exploración:
+
+\begin{description}
+	\item \textbf{Repetición y memorización de niveles:} Los peligros del entorno (balas, flechas, láseres, etc. y, por supuesto, caídas al vacío) matarían instantáneamente al jugador, lo que le obligaría a empezar el nivel desde el último punto de control o, en el caso de no disponer de ninguno, desde cero.
+	\item \textbf{Esquive y \gls{timing}:} No se le daría la posibilidad al jugador de defenderse o eliminar peligros, por lo que el jugador deberá ir avanzando por el escenario haciendo uso de las \glspl{mecanica} para sortear peligros en el momento justo sin morir en el intento.
+	\item \textbf{Gestión de adrenalina:} Cada acción que realice el jugador tendrá un peso asociado, por tanto, en todo momento el jugador deberá vigilar la barra de adrenalina y, así pues, pensar antes de realizar una acción.
+	\item \textbf{Resolución de puzles:} A menudo el jugador deberá encontrar un botón / palanca / llave para avanzar o bien tendrá que encontrar un orbe dorado para acceder a una determinada zona que antes era inaccesible.
+	\item \textbf{Exploración:} No sólo deberá encontrar el camino correcto, o la forma de desbloquear o pasar por un camino, sino que por el mundo habrá atajos que interconecten el mapa con antiguos puntos de control, así como coleccionables repartidos por el mismo.
+\end{description}
+
+Podríamos concluir que, principalmente, mezcla los géneros de primera persona, aventura / exploración, \gls{plataformas}, \gls{bullethell} y puzle.
+
+Teniendo en cuenta lo descrito anteriormente sería un producto que no va dirigido al gran público, sino que el público objetivo sería más bien un público de nicho, que busque algo diferente e intente poner a prueba sus capacidades.
+
+\section{Listado de objetivos}
+
+He decidido dividir esta sección en dos partes, los objetivos que pretendo alcanzar individualmente y los objetivos que pretendo que alcance el producto:
+
+\subsection{Objetivos del producto}
+
+\begin{description}
+	\item \textbf{Sistema de \glslink{plataformas}{plataformeo}:} Realización de un sistema de \glspl{mecanica} básicas de \glslink{plataformas}{plataformeo} como saltar, agacharse, correr, manejar al personaje en el aire, etc. teniendo en cuenta que, sobre todo ésta última, sean amigables con el usuario y permitan llevarlas al límite sin frustración por parte del usuario.
+	\item \textbf{Sistema de escalada:} Elaboración de un sistema de escalada que maximice la interacción del personaje con el entorno y permita acciones tales como escalar paredes, desplazarse verticalmente o dejarse caer entre cornisas, moverse por ellas, saltar de una a otra, etc.
+	\item \textbf{Sistema de poderes:} Producción de un sistema de poderes coherente, en el que el personaje pueda ganar poderes tales como el de la teletransportación sin que entre en conflicto con las \glspl{mecanica}, más básicas, de plataformeo y escalada, es decir, que sólo los pueda usar durante un área determinada para poder avanzar en el juego pero que al abandonarla vuelva a tener que hacer uso de las \glspl{mecanica} de plataformeo y escalada.
+	\item \textbf{Elaboración del tutorial:} Elaborar un nivel de tutorial en el que se le presenten al jugador las \glspl{mecanica} básicas.
+	\item \textbf{Elaboración de niveles prototipo:} Realización uno o una serie de niveles prototipo (dependiendo de la longitud de los mismos) de lo que sería un escenario del juego real.
+	\item \textbf{Sistema de animaciones:} Creación de una máquina de estados que permita pasar de una animación a otra sin bugs y de una manera sutil, sin saltos entre animaciones.
+	\item \textbf{\Gls{bullethell} en 3D:} Conseguir adaptar el género del \gls{bullethell} a un entorno 3D de manera adecuada, ya que este género es típico de entornos 2D donde, al eliminar toda una dimensión, es mucho más sencillo de implementar porque se reducen drásticamente los puntos en los que los peligros y el jugador pueden coincidir. En otras palabras, llenar el entorno de peligros en un escenario más amplio es una tarea mucho más difícil de diseñar.
+	\item \textbf{Realidad virtual:} Diseñar el juego de manera que fuese amigable con la innovadora tecnología de realidad virtual, es decir, enfocarlo hacia ella y que pudiese ser utilizado con ésta sin problemas.
+	\item \textbf{Optimización:} Optimizar lo máximo posible realizando todo el contenido posible en C++ ya que como explicaba anteriormente (tomando la propia Epic Games como fuente, desarrolladora de Unreal Engine), los tiempos de ejecución de ese código se reducen en torno a 10 veces usando el lenguaje de programación en C++ sobre la implementación en programación gráfica.
+\end{description}
+
+\subsection{Objetivos individuales}
+
+\begin{description}
+	\item Uno de los objetivos principales que me he marcado es simplemente aprender y disfrutar, conocer tanto cómo es el desarrollo de videojuegos en sí (aspectos organizativos) como descubrir de qué manera están hechos los videojuegos desde el punto de vista de un desarrollador (aspectos, por tanto, de desarrollo) que es algo que siempre me ha parecido muy interesante. Es un objetivo muy fácil de satisfacer, y no podría decir que cumpliendo sólo este ya estuviese satisfecho, pero sin duda me es indispensable.
+	\item Aprender a utilizar de una forma fluida el entorno y el conjunto de herramientas que conforman Unreal Engine.
+	\item Ampliar mis conocimientos en el lenguaje de programación C++, aprovechando que es el lenguaje en el cual se programa Unreal Engine.
+	\item Adquirir conocimientos en programación visual, ya que es un aspecto que en la titulación se ha abordado de manera muy escueta y habiendo elegido Unreal Engine para la ejecución del proyecto es algo que voy a necesitar en algún momento del desarrollo.
+	\item Formarme en diversas aptitudes que no entran dentro del ámbito de la titulación de Ingeniería del Software, como pueden ser la creación de entornos 3D, la texturización e iluminación de los mismos, creación de \glspl{landscape}, la animación de personajes, la creación de interfaces, diseño de niveles, etc.
+\end{description}

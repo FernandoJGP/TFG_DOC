@@ -1,0 +1,72 @@
+%!TEX root =  tfg.tex
+\chapter{Metodología}
+
+\begin{quotation}[Novelist]{Ernest Hemingway (1899--1961)}
+The good parts of a book may be only something a writer is lucky enough to overhear or it may be the wreck of his whole damn life -- and one is as good as the other.
+\end{quotation}
+
+\begin{abstract}
+A continuación se presenta la estructura organizacional del proyecto, la metodología que se ha elegido seguir para el desarrollo de este software, un breve resumen de la misma y la forma en la que se va a adaptar a nuestro problema específico.
+\end{abstract}
+
+\section{Estructura organizacional del proyecto}
+
+Dado que el proyecto no se realiza en grupo no se podría decir que existe una estructura organizacional propiamente dicha, o al menos carecería de sentido establecer una estructura organizacional para una sola persona, ya todas las responsabilidades y roles posibles recaerían sobre una única persona, salvando la figura del tutor.
+
+A raíz de lo descrito surge una consecuencia directa, y es que algunos roles o actividades desaparecerían del proyecto, todos los que tengan que ver con la interacción entre dos o más personas, al carecer de sentido en un proyecto con un único miembro en él. Ejemplo de esto podrían ser todas aquellas actividades que tengan que ver con la sincronización / puesta en común con el resto de miembros del equipo o cualquier rol relacionado con la resolución de conflictos dentro del equipo del proyecto.
+
+\section{Metodología de desarrollo}
+
+\subsection{Presentación de la metodología}
+
+Para la realización de este proyecto se hará uso de la metodología ‘Feature-Driven Development’ (FDD), denominada ‘Desarrollo basado en funcionalidades’ en español.
+
+Fue creada por Jeff De Luca y Peter Coad a finales de siglo para salvar un importante proyecto que había sido declarado como irrealizable y tiene su razón de ser en la calidad y el monitoreo constante del proyecto.
+
+\subsection{Resumen de la metodología}
+
+FDD es una metodología englobada en el grupo de las denominadas \glslink{agil}{ágiles}, constituye un proceso iterativo e incremental de desarrollo software y consta de 5 partes:
+
+\begin{enumerate}
+	\item	\textbf{Desarrollo del modelo global}: La realización de un proyecto siguiendo el esquema dictado por FDD empieza por la realización de un modelo global de alto nivel que tiene en cuenta el contexto y el alcance del sistema. El modelo se subdivide en partes más pequeñas que se van completando y se confecciona un diagrama de clases por cada una. Finalmente cada una de las partes en las que se subdividió se van agrupando para formar el modelo global final.
+	\item	\textbf{Elaboración de la lista de funcionalidades}: Seguidamente, utilizando el conocimiento obtenido durante el desarrollo del modelo global, se confecciona una lista de funcionalidades que posteriormente se dividirán en funcionalidades más específicas.
+	\item	\textbf{Planificación por funcionalidad}: Nuevamente partiendo del punto anterior, tomamos la lista de funcionalidades y esta vez las ordenamos según su prioridad y teniendo en cuenta su dependencia.
+	\item	\textbf{Diseño por funcionalidad}: Se elige un conjunto de funcionalidades de la lista y se procede a diseñarlas y desarrollarlas mediante un proceso iterativo.
+	\item	\textbf{Construcción por funcionalidad}: Después de una fase de diseño satisfactoria se procede a la construcción total del proyecto.
+\end{enumerate}
+
+Además, la metodología FDD consta de 6 \textbf{roles clave}, los cuales se describen a continuación:
+
+\begin{enumerate}
+	\item	\textbf{Jefe de proyecto}: Es el responsable de gestionar el presupuesto, el tiempo, el espacio y los recursos del proyecto. También es el responsable de transmitir el progreso del proyecto a los altos cargos de la empresa.
+	\item	\textbf{Arquitecto jefe}: Es el responsable del diseño global del sistema. Tiene la última palabra en todas las cuestiones de diseño.
+	\item	\textbf{Jefe de desarrollo}: Es el responsable del desarrollo en el día a día, de evitar situaciones de bloqueo y de solucionar conflictos en el proyecto.
+	\item	\textbf{Programadores jefes}: Son desarrolladores experimentados que se encargan de diseñar los requisitos a alto nivel y trabajan junto a otros programadores jefes para resolver las dificultades a las que se enfrenta el proyecto día a día.
+	\item	\textbf{Encargados de clases}: Desarrolladores que junto a su pequeño equipo de trabajo y bajo la supervisión de un programador jefe diseñan, programan, prueban y documentan las funcionalidades que se implementan en el sistema.
+	\item	\textbf{Expertos de dominio}: Son los encargados, haciendo uso de su conocimiento del negocio, de detallarle minuciosamente a los desarrolladores las características que debe tener el producto.
+\end{enumerate}
+
+\subsection{Adaptación de la metodología}
+\label{sec:adaptacionmetodologia}
+
+Teniendo en consideración que FDD es una metodología pensada para grupos de personas de un tamaño considerable, grupos en los que incluso otras metodologías \glslink{agil}{ágiles} como \gls{scrum} no tendrían cabida al ser imposible realizar una autogestión, y enfocada al desarrollo de un software más convencional, donde se podría diseñar un diagrama de clases con facilidad (como podrían ser las aplicaciones de escritorio, móvil, web, etc.).
+
+Puesto que este proyecto será llevado a cabo por una única persona y el producto generado en su desarrollo será un videojuego, es necesario hacer algunas modificaciones en nuestra metodología:
+
+\begin{enumerate}
+	\item \textbf{Fase de diseño del videojuego}: La principal diferencia radica aquí puesto que, dada la naturaleza del proyecto, al no poder organizar un diagrama de clases tenemos que buscar alternativas. En este caso se ha optado por elaborar una documentación con las decisiones de diseño del videojuego, esto vendría a coincidir con el conjunto de las \glspl{mecanica} que va a contener, las características que incluiría el videojuego y las distintas singularidades que conformarían el mismo.
+	\item \textbf{Elaboración de la lista de funcionalidades}: Al igual que en la metodología FDD tradicional, se elabora una lista de funcionalidades a partir del paso anterior y éstas se desglosan a su vez en funcionalidades más específicas.
+	\item \textbf{Planificación por funcionalidad}: Nuevamente como en la metodología FDD tradicional, ordenamos las funcionalidades resultantes según su prioridad y teniendo en cuenta sus dependencias.
+	\item \textbf{Diseño por funcionalidad}: Otra gran diferencia sería que, puesto que el grupo de desarrollo está formado por una sola persona, se irían eligiendo funcionalidades de la lista de una en una y se diseñaría e implementaría.
+	\item \textbf{Construcción por funcionalidad}: Igual que en la metodología FDD se procedería a la construcción total del proyecto.
+\end{enumerate}
+
+La \textbf{documentación} se generaría de forma constante durante todo el transcurso del proyecto y lo haría de forma iterativa tanto cada vez que se empezara a diseñar una funcionalidad como cuando se terminase el diseño de la misma.
+
+Para finalizar, los \textbf{roles} también necesitan adaptarse al proyecto, ya que muchos de ellos dejan de tener sentido por las mismas razones que se citaban anteriormente. En este caso es necesario una simplificación, que llevaría a que los roles de programador se aglutinaran en uno solo y lo mismo pasaría con los roles de diseño, lo que daría lugar a:
+
+\begin{itemize}
+	\item	\textbf{Jefe de proyecto}: Es el responsable de gestionar el presupuesto, el tiempo, el espacio y los recursos del proyecto. En el caso que nos ocupa sería el encargado de la elaboración de la memoria en términos generales.
+	\item	\textbf{Diseñador}: Es el responsable del diseño global del sistema y de la elicitación de requisitos tanto a alto nivel como de posteriormente detallarlos. En resumidas cuentas, sería un analista pero esta vez centrado en el mundo del videojuego.
+	\item	\textbf{Programador}: Diseña, programa, prueba y documenta las funcionalidades que se implementan en el sistema.
+\end{itemize}

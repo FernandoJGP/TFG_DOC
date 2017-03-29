@@ -1,0 +1,203 @@
+%!TEX root =  tfg.tex
+\chapter{Costes}
+
+\begin{quotation}[Novelist]{Ernest Hemingway (1899--1961)}
+The good parts of a book may be only something a writer is lucky enough to overhear or it may be the wreck of his whole damn life -- and one is as good as the other.
+\end{quotation}
+
+\begin{abstract}
+En este capítulo abordaremos una de las partes más importantes en la planificación de un proyecto: los costes, y para ello los dividiremos en costes de personal, de material e indirectos.
+\end{abstract}
+
+\section{Resumen de costes del proyecto}
+
+Uno de los aspectos más importantes para que un proyecto finalice con éxito es que esté bien presupuestado desde su inicio. No obstante, es un objetivo difícil de alcanzar, por tanto lo que se pretende con la realización de este capítulo es, primeramente, intentar que se ajuste lo máximo a la realidad y, en caso de que se desvíe demasiado de la misma, aprender de los errores cometidos para futuros proyectos.
+
+La tabla que se muestra a continuación anticipa los costes a los que tendremos que hacer frente durante la ejecución del proyecto:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{ll}{2}
+{Resumen del proyecto}
+	\textbf{Costes de personal}&TODO \euro\\
+	Sueldo neto&TODO \euro\\
+	Impuestos&TODO \euro\\
+	Costes sociales&TODO \euro\\
+	\textbf{Costes materiales}&TODO \euro\\
+	\textbf{Costes indirectos}&TODO \euro\\
+	\midrule
+	\textbf{TOTAL}&TODO \euro\\
+	\end{coolTable}
+	\caption{Tabla resumen de costes}
+\end{table*}
+
+En las siguientes secciones veremos en detalle cómo están calculados cada uno de los resultados mostrados.
+
+\section{Costes de personal}
+\label{sec:costespersonal}
+
+Los costes de personal son, con diferencia, los más importantes en un presupuesto de un proyecto del sector TIC: por regla general, en un proyecto de este sector, aproximadamente el 90\% de los costes se puede catalogar como costes de personal, y dentro de ese porcentaje alrededor de un 5\% son impuestos.
+
+En este caso, el proyecto tendría un único trabajador pero debemos tener en cuenta que desarrollaría diversas tareas dentro del mismo, por tanto el salario no puede ser idéntico para una labor u otra. Tal y como se ha descrito previamente se han establecido 3 roles: jefe de proyecto, diseñador y programador (para más detalles, revisar sección \ref{sec:adaptacionmetodologia}).
+
+Con el fin de calcular el coste que supondrían los honorarios nos apoyamos en el Boletín Oficial del Estado (BOE), en este caso el boletín número 82 del sábado 4 de abril de 2009, que especifica el salario en el sector de tecnologías de la información y la comunicación, en el que como se citaba se enmarca el proyecto. Para hallar los datos que buscamos debemos fijarnos en la tabla salarial de 2009 de dicho boletín, a continuación se muestran los roles de nuestro proyecto junto con los roles que nos interesan de los descritos en el BOE:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{llcr}{4}
+{Tabla salarial BOE 2009 (simplificada)}
+	\textbf{Categoría}&\textbf{Categoría BOE}&\textbf{Salario mes (x14)}&\textbf{Salario año}\\
+	\hline
+	\textbf{Jefe de proyecto}&{Jefe/a de Operación}&1.103,04 \euro&15.442,56 \euro\\
+	\textbf{Analista}&{Analista y A. de sistemas}&1.569,25 \euro&21.969,50 \euro\\
+	\textbf{Programador}&{Programador/a senior}&1.103,04 \euro&15.442,56 \euro\\
+	\end{coolTable}
+	\caption{Tabla salarial BOE 2009 (simplificada)}
+\end{table*}
+
+Nótese que nomenclatura de los roles de nuestro proyecto no coinciden plenamente con la que utiliza el BOE, sino que en la tabla anterior jefe de proyecto se corresponde con «jefe/a de operación», analista con «analista y analista de sistemas» y programador con «programador/a senior». A continuación se justifica, para cada uno de ellos, la relación de correspondencia, por tanto citando al BOE:
+
+\begin{itemize}
+	\item \textbf{Jefe/a de Operación}: Es el trabajador que, con personal a su cargo, tiene bajo su responsabilidad: la planificación del trabajo a realizar en cada uno de los ordenadores y turnos; la asignación de recursos humanos en cada puesto de trabajo y en cada momento; la coordinación con los integrantes de las distintas áreas del proyecto; el conocimiento, en todo momento, del sistema operativo y del trabajo para tomar decisiones en las dudas que se presenten en operación; y, por último, la conservación de los manuales de operación.
+	\item \textbf{Analista de Sistemas}: Le corresponde el diseño, puesta a punto y mantenimiento de los sistemas operativos a utilizar en los procesos de mecanización; formarse e informarse de todo lo concerniente al proceso de datos; y, finalmente, asesorar y coordinar con todo el personal de la empresa sobre las posibilidades de proceso de datos.
+	\item \textbf{Programador/a Senior}: Es el trabajador que debe tener un conocimiento profundo de las técnicas y recursos que maneja, enfocado principalmente a los lenguajes de programación existentes en el ordenador que utiliza así como de las facilidades y ayuda que le presta al software para la puesta a punto de programas, correspondiéndole estudiar los problemas complejos definidos por los analistas, confeccionando organigramas detallados de tratamiento. Le corresponde redactar programas en el lenguaje de programación que le sea indicado. Asimismo, confecciona juegos de ensayo, pone a punto los programas y completa los expedientes técnicos de los mismos.
+\end{itemize}
+
+Como podemos apreciar en el texto extraído del BOE (que se ha presentado de forma resumida) nuestros roles coinciden en un amplio porcentaje con los roles descritos en él (de nuevo, para más detalles sobre los roles de este proyecto, revisar sección \ref{sec:adaptacionmetodologia}).
+
+A partir de la tabla anterior, debemos calcular los honorarios por hora de cada uno de los roles. Para realizar esto debemos dividir el salario anual entre la jornada anual:
+
+\[\cfrac{Salario_{Anual}}{JornadaLaboralAnual_{Horas}} = Salario_{Hora}\]
+
+La jornada máxima anual del sector TIC está fijada en 1.800 horas, por tanto, una vez aplicado esto a cada rol, obtendríamos los siguientes resultados:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lr}{2}
+{Tabla salarial del proyecto por hora}
+	\textbf{Categoría}&\textbf{Salario por hora}\\
+	\hline
+	\textbf{Jefe de proyecto}&8,58 \euro\\
+	\textbf{Diseñador}&12,20 \euro\\
+	\textbf{Programador}&8,58 \euro\\
+	\end{coolTable}
+	\caption{Tabla salarial del proyecto por hora}
+\end{table*}
+
+Dentro de los costes de personal debemos diferenciar entre el sueldo neto del trabajador, los impuestos y los costes sociales.
+
+Para calcular el sueldo neto del trabajador, debemos tomar la planificación del proyecto que hemos visto previamente (sección \ref{sec:planificacion}) y multiplicar el total de horas de cada rol por su coste a la hora que acabamos de calcular, así pues:
+
+\[Sueldo_{Neto} = Salario_{Hora} * Horas_{Proyecto}\]
+
+Y, a su vez, podemos concluir que:
+
+\[TotalSueldos_{Neto} = \sum_{i=1}^{n^o empleados}SueldoNeto_{i} = TODO\]
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{llll}{4}
+{Sueldos netos}
+	\textbf{Rol}&\textbf{Total de horas}&\textbf{Sueldo neto por hora}&\textbf{Sueldo neto}\\
+	\hline
+	\textbf{Jefe de proyecto}&TODO horas&8,58 \euro&TODO \euro\\
+	\textbf{Costes materiales}&TODO horas&12,20 \euro&TODO \euro\\
+	\textbf{Costes indirectos}&TODO horas&8,58 \euro&TODO \euro\\
+	\midrule
+	\textbf{TOTAL}&&&TODO \euro\\
+	\end{coolTable}
+	\caption{Tabla sueldos netos}
+\end{table*}
+
+Por tanto, el coste del proyecto en cuanto a sueldos netos asciende a \textbf{TODO}.
+
+TODO: Impuestos y costes sociales.
+
+\section{Costes materiales}
+
+Los costes materiales son costes independientes de un proyecto en concreto, por lo que el coste que supone para este proyecto no se corresponde directamente su valor de adquisición, sino que es necesario realizar una amortización teniendo en cuenta la duración de este proyecto respecto a la vida útil de cada elemento.
+
+La amortización se realizaría de la siguiente manera:
+
+\[Coste_{Mes} = \cfrac{CosteCompra}{VidaUtil_{Meses}}\]
+
+Para la ejecución del proyecto se cuenta con:
+\begin{itemize}
+	\item Dos equipos, un sobremesa y un portátil (para más detalles sobre los equipos, ver sección \ref{sec:arquitectura}) ambos con una vida útil estimada de 3 años ya que el sobremesa, aún siendo más antiguo, ha sido actualizado recientemente.
+	\item Una mesa de trabajo, con una vida útil de 4 años.
+	\item Una pequeña mesa de reuniones que se utilizaría en caso de tener que mantener una reunión con una persona interesada en el proyecto y que contaría con una vida útil de 6 años.
+	\item Cinco sillas: una de escritorio utilizada en la mesa de trabajo y cuatro, más simples, utilizadas en la mesa de reuniones. La utilizada en la mesa de trabajo costaría con una vida útil de 4 años y el resto contarían con un vida útil de 6 años.
+	\item Dos repisas, ambas con una vida útil de 6 años.
+	\item Una estantería, con una vida útil de 6 años.
+	\item Dos papeleras, con una vida útil de 10 años.
+\end{itemize}
+
+La tabla que se muestra a continuación muestra los materiales que van a cumplir una utilidad en la realización del proyecto, su vida útil, su valor y el coste real al mes que supone en el proyecto:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lrrr}{4}
+{Amortización de materiales}
+	\textbf{Material}&\textbf{Valor}&\textbf{Vida útil}&\textbf{Coste real mes}\\
+	\hline
+	\textbf{Sobremesa}&1100 \euro&3 años (36 meses)&\textbf{30,55 \euro}\\
+	\textbf{Portátil}&700 \euro&3 años (36 meses)&\textbf{19,44 \euro}\\
+	\textbf{Mesa trabajo}&200 \euro&4 años (48 meses)&\textbf{4,16 \euro}\\
+	\textbf{Mesa reuniones}&150 \euro&6 años (72 meses)&\textbf{2,08 \euro}\\
+	\textbf{Silla trabajo}&60 \euro&4 años (48 meses)&\textbf{1,25 \euro}\\
+	\textbf{Silla reuniones x 4}&40 \euro&6 años (72 meses)&0,55 * 4 = \textbf{2,22 \euro}\\
+	\textbf{Repisa x 2}&30 \euro&6 años (72 meses)&0,41 * 2 = \textbf{0,83 \euro}\\
+	\textbf{Estantería}&80 \euro&6 años (72 meses)&\textbf{1,11 \euro}\\
+	\textbf{Papelera x 2}&5 \euro&10 años (120 meses)&0,04 * 2 = \textbf{0,08 \euro}\\
+	\midrule
+	\textbf{TOTAL (mes)}&&&\textbf{59,63 \euro}\\
+	\end{coolTable}
+	\caption{Tabla de amortización de materiales}
+\end{table*}
+
+Una vez realizado esto, sólo faltaría multiplicar el coste material al mes por la duración del proyecto en meses, de esta forma:
+
+\[CosteMaterial_{Proyecto} = CosteAmortizado * MesesProyecto\]
+
+Teniendo en cuenta el número de meses del proyecto, en este caso TODO meses, el coste material total es de \textbf{TODO}.
+
+\section{Costes indirectos}
+
+Los costes indirectos son, sin lugar a dudas, los más complicados de calcular a la hora de elaborar un presupuesto.
+
+Siguiendo su definición, un coste indirecto es aquel afecta al proceso productivo en general de uno o más productos, en este caso proyectos, y que por tanto es complicado asignar una parte de ese coste a un proyecto en concreto sin elaborar algún criterio, sistemático y estable en el tiempo, que nos permita hacerlo.
+
+Existen gran variedad de costes indirectos, como podrían ser licencias, seguros, bancos, contratación de servicios profesionales (como podrían ser abogados para posibles temas legales o gestoras para, por ejemplo, llevar a acabo la contabilidad o las declaraciones a hacienda), alquileres, etc.
+
+En el caso de este proyecto, al mes, son los siguientes:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lr}{2}
+{Costes indirectos}
+	\textbf{Motivo del coste}&\textbf{Coste mes}\\
+	\hline
+	\textbf{Licencias}&0 \euro*\\
+	\textbf{Alquiler}&400 \euro\\
+	\textbf{Internet (fibra óptica)}&40 \euro\\
+	\textbf{Luz}&60 \euro\\
+	\textbf{Agua}&20 \euro\\
+	\textbf{Material fungible}&20 \euro\\
+	\textbf{Servicios de limpieza}&150 \euro\\
+	\midrule
+	\textbf{TOTAL (mes)}&\textbf{TODO \euro}\\
+	\end{coolTable}
+	\caption{Tabla de costes indirectos}
+\end{table*}
+
+[*]: En cuanto a licencias debemos tener en presente que Unreal Engine es un motor de uso gratuito pero, sin embargo, la compañía propietaria del motor, en este caso Epic Games, establece en su EULA una cláusula por la que habrá que abonar cierta cantidad, un loyalty, si se superan los 3.000\$ de beneficio por cuatrimestre. Esta cantidad en gira en torno a un 5\% de los beneficios que pasen de 3.000\$: por ejemplo, si se generan 5000\$ de beneficio habrá que remitirle a Epic Games aproximadamente 100\$ (el 5\% de 2000\$, resultado de la resta de 5.000\$ - 3.000\$).
+
+En este caso, el coste indirecto al mes no sería más que el sumatorio de todos los costes indirectos al mes:
+
+\[CosteMaterial_{Mes} = \sum_{i=1}^{n^o costes}CosteIndirecto_{i}\]
+
+Por consiguiente, el coste indirecto total del proyecto sería el coste indirecto por mes multiplicado por el número de meses del proyecto:
+
+\[CosteMaterial_{Proyecto} = CosteAmortizado * MesesProyecto\]
+
+Por último, teniendo presente el número de meses del proyecto, en el caso que nos ocupa TODO meses, el coste indirecto total del proyecto asciende a \textbf{TODO}.
