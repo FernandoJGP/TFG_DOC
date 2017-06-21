@@ -21,7 +21,7 @@ A raíz de lo descrito surge una consecuencia directa, y es que algunos roles o a
 
 Para la realización de este proyecto se hará uso de la metodología "`Feature-Driven Development"' (FDD), denominada "`Desarrollo basado en funcionalidades"' en español.
 
-Fue creada por Jeff De Luca y Peter Coad a finales de siglo para salvar un importante proyecto que había sido declarado como irrealizable y tiene su razón de ser en la calidad y el monitoreo constante del proyecto.
+Fue creada por Jeff De Luca y Peter Coad a finales del siglo XX para salvar un importante proyecto que había sido declarado como irrealizable y tiene su razón de ser en la calidad y el monitoreo constante del proyecto.
 
 \subsection{Resumen de la metodología}
 
@@ -49,12 +49,10 @@ Además, la metodología FDD consta de 6 \textbf{roles clave}, los cuales se descr
 \subsection{Adaptación de la metodología}
 \label{sec:adaptacionmetodologia}
 
-Teniendo en consideración que FDD es una metodología pensada para grupos de personas de un tamaño considerable, grupos en los que incluso otras metodologías \glslink{agil}{ágiles} como \gls{scrum} no tendrían cabida al ser imposible realizar una autogestión, y enfocada al desarrollo de un software más convencional, donde se podría diseñar un diagrama de clases con facilidad (como podrían ser las aplicaciones de escritorio, móvil, web, etc.).
-
-Puesto que este proyecto será llevado a cabo por una única persona y el producto generado en su desarrollo será un videojuego, es necesario hacer algunas modificaciones en nuestra metodología:
+Teniendo en consideración que FDD es una metodología pensada para grupos de personas de un tamaño considerable, grupos en los que incluso otras metodologías \glslink{agil}{ágiles} como \gls{scrum} no tendrían cabida al ser imposible realizar una autogestión, y enfocada al desarrollo de un software más convencional, donde se podría diseñar un diagrama de clases con facilidad (como podrían ser las aplicaciones de escritorio, móvil, web, etc.) y por contrapartida este proyecto será llevado a cabo por una única persona y el producto generado en su desarrollo será un videojuego, es necesario hacer algunas modificaciones en nuestra metodología:
 
 \begin{enumerate}
-	\item \textbf{Fase de diseño del videojuego}: La principal diferencia radica aquí puesto que, dada la naturaleza del proyecto, al no poder organizar un diagrama de clases tenemos que buscar alternativas. En este caso se ha optado por elaborar una documentación con las decisiones de diseño del videojuego, esto vendría a coincidir con el conjunto de las \glspl{mecanica} que va a contener, las características que incluiría el videojuego y las distintas singularidades que conformarían el mismo.
+	\item \textbf{Fase de diseño del videojuego}: La principal diferencia radica aquí puesto que, dada la naturaleza del proyecto, al no poder organizar un diagrama de clases tenemos que buscar alternativas. En este caso se ha optado por elaborar una documentación con las decisiones de diseño del videojuego, esto vendría a coincidir con el conjunto de las \glspl{mecanica} que va a contener, las características que incluiría el videojuego y las distintas singularidades que conformarían el mismo. En la industria se denomina comúnmente "`Game Design Document"' ("`Documento de diseño del videojuego"' en español) y se podrá consultar en el anexo de este documento.
 	\item \textbf{Elaboración de la lista de funcionalidades}: Al igual que en la metodología FDD tradicional, se elabora una lista de funcionalidades a partir del paso anterior y éstas se desglosan a su vez en funcionalidades más específicas.
 	\item \textbf{Planificación por funcionalidad}: Nuevamente como en la metodología FDD tradicional, ordenamos las funcionalidades resultantes según su prioridad y teniendo en cuenta sus dependencias.
 	\item \textbf{Diseño por funcionalidad}: Otra gran diferencia sería que, puesto que el grupo de desarrollo está formado por una sola persona, se irían eligiendo funcionalidades de la lista de una en una y se diseñaría e implementaría.
@@ -62,6 +60,8 @@ Puesto que este proyecto será llevado a cabo por una única persona y el producto
 \end{enumerate}
 
 La \textbf{documentación} se generaría de forma constante durante todo el transcurso del proyecto y lo haría de forma iterativa tanto cada vez que se empezara a diseñar una funcionalidad como cuando se terminase el diseño de la misma.
+
+Durante el trascurso del proyecto se utilizarán dos \textbf{repositorios}, uno para gestionar la documentación (en LaTeX) y otro para almacenar el código del producto en sí.
 
 Para finalizar, los \textbf{roles} también necesitan adaptarse al proyecto, ya que muchos de ellos dejan de tener sentido por las mismas razones que se citaban anteriormente. En este caso es necesario una simplificación, que llevaría a que los roles de programador se aglutinaran en uno solo y lo mismo pasaría con los roles de diseño, lo que daría lugar a:
 

@@ -6,84 +6,267 @@ The good parts of a book may be only something a writer is lucky enough to overh
 \end{quotation}
 
 \begin{abstract}
-Resumen de lo que va a ocurrir en el capítulo. ¿Cuál es el objetivo que tenemos con este capítulo?
+TODO TODO TODO
 \end{abstract}
 
 \section{Características a desarrollar}
-
 \begin{enumerate}
-\item Funcionalidad A.
-\item Funcionalidad B.
+	\item Mecánica: Movimiento del personaje.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Rotación del personaje.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Rotación del personaje vinculada a un rate.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+	\end{itemize}
+	\item Mecánica: Sprint.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Salto.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Agachado.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Tiempo bala (o "`Time dilation"').
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+		\item Gestión de adrenalina relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Parpadeo (o "`Blink"').
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+		\item Gestión de adrenalina relacionada con la mecánica.
+		\item Implementación del código del indicador de blink disponible.
+	\end{itemize}
 \end{enumerate}
 
+\textbf{Además, durante esta iteración se realiza la inicialización y preparación del proyecto.}
+
+\clearpage
+
 \section{Diseño}
-Aquí una discusión de cómo va a afectar todo al diseño
-
-Debe insertarse un diagrama UML de diseño con los cambios y hacer referencia en el texto así Fig. \ref{fig:diseno01}.
-
-\begin{figure}[htbp]
-\begin{center}
-\missingfigure{Aquí el modelo de diseño en formato vectorial preferentemente (pdf)}
-% Incluir la figura quitando el comentario a la fila de abajo.
-% \includegraphics[width=\textwidth]{myfile.pdf}
-\caption{Diagrama UML de diseño para la iteración 1}
-\label{fig:diseno01}
-\end{center}
-\end{figure}
-
-Un memorando técnico por cada decisión de diseño.
 
 \begin{table*}[h!]
 	\centering
-	\begin{coolTable}{p{4cm}p{\textwidth-4.5cm}}{2}
-{Memorando técnico 0001}
-\textbf{Asunto}&¿Cuál es el problema?\\
-\textbf{Resumen}&¿Cuál es la solución propuesta?\\
-\midrule
-\textbf{Factores causantes}&Descripción pormenorizada del problema\\
-\textbf{Solución}&Descripción pormenorizada de la solución propuesta\\
-\textbf{Motivación}&¿Por qué propone esta solución?\\
-\textbf{Cuestiones abiertas}& Factores a tener en cuenta en la solución cuya dimensión se reconoce.\\
-\textbf{Alternativas}&Otras soluciones consideradas y la razón por la que se excluyeron.\\
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0001}
+		\textbf{Asunto}&¿Cuál es el problema?\\
+		\textbf{Resumen}&¿Cuál es la solución propuesta?\\
+		\midrule
+		\textbf{Factores causantes}&Descripción pormenorizada del problema\\
+		\textbf{Solución}&Descripción pormenorizada de la solución propuesta\\
+		\textbf{Motivación}&¿Por qué propone esta solución?\\
+		\textbf{Cuestiones abiertas}&Factores a tener en cuenta en la solución cuya dimensión se reconoce.\\
+		\textbf{Alternativas}&Otras soluciones consideradas y la razón por la que se excluyeron.\\
 	\end{coolTable}
 	\caption{Memorando técnico 0001}
 \end{table*}
 
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0001}
+		\textbf{Asunto}&Creación del personaje controlable haciendo uso del "`true first person camera"'\\
+		\textbf{Resumen}&El modo "`true first person camera"' (cámara en primera persona real) implica que tengamos un modelo de personaje completo con una cámara anexa a la cabeza del modelo (por contraposición a la típica cámara en primera persona que utiliza normalmente un modelo en el que sólo se muestran las manos del personaje, impidiendo ver sus pies o su sombra).\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Creamos nuestro personaje extendiendo la clase ACharacter y usamos la propiedad "`Mesh"', heredada de la clase padre y del tipo "`USkeletalMeshComponent"', para guardar nuestro modelo de personaje. Por otra parte, creamos un "`camera arm"' (o brazo de cámara) para unir la cabeza del personaje con nuestra cámara, que también crearemos. Ajustamos el brazo de cámara para que la cámara para que quede justo a la altura de los ojos del personaje y por delante del mismo y modificamos la propiedad "`ProbeSize"' del brazo de cámara, que por defecto prácticamente es inservible para nuestro propósito, para que cuando la cámara colisione un obstáculo retroceda en lugar de traspasarlo (pero sin que llegue a meterse dentro de la cabeza del modelo del personaje).\\
+		\textbf{Motivación}&Esta decisión genera muchos problemas, como que la cámara pueda traspasar paredes o introducirse dentro del personaje si no está correctamente calibrado, pero a la vez le da una mayor sensación de realismo, mejorando la experiencia de juego del usuario (especialmente en un título encaminado a una adaptación, en un futuro, a la realidad virtual).\\
+		\textbf{Cuestiones abiertas}&En futuras iteraciones debe ser revisado ya que si bien con estas mecánicas iniciales el valor de "`ProbeSize"' es idóneo, con mecánicas que abordaremos en iteraciones posteriores en las que el personaje debe estar más pegado a obstáculos (por ejemplo cuando esté colgando de una cornisa) el valor actual de dicha variable puede ocasionar que la cámara se introduzca dentro del modelo del personaje.\\
+		\textbf{Alternativas}&La alternativas principales son dos: usar cámara en primera persona sin modelo o usar una cámara en primera persona con un modelo de brazos y manos. La primera, aunque es por mucho la solución más fácil de implementar, queda descartada rápidamente en este género ya que por ejemplo debemos saber cuándo el personaje está agarrado a un saliente, cuándo está escalando, etc. La segunda sí podría ser una solución más viable pero tiene el inconveniente de que no generaría una sombra real del personaje y que dichos modelos de personaje, al ser muy específicos, son mucho más complicados de encontrar con una calidad aceptable.\\
+	\end{coolTable}
+	\caption{Memorando técnico 0001}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0001}
+		\textbf{Asunto}&Movimiento del personaje.\\
+		\textbf{Resumen}&En función de input proporcionado por el jugador se añade movimiento en esa dirección.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Al detectar un input por parte del jugador relacionado con una las cuatro acciones de movimiento (delante, atrás, izquierda o derecha) se añade movimiento al personaje en la dirección especificada. Se diferencia movimiento delante-atrás e izquierda-derecha, siendo el resultado final la combinación de ambos movimientos.\\
+		\textbf{Motivación}&Solución propuesta por seguir el estándar.\\
+		\textbf{Cuestiones abiertas}&Debemos tener en cuenta que la solución generada deberá ser modificada en las siguientes iteraciones ya que no queremos que nuestro personaje pueda moverse en todo momento (por ejemplo, no queremos que el personaje se mueva cuando esté escalando un saliente).\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+\caption{Memorando técnico 0001}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0001}
+		\textbf{Asunto}&Rotación de cámara y personaje\\
+		\textbf{Resumen}&Debemos permitir al usuario modificar la rotación de la cámara y, a su vez, alterar la rotación horizontal del personaje para que siempre esté mirando en la dirección de la cámara.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&La solución consta de dos partes muy diferenciadas. Por un lado cuando se detecta un cambio en los ejes asignados al movimiento de la cámara se añade rotación a la misma (se añade por separado respecto al eje X e Y, es decir, si el usuario está moviendo el eje X de la cámara con un valor de "`10"' hacia arriba y el eje Y de la misma con un valor de "`5"' hacia la izquierda se añadirá por una parte rotación hacia arriba de "`10"' puntos y por otra rotación hacia la derecha de "`-5"' puntos) y, por otro lado, marcamos como verdadera la variable booleana "`bUsePawnControlRotation"' de la cámara primera persona del jugador para que controle la rotación del personaje.\\
+		\textbf{Motivación}&Solución propuesta por seguir el estándar.\\
+		\textbf{Cuestiones abiertas}&Debemos tener en cuenta que la solución generada deberá ser modificada en las siguientes iteraciones ya que no queremos que nuestra cámara pueda moverse con total libertad en según qué circunstancias (por ejemplo, no queremos que se mueva cuando el personaje esté agarrando un saliente, ya que alteraría la posición del personaje).\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 0001}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0001}
+		\textbf{Asunto}&Señal de rotación proveniente de stick analógico\\
+		\textbf{Resumen}&Existen dos métodos típicos de movimiento de cámara: el producido al desplazar un ratón y el que se origina al mover un stick analógico de un mando. En el primero no hay problema, puesto que el usuario es capaz de regular en todo momento la entrada que quiere dar dependiendo de la velocidad a la que mueva el ratón, y lo puede hacer prácticamente sin límites (o sin que esto resulte un problema). Al utilizar un stick analógico de un mando eso no es del todo así, puesto que el usuario puede elegir entre A) no mover el stick (input = 0), B) moverlo al máximo (input = 1) o C) moverlo en un estado intermedio (input mayor que 0 y menor que 1), por lo que debemos ponderar esa entrada proporcionada por el usuario, lo que sería equivalente a establecerle una sensibilidad.\\
+		\midrule
+		\textbf{Factores causantes}&El factor causante en este caso no es una característica del producto, sino que se debe a la naturaleza de los sticks analógicos.\\
+		\textbf{Solución}&El remedio en este caso es ayudarnos de la solución obtenida para mover la cámara con el ratón y multiplicarle un "`rate"' (sensibilidad).\\
+		\textbf{Motivación}&Solución propuesta por seguir el estándar.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 0001}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0001}
+		\textbf{Asunto}&Señal de rotación proveniente de stick analógico\\
+		\textbf{Resumen}&Existen dos métodos típicos de movimiento de cámara: el producido al desplazar un ratón y el que se origina al mover un stick analógico de un mando. En el primero no hay problema, puesto que el usuario es capaz de regular en todo momento la entrada que quiere dar dependiendo de la velocidad a la que mueva el ratón, y lo puede hacer prácticamente sin límites (o sin que esto resulte un problema). Al utilizar un stick analógico de un mando eso no es del todo así, puesto que el usuario puede elegir entre A) no mover el stick (input = 0), B) moverlo al máximo (input = 1) o C) moverlo en un estado intermedio (input mayor que 0 y menor que 1), por lo que debemos ponderar esa entrada proporcionada por el usuario, lo que sería equivalente a establecerle una sensibilidad.\\
+		\midrule
+		\textbf{Factores causantes}&El factor causante en este caso no es una característica del producto, sino que se debe a la naturaleza de los sticks analógicos.\\
+		\textbf{Solución}&El remedio en este caso es ayudarnos de la solución obtenida para mover la cámara con el ratón y multiplicarle un "`rate"' (sensibilidad).\\
+		\textbf{Motivación}&Solución propuesta por seguir el estándar.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 0001}
+\end{table*}
+
+\textbf{Nota:} Al tratarse de la primera iteración (por tanto, no existían soluciones anteriores que se pudiesen ver afectadas en esta iteración) y teniendo en cuenta que las características a implementar no originan conflictos entre sí, no existen modificaciones que afecten al diseño.
+
+\clearpage
 
 \section{Implementación}
 
-Un memorando técnico por cada decisión de implementación y refactorización que afecte al diseño.
-
-\begin{asigResponsabilidad}{0001}{Prueba}
-{[return\_type] method\_name1 (param1:type1, ...)}
-\pasoPseudo{1. Paso 1.}
-\pasoPseudo{2. Paso 2.}
+\begin{asigResponsabilidad}{TODO}{Añade movimiento en la dirección del personaje}
+{[void] MoveFoward (Value:float)}
+\pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento frontal / trasero del personaje (llamado "`MoveFoward"'), comprueba que el valor de 'Value' sea distinto de 0.}
+\pasoPseudo{1.1. Si es distinto de 0, añade movimiento equivalente al valor de 'Value' en la dirección del vector dirección del actor. Si el valor de 'Value' es positivo el personaje avanzará en la dirección indicada y si es negativo retrocederá.}
+\pasoPseudo{1.2. Si es igual a 0, no se hace nada.}
 \cabeceraMetodosBajoNivel
-\pasoCodigo{1}{ClassName}{[return\_type] method\_name1 (param1:type1, ...)}{001}{SI}
-\diagramaColaboracion{figures/colDiagram.png}
+\pasoCodigo{1.1}{APawn}{[void] AddMovementInput (Direction:FVector, Value:float)}{TODO}{TODO}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{alvotermar02}{Grubber}
-{[return\_type] grubber (param1:type1, ...)}
-\pasoPseudo{1. Lanzar 2 dados}
-\pasoPseudo{2. Compara resultado de los dados con kicking del open-side}
-\pasoPseudo{2.1. Si valor dados es menor o igual a kicking, avanza 10m}
-\pasoPseudo{3.1. Si no hay defensa y el golpeo es exitoso, el pateador retiene la posesi\'on del bal\'on}
-\pasoPseudo{3.2. Si hay defensa y el golpe es exitoso, el atacante tira un dado y suma su valor al de speed y strength y el defensor lanza 2 dados y lo suma al valor de speed y strength de su jugador, el vencedor ser\'a aquel que tenga m\'as puntos, si es igual, la posesi\'on es del defensor}
-\pasoPseudo{4.1. Si no es exitoso y hay defensa el bal\'on pasa a posesi\'on del defensor}
-\pasoPseudo{4.2. Si no es exitoso y no hay defensa de lanza un line-out}
+\begin{asigResponsabilidad}{TODO}{Añade movimiento a izquierda o derecha de la dirección del personaje}
+{[void] MoveRight (Value:float)}
+\pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento lateral del personaje (llamado "`MoveRight"'), comprueba que el valor de 'Value' sea distinto de 0.}
+\pasoPseudo{1.1. Si es distinto de 0, añade movimiento equivalente al valor de 'Value' en la dirección del vector derecha del actor. Por tanto, si el valor de 'Value' es positivo el personaje avanzará hacia la derecha y si es negativo hacia la izquierda.}
+\pasoPseudo{1.2. Si es igual a 0, no se hace nada.}
 \cabeceraMetodosBajoNivel
-\pasoCodigo{1}{Dice}{[Integer] throwDice ()}{001}{SI}
-\pasoCodigo{2}{ClassName}{[Int] compareKickingToDice (kicking:Integer, dice: Integer)}{001}{SI}
-\pasoCodigo{2.1}{ClassName}{[Integer] setLine (line:Integer)}{001}{SI}
-\pasoCodigo{4.2}{ClassName}{[Integer] lineOut ()}{001}{SI}
-%\diagramaColaboracion{colDiagram.png}
+\pasoCodigo{1.1}{APawn}{[void] AddMovementInput (Direction:FVector, Value:float)}{TODO}{TODO}
 \end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{TODO}{Añade rotación horizontal a la cámara}
+{[void] Turn (Value:float)}
+\pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento horizontal de la cámara (llamado "`Turn"'), se delega en el método "`AddControllerYawInput"' de la clase APawn, puesto que no es necesario definir una función en la clase de nuestro personaje para modificar o controlar alguna faceta del resultado.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{APawn}{[void] AddControllerYawInput (Value:float)}{TODO}{TODO}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{TODO}{Añade rotación vertical a la cámara}
+{[void] LookUp (Value:float)}
+\pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento vertical de la cámara (llamado "`LookUp"'), se delega en el método "`AddControllerPitchInput"' de la clase APawn, puesto que no es necesario definir una función en la clase de nuestro personaje para modificar o controlar alguna faceta del resultado.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{APawn}{[void] AddControllerPitchInput (Value:float)}{TODO}{TODO}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{TODO}{Añade rotación horizontal a la cámara}
+{[void] TurnAtRate (Rate:float)}
+\pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento horizontal de la cámara proveniente de un mando o similar (llamado "`TurnRate"'), se delega en el método "`AddControllerYawInput"' de la clase APawn, pero esta vez le mandamos la multiplicación del (1) Rate que envía el usuario (porcentaje, entre "`-1.0"' y "`1.0"' que mueve, por ejemplo, el eje del joystick del mando asignado),  (2) de la sensibilidad horizontal (definida como "`BaseTurnRate"') y (3) por el tiempo en el que se renderiza cada frame.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{APawn}{[void] AddControllerYawInput (Value:float)}{TODO}{TODO}
+\pasoCodigo{1}{UWorld}{[Float] GetDeltaSeconds ()}{TODO}{TODO}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{TODO}{Añade rotación vertical a la cámara}
+{[void] LookUpAtRate (Rate:float)}
+\pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento vertical de la cámara proveniente de un mando o similar (llamado "`LookUpRate"'), se hace eso del método "`AddControllerPitchInput"' de la clase APawn, pero esta vez le mandamos la multiplicación del (1) Rate que envía el usuario (porcentaje, entre "`-1.0"' y "`1.0"' que mueve, por ejemplo, el eje del joystick del mando asignado),  (2) de la sensibilidad vertical (definida como "`BaseLookUpRate"') y (3) por el tiempo en el que se renderiza cada frame.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{APawn}{[void] AddControllerPitchInput (Value:float)}{TODO}{TODO}
+\pasoCodigo{1}{UWorld}{[Float] GetDeltaSeconds ()}{TODO}{TODO}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{TODO}{Comunica a la animación que el personaje está rotando}
+{[void] RotationTrick (Value:float)}
+\pasoPseudo{1. Cuando se detecta rotación horizontal de la cámara de cualquier tipo (ya sea proveniente de una fuente que no necesita un "`rateo"', como un ratón, o de una que sí lo necesita, como un mando) se cambia el valor de "`RotationInput"' de la instancia de animación del protagonista.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{TODO}{Interactúa con el entorno / mensajes}
+{[void] OnAction ()}
+\pasoPseudo{1. Cuando se hace uso del enlace "`Action"' se comprueba si el juego está pausado}
+\pasoPseudo{1.1. Si el juego está pausado, lo reanuda.}
+\pasoPseudo{1.2. Si el juego no está pausado, lo pausa.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{UGameplayStatics}{[void] SetGamePaused (WorldContextObjetct:UObject, bPaused:bool)}{TODO}{TODO}
+\end{asigResponsabilidad}
+
+\textbf{IMPORTANTE:} En el futuro se modificará esta mecánica, ya iteración no disponemos de todos los elementos necesarios para desarrollarla completamente.
+
+\begin{asigResponsabilidad}{TODO}{El personaje entra en modo sprint}
+{[void] OnSprintPressed ()}
+\pasoPseudo{1. Mientras se hace uso del enlace "`Sprint"' se cambia la velocidad a la que se mueve el personaje ("`MaxWalkSpeed"') al valor de la velocidad de correr (guardada en la constante "`SprintSpeed"').}
+
+\begin{asigResponsabilidad}{TODO}{El personaje entra en modo caminar}
+{[void] OnSprintReleased ()}
+\pasoPseudo{1. Cuando se deja de hacer uso del enlace "`Sprint"' se cambia la velocidad a la que se mueve el personaje ("`MaxWalkSpeed"') al valor de la velocidad de andar (guardada en la constante "`WalkSpeed"').}
+
+\begin{asigResponsabilidad}{TODO}{El personaje salta}
+{[void] OnJump ()}
+\pasoPseudo{1. Cuando se hace uso del enlace "`Jump"' se llama a la función "`Jump"' de la clase "`ACharacter"'}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{ACharacter}{[void] Jump ()}{TODO}{TODO}
+\end{asigResponsabilidad}
+
+\textbf{IMPORTANTE:} Se deja preparada esta mecánica para el futuro, ya que se verá afectada en la próxima iteración.
+
+\begin{asigResponsabilidad}{TODO}{El personaje deja de saltar}
+{[void] StopJumping ()}
+\pasoPseudo{1. Cuando se deja de hacer uso del enlace "`Jump"' se llama a la función "`StopJumping"' de la clase "`ACharacter"'}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{ACharacter}{[void] StopJumping ()}{TODO}{TODO}
+\end{asigResponsabilidad}
+
+\clearpage
 
 \section{Pruebas}
 
-Descripción de las pruebas realizadas al software
+TODO: Descripción de las pruebas realizadas al software
+
+\clearpage
 
 \section{Despliegue}
 
-Breve resumen de cómo se han desplegado los cambios en el sistema de producción.
+TODO: Breve resumen de cómo se han desplegado los cambios en el sistema de producción.

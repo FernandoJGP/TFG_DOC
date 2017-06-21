@@ -1,0 +1,544 @@
+%!TEX root =  tfg.tex
+\chapter{Documento de diseño}
+\label{sec:gdd}
+
+\begin{abstract}
+Un documento de diseño, conocido en la industria como GDD por sus siglas en inglés (Game Design Document), es un documento que recoge las características que conforman el videojuego, es decir, una síntesis del mismo.
+
+Teniendo en cuenta las características de nuestro proyecto, no se pretende elaborar un documento de diseño al uso sino un documento cuyo principal fin sea permitir generar, a partir del mismo, los requisitos del producto software que se va a desarrollar.
+
+Además, atendiendo de nuevo a las características específicas de nuestro proyecto, numerosas secciones del documento de diseño se verían solapadas con la documentación del proyecto ya descrita en el cuerpo de este documento. En caso de que se produzca dicho solapamiento, se citará la sección correspondiente.
+\end{abstract}
+
+\section{Visión de conjunto}
+La visión de conjunto describe de manera global videojuego, su género, la forma de jugarlo y los elementos que lo componen.
+
+Este apartado se describe en la sección "`Motivación"', donde mediante frases cortas se describen los elementos de los que consta el videojuego cuyo desarrollo está ligado a este proyecto (Ver sección \ref{sec:motivacion}).
+
+\subsection{Plataformas de destino}
+Las plataformas de destino son aquellas para las cuales se está desarrollando el software o se tiene previsto su desarrollo.
+
+A pesar de que nuestro motor gráfico permite la exportación de nuestro producto a diversas plataformas tales como PlayStation 4, Xbox One, Nintendo Switch, Linux o Mac (entre otras), la única plataforma de destino en la que nos centraremos durante la realización del proyecto será Microsoft Windows.
+
+\subsection{Requisitos mínimos objetivo}
+Los requisitos mínimos hacen alusión a las características que, como mínimo, deberá tener un equipo para hacer funcionar el videojuego.
+
+El proyecto que nos ocupa no someterá a ninguno de los componentes a una carga alta de trabajo: el poligonaje de los modelos no será alto, las texturas usadas no serán de gran resolución, por norma general no se hará un uso avanzado de la iluminación (por ejemplo, uso excesivo de sombras dinámicas), etc. Asimismo, el motor gráfico usado se caracteriza por no hacer un uso agresivo de los recursos disponibles.
+
+Los requisitos mínimos, o en este caso los requisitos mínimos objetivo, coinciden con los dispositivos descritos en la sección "`Diseño arquitectónico"' (Ver sección \ref{sec:arquitectura}). Los requisitos mínimos como tal no podrán ser calculados hasta la finalización del proyecto.
+
+\subsection{Estilo gráfico}
+El estilo gráfico del producto se podría enmarcar como realista: tanto el personaje como el escenario que se usará como tutorial se clasificarían en este estilo. Sin embargo, debemos tener presente que los niveles prototipo que se pretenden utilizar para recrear la forma en la que se jugaría el juego se desmarcarían de este estilo, ya que usarían formas y texturas mucho más básicas al tratarse de niveles prototipo.
+
+Dentro de este estilo realista, se podría clasificar el universo donde tiene lugar el juego como fantástico.
+
+\subsection{Estilo sonoro}
+La música del juego... TODO.
+
+Los efectos de sonido (utilizados cuando el personaje anda, salta, cae, etc.) se podrían clasificar como realistas.
+
+Respecto a las voces y diálogos el producto carecerá de los mismos.
+
+\section{Comienzo}
+
+\subsection{Menú principal}
+
+\subsection{Comienzo del juego e introducción}
+
+\subsection{In-game HUDs y menús}
+
+\section{Interfaz de usuario}
+
+\subsection{Menú principal}
+En el menú principal se le mostrará al jugador las siguientes opciones:
+
+\begin{itemize}
+	\item \textbf{Continuar}: Carga el último nivel jugado y sitúa al personaje en el último punto de control.
+	\item \textbf{Nuevo juego}: Carga el nivel del tutorial y sitúa al personaje al inicio del mismo.
+	\item \textbf{Opciones}: Muestra las opciones del juego, que son:
+	\begin{itemize}
+		\item TODO.
+	\end{itemize}
+	\item \textbf{Salir}: Al seleccionar esta opción la aplicación se cerrará.
+\end{itemize}
+
+\subsection{In-game HUD}
+Durante el tiempo de juego, al jugador se le mostrará la siguiente información. TODO.
+
+El HUD se compone de los siguientes elementos:
+\begin{itemize}
+	\item \textbf{Indicador de adrenalina}:
+	\begin{itemize}
+		\item \textbf{Tipo}: Barra.
+		\item \textbf{Funcionalidad}: Muestra la cantidad de adrenalina restante.
+		\item \textbf{Posición}: Adyacente al límite inferior de la pantalla.
+		\item \textbf{Tamaño}: Ancho de la pantalla.
+		\item \textbf{Visibilidad}: Se muestra si la adrenalina no está cargada por completo.
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Punto de referencia}:
+	\begin{itemize}
+		\item \textbf{Tipo}: Imagen.
+		\item \textbf{Funcionalidad}: Imagen (punto) de referencia que se usa principalmente para evitar el "`motion sickness"' o "`cinetosis"', en otras palabras, para suavizar mareos en jugadores con propensión a tenerlos.
+		\item \textbf{Posición}: Equidistante de todos los lados de la pantalla.
+		\item \textbf{Tamaño}: N/A.
+		\item \textbf{Visibilidad}: Siempre.
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Indicador de habilidad "`blink"'}:
+	\begin{itemize}
+		\item \textbf{Tipo}: Imagen.
+		\item \textbf{Funcionalidad}: Indica cuando el jugador puede ejecutar la habilidad blink.
+		\item \textbf{Posición}: Alrededor del punto de referencia.
+		\item \textbf{Tamaño}: N/A.
+		\item \textbf{Visibilidad}: Sólo cuando el personaje pueda realizar la habilidad blink y esté mirando a una superficie propicia para ello.
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Caja de tutorial}:
+	\begin{itemize}
+		\item \textbf{Tipo}: Caja y texto.
+		\item \textbf{Funcionalidad}: Caja que muestra un texto con información correspondiente al tutorial que está en ese momento activo.
+		\item \textbf{Posición}: Centro de la pantalla.
+		\item \textbf{Tamaño}: N/A.
+		\item \textbf{Visibilidad}: Se mostrará siempre que el personaje esté inmerso en un tutorial, mostrando el texto relativo a cada tutorial.
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Mensaje de fin de juego}:
+	\begin{itemize}
+		\item \textbf{Tipo}: Texto.
+		\item \textbf{Funcionalidad}: Muestra el mensaje de fin de juego.
+		\item \textbf{Posición}: Centro de la pantalla.
+		\item \textbf{Tamaño}: N/A.
+		\item \textbf{Visibilidad}: Aparecerá al alcanzarse cualquiera de las condiciones de fin de juego.
+	\end{itemize}
+\end{itemize}
+
+\subsection{In-game Options}
+TODO.
+
+\subsection{Pantalla de fin de juego}
+Cuando el personaje entre en un estado de fin de juego, la pantalla pasará a negro y se mostrará el mensaje de final de juego sobre la misma hasta que el jugador presione la tecla o botón indicado para reiniciar el nivel desde el último punto de control.
+
+\subsection{Pantalla de selección de nivel}
+TODO.
+
+\subsubsection{Tipos de nivel}
+El producto consta de dos tipos de nivel, muy diferenciados:
+\begin{itemize}
+	\item Nivel menú: Utilizado para mostrar el menú del juego.
+	\item Nivel tipo tutorial: Enseñará al jugador a usar las distintas mecánicas del juego.
+	\item Nivel tipo regular: Se recrea un escenario real de juego.
+\end{itemize}
+
+\subsubsection{Lista completa de niveles}
+La etapa de desarrollo que tendrá lugar durante el desarrollo de este proyecto generará 3 niveles en total:
+\begin{itemize}
+	\item Nivel tutorial.
+	\item Nivel prototipo 1.
+	\item Nivel prototipo 2.
+\end{itemize}
+
+El nivel del tutorial tendrá un nivel de acabado representativo del acabado final del producto (por tanto estará correctamente iluminado, texturizado, decorado, etc.), mientras que el resto de niveles serían niveles de ejemplo y tendrán un acabado más simple.
+
+\section{Gameplay}
+
+\subsection{Mecánicas}
+Las mecánicas son el conjunto de acciones que puede realizar el jugador y las reglas por las que se rige el universo del videojuego. Atendiendo a este proyecto, podemos establecer claros grupos entre las mismas:
+\begin{itemize}
+	\item \textbf{Mecánicas de bajo perfil}: En este proyecto, nos referimos a mecánicas de bajo perfil cuando hablamos de mecánicas dependientes del jugador y que podrá usar en cualquier momento.
+	\item \textbf{Mecánicas de alto perfil}: Se denominan así al conjunto de mecánicas que el jugador podrá utilizar cuando disponga de poderes específicos.
+	\item \textbf{Mecánicas de escalada}: El conjunto de mecánicas relacionadas con la escalada. Son mecánicas dependientes del jugador y que se pueden llevar a cabo en cualquier momento, por lo que podrían englobarse en las mecánicas de bajo perfil pero se categorizan por separado debido a la importancia que tienen dentro del proyecto y al número de las mismas.
+	\item \textbf{Mecánicas del entorno o universo}: Son mecánicas que tienen relación con cómo se relaciona el personaje con el entorno.
+\end{itemize}
+
+\subsubsection{Mecánicas de bajo perfil}
+\begin{enumerate}
+	\item \textbf{Desplazamiento}: El jugador podrá desplazar el personaje por el entorno pulsando las teclas, botones o joysticks asignados para ello.
+	\item \textbf{Rotación}: El jugador podrá rotar al personaje y, a su vez, a la cámara utilizando el movimiento del ratón o el joystick asignado.
+	\item \textbf{Interaccionar}: El personaje podrá interaccionar con determinados elementos prefijados del entorno pulsando la tecla o el botón asignado para ello. Esta acción provocará por tanto cambios en el jugador o en el entorno.
+	\item \textbf{Saltar}:
+	\begin{itemize}
+		\item El personaje podrá saltar, ganando altura hasta una altura máxima, mientras el jugador mantiene pulsada la tecla de salto.
+		\item Si la altura máxima de salto se ha alcanzado o el jugador cesa en su acción de presionar la tecla de salto el personaje dejará de ganar altura en el salto y comenzará a caer.
+	\end{itemize}
+	\item \textbf{Agachado}:
+	\begin{itemize}
+		\item Mientras que el jugador mantenga pulsada la tecla vinculada a la acción de agacharse el personaje se agachará, cambiando la posición de la cámara y reduciendo su caja de colisión, permitiéndole acceder a zonas por las que no podría pasar erguido o bien esquivar peligros.
+		\item Cuando el jugador deje de presionar dicha tecla el personaje volverá a estar de pie.
+	\end{itemize}
+	\item \textbf{Correr}:
+	\begin{itemize}
+		\item Mientras que el jugador mantenga pulsada la tecla de sprint el personaje pasará a desplazarse por el entorno con una velocidad mayor, acelerando además su animación.
+		\item Cuando el jugador deje de presionar la tecla relacionada el personaje volverá a su velocidad habitual.
+	\end{itemize}
+\end{enumerate}
+
+\subsubsection{Mecánicas de alto perfil}
+\begin{enumerate}
+	\item \textbf{Tiempo bala (o time dilation)}: El jugador podrá, presionando la tecla o el botón correspondiente, ralentizar el tiempo del entorno y del personaje (manteniendo el escenario levemente más ralentizado que el personaje, para de esta manera ganar una pequeña ventaja) para así poder sortear obstáculos que de otra forma le serían complicado o imposible de salvar.
+	\item \textbf{Parpadeo (o blink)}: El jugador podrá teletransportar al personaje a la posición a la que está mirando si no hay obstáculos de por medio.
+\end{enumerate}
+
+\subsubsection{Mecánicas de escalada}
+\begin{enumerate}
+	\item \textbf{Wall running}: El personaje podrá correr verticalmente por una pared, hasta una altura máxima, siempre que sea una superficie adecuada para ello.
+	\item \textbf{Salto en wall running}: El personaje podrá utilizar la pared que está escalando para impulsarse hacia el lado contrario, cambiando de esta forma su orientación. Si el personaje combina esta mecánica con la anterior (es decir, si tenemos dos superficies en la que hacer wall running una en frente de otra) para encadenar varios wall runnings y permitirle subir a posiciones muy elevadas.
+	\item \textbf{Agarrarse a un saliente}: El personaje podrá permanecer agarrado a un saliente siempre que se reúnan las condiciones adecuadas.
+	\item \textbf{Escalar un saliente}:
+	\begin{itemize}
+		\item Si está agarrado y no hay obstáculos que no le permitan subir, pulsando el botón de saltar podrá terminar de escalar el saliente.
+		\item Si no está agarrado pero el saliente es de baja altura automáticamente escalará el saliente en vez de agarrarse a él.
+	\end{itemize}
+	\item \textbf{Desplazarse por un saliente}: Siempre que no haya obstáculos el personaje podrá desplazarse lateralmente por un saliente.
+	\item \textbf{Dejarse caer de un saliente}: Presionando el botón de agacharse el jugador puede hacer que el personaje abandone el saliente al que estaba agarrado.
+	\item \textbf{Salto lateral desde un saliente}: Cuando el personaje esté al final de un saliente, si no hay obstáculos de por medio, podrá saltar lateralmente desde ese saliente, permitiéndole así agarrarse a salientes que no estaban conectados con el original o llegar a zonas previamente inaccesibles.
+	\item \textbf{Salto reverso desde un saliente}: Cuando el personaje esté agarrado a un saliente podrá impulsarse desde el mismo y realizar un salto en la dirección opuesta a la del saliente.
+\end{enumerate}
+
+\subsubsection{Mecánicas del entorno}
+\begin{enumerate}
+	\item Si el personaje entra en contacto con algún peligro del escenario (como balas, láseres, etc.) morirá instantáneamente.
+	\item El personaje, al caer...
+	\begin{itemize}
+		\item ... Si la altura de caída es lo suficientemente pequeña, no pasará nada.
+		\item ... Si la altura de caída es lo suficientemente grande, no podrá moverse por unas décimas de segundo.
+		\item ... Si cae al vacío morirá instantáneamente.
+	\end{itemize}
+	\item El personaje morirá instantáneamente al abandonar el área de juego.
+\end{enumerate}
+
+\subsection{Controles}
+En esta sección se definen los enlaces entre las diferentes entradas al alcance del jugador y su traducción al universo del juego.
+
+El producto ofrece al jugador dos métodos de entrada: "`teclado y ratón"' y "`mando"'. Ambos métodos no son excluyentes entre sí, y si se dispone de los dos métodos de entrada en cualquier momento se podrá pasar de uno a otro, sin ser necesario reiniciar el videojuego.
+
+\subsection{Controles con teclado y ratón}
+\subsubsection{Esquema}
+TODO.
+
+\subsubsection{Listado detallado}
+\begin{itemize}
+	\item Tecla \textbf{W}: Desplazamiento del jugador hacia el frente.
+	\item Tecla \textbf{A}: Desplazamiento del jugador hacia atrás.
+	\item Tecla \textbf{S}: Desplazamiento del jugador hacia la izquierda.
+	\item Tecla \textbf{D}: Desplazamiento del jugador hacia la derecha.
+	\item \textbf{Eje X} del ratón: Regula el movimiento horizontal de la cámara.
+	\item \textbf{Eje Y} del ratón: Regula el movimiento vertical de la cámara.
+	\item Tecla \textbf{E}: Botón de acción.
+	\item Tecla \textbf{Shift Izquierdo}: Sprint.
+	\item \textbf{Barra espaciadora}: Salto / Wall running / Salto en wall running / Escalar o saltar de saliente.
+	\item Tecla \textbf{Ctrl Izquierdo}: Agachado / Abandonar saliente.
+	\item Tecla \textbf{TAB} (Tabulador): Conmutador de tiempo bala.
+	\item \textbf{Botón derecho} del ratón: Blink.
+\end{itemize}
+
+\subsection{Controles con mando}
+\subsubsection{Esquema}
+TODO.
+
+\subsubsection{Listado detallado}
+\begin{itemize}
+	\item Joystick izquierdo \textbf{Eje Y+}: Desplazamiento del jugador hacia el frente.
+	\item Joystick izquierdo \textbf{Eje Y-}: Desplazamiento del jugador hacia atrás.
+	\item Joystick izquierdo \textbf{Eje X-}: Desplazamiento del jugador hacia la izquierda.
+	\item Joystick izquierdo \textbf{Eje X+}: Desplazamiento del jugador hacia la derecha.
+	\item Joystick derecho \textbf{Eje X}:  del ratón: Regula el movimiento horizontal de la cámara.
+	\item Joystick derecho \textbf{Eje Y}: Regula el movimiento vertical de la cámara.
+	\item Botón \textbf{A}: Botón de acción.
+	\item Disparador \textbf{RT}: Sprint.
+	\item Botón \textbf{B}: Salto / Wall running / Salto en wall running / Escalar o saltar de saliente.
+	\item Botón \textbf{X}: Agachado / Abandonar saliente.
+	\item Botón \textbf{Y}: Conmutador de tiempo bala.
+	\item Disparador \textbf{LT}: Blink.
+\end{itemize}
+
+\subsection{Modos de juego}
+Aunque el jugador sólo perciba uno, en realidad se establecerán dos modos de juego: el primero se utilizará para navegar por los menús y el segundo será la forma de jugar al juego en sí.
+
+\subsection{Ganando el juego}
+La única forma de ganar el juego es completando la fase, es decir, cuando el personaje entre en contacto con la caja de colisión deseada al final de cada nivel.
+
+\subsection{Logros / Trofeos}
+Los logros son medallas otorgadas al jugador al realizar un avance específico dentro del juego y que dan una idea del progreso dentro del mismo.
+
+\subsubsection{Relacionados con la historia}
+El jugador los obtendrá al hacer progresos en lo que se podría denominar "`la historia"', en este caso al finalizar un nivel.
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro historia - Juego}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-completed.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por completar el juego}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&Completado&Completa el juego\\
+		\textbf{Inglés}&Finished&Finish the game
+	\end{coolTable}
+	\caption{Logro historia - Juego}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro historia - Tutorial}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-tutorial.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por completar el tutorial}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&Puesta a punto&Completa el tutorial\\
+		\textbf{Inglés}&Setup&Finish the tutorial
+	\end{coolTable}
+	\caption{Logro historia - Tutorial}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro historia - Capítulo I}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-chapter1.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por completar el primer nivel}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&Capítulo I&Completa el capítulo I\\
+		\textbf{Inglés}&Chapter I&Finish the chapter I
+	\end{coolTable}
+	\caption{Logro historia - Capítulo I}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro historia - Capítulo II}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-chapter2.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por completar el segundo nivel}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&Capítulo II&Completa el capítulo II\\
+		\textbf{Inglés}&Chapter II&Finish the chapter II
+	\end{coolTable}
+	\caption{Logro historia - Capítulo II}
+\end{table*}
+
+[...]
+
+\subsubsection{Pruebas de tiempo}
+Son aquellos otorgados al jugador al superar un escenario por debajo de un determinado tiempo preestablecido.
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro prueba de tiempo - Capítulo I}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-timetrial-chapter1.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por completar el primer nivel por debajo del tiempo establecido}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&Prueba de tiempo: Capítulo I&Completa el capítulo I por debajo del tiempo establecido\\
+		\textbf{Inglés}&Time trial: Chapter I&Finish the chapter I under the time limit
+	\end{coolTable}
+	\caption{Logro prueba de tiempo - Capítulo I}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro prueba de tiempo - Capítulo II}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-timetrial-chapter2.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por completar el segundo nivel por debajo del tiempo establecido}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&Prueba de tiempo: Capítulo II&Completa el capítulo II por debajo del tiempo establecido\\
+		\textbf{Inglés}&Time trial: Chapter II&Finish the chapter II under the time limit
+	\end{coolTable}
+	\caption{Logro prueba de tiempo - Capítulo II}
+\end{table*}
+
+[...]
+
+\subsubsection{Coleccionables}
+El jugador obtendrá logros al recoger objetos repartidos por el universo del juego que el personaje podrá recolectar al entrar en contacto con ellos. Concretamente el jugador obtendrá un logro en los siguientes casos:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro coleccionables - 1 coleccionable}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-collectible-1.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por encontrar un coleccionable (cualquiera de ellos)}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&Coleccionables 1&Encuentra tu primer coleccionable\\
+		\textbf{Inglés}&Collectibles 1&Find your first collectible
+	\end{coolTable}
+	\caption{Logro coleccionables - 1 coleccionable}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro coleccionables - 5 coleccionables}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-collectible-5.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por encontrar cinco coleccionables cualquiera}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&Coleccionables 5&Encuentra cinco coleccionables en total\\
+		\textbf{Inglés}&Collectibles 5&Find five collectibles in total
+	\end{coolTable}
+	\caption{Logro coleccionables - 5 coleccionables}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro coleccionables - 10 coleccionables}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-collectible-10.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por encontrar diez coleccionables cualquiera}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&Coleccionables 5&Encuentra diez coleccionables en total\\
+		\textbf{Inglés}&Collectibles 5&Find ten collectibles in total
+	\end{coolTable}
+	\caption{Logro coleccionables - 10 coleccionables}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro coleccionables - 50\% de coleccionables}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-collectible-50x100.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por encontrar el 50\% de los coleccionables}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&Coleccionables 50\%&Encuentra la mitad de los coleccionables\\
+		\textbf{Inglés}&Collectibles 50\%&Find a half of the collectibles
+	\end{coolTable}
+	\caption{Logro coleccionables - 50\% de coleccionables}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro coleccionables - 100\% de coleccionables}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-collectible-100x100.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por encontrar todos los coleccionables}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&Coleccionables 100\%&Encuentra todos los coleccionables\\
+		\textbf{Inglés}&Collectibles 100\%&Find all the collectibles
+	\end{coolTable}
+	\caption{Logro coleccionables - 100\% de coleccionables}
+\end{table*}
+
+\subsubsection{Misceláneos}
+Además de los indicados, el jugador será recompensado con un logro al realizar las siguientes acciones satisfactoriamente:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro misceláneos - 100 saltos}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-jump-100.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por saltar 100 veces}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&Salto 100&Salta 100 veces\\
+		\textbf{Inglés}&Jump 100&Jump 100 times
+	\end{coolTable}
+	\caption{Logro misceláneos - 100 saltos}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro misceláneos - 1000 saltos}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-jump-1000.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por saltar 1000 veces}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&Salto 1000&Salta 1000 veces\\
+		\textbf{Inglés}&Jump 1000&Jump 1000 times
+	\end{coolTable}
+	\caption{Logro misceláneos - 1000 saltos}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro misceláneos - 10000 saltos}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-jump-10000.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por saltar 10000 veces}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&Salto 10000&Salta 10000 veces\\
+		\textbf{Inglés}&Jump 10000&Jump 10000 times
+	\end{coolTable}
+	\caption{Logro misceláneos - 10000 saltos}
+\end{table*}
+
+\subsubsection{100\%}
+Verifica que el jugador ha completado el resto de logros.
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{3.5cm}p{9cm}}{3}
+	{Logro 100\%}
+		\textbf{Logo}&\multicolumn{2}{l}{\includegraphics[scale=0.15]{figures/achievement-100x100.png}}\\
+		\textbf{Obtención}&\multicolumn{2}{p{12.5cm}}{Otorgado al jugador por obtener el resto de logros}\\
+		\hline
+		\textbf{Idioma}&\textbf{Nombre}&\textbf{Descripción}\\
+		\textbf{Español}&100\%&Completa el juego y acaba con el resto de retos\\
+		\textbf{Inglés}&100\%&Finish the game and all the challenges
+	\end{coolTable}
+	\caption{Logro 100\%}
+\end{table*}
+
+\section{Assets}
+
+Para la elaboración del producto se usan gran cantidad de assets y de variada clasificación, la inmensa mayoría procedente de proyectos de libre uso de Unreal Engine creados por Epic Games (como por ejemplo assets usados en demos técnicas o los pertenecientes a packs de assets liberados).
+
+Teniendo en cuenta esto, esta sección no pretende elaborar una lista detallada de todos los assets que se han usado en la creación del videojuego, sino los assets que se salgan de esa norma: assets de uso gratuito no pertenecientes a Epic Games o assets sin licencia de uso gratuito (de los cuales se disponga de sus derechos de uso, ya sea mediante su adquisición o por el permiso explícito de su creador, o bien assets realizados por el equipo del proyecto).
+
+En cada uno de los casos se explicará el uso específico que se ha hecho de cada asset, es decir, cómo ha repercutido al proyecto.
+
+\subsection{Personajes}
+
+Tratándose de un juego de un solo jugador (y sin selector de personajes ni ningún otro método de intercambio de personajes jugables) sólo se usa un asset, que es el siguiente:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{llll}{4}
+{Assets de personajes}
+	\textbf{ID}&\textbf{Personaje}&\textbf{Procedencia}&\textbf{Beneficios aportados}\\
+	{\textbf{\#1}}&{Protagonista}&{Adquisición}&{Estrictamente estéticos}\\
+	&\multicolumn{3}{p{14cm}}{\hline \raggedright \textbf{Notas:} Cambio meramente estético respecto al maniquí por defecto de Unreal Engine. Se compone de un \gls{modelado} y textura (ya que usa el mismo esqueleto que el maniquí por defecto).}\\
+	\end{coolTable}
+	\caption{Assets de personajes}
+\end{table*}
+
+\subsection{Enemigos}
+
+TODO
+
+\subsection{Animaciones}
+
+Las animaciones usadas en el proyecto tienen cuatro orígenes principalmente: animaciones extraídas del pack de animaciones gratuito de Epic Games (disponible para su descarga desde el Marketplace de Unreal Engine), animaciones de la plantilla por defecto de tercera persona de Unreal Engine 4 (al crear esta plantilla, se generan estas animaciones), animaciones propiedad de Mixamo (cuyo uso es gratuito desde hace unos años) y animaciones realizadas específicamente para el proyecto generalmente a partir de un \gls{frame} de una animación.
+
+Una buena parte de las animaciones usadas, sea de la fuente que sea, ha tenido que ser modificada de alguna u otra forma para su uso en el proyecto pero, más específicamente, las animaciones de Mixamo tienen añadido un trabajo extra: dichas animaciones no están creadas a partir de un esqueleto compatible con Unreal Engine 4, por tanto ha sido necesario realizar un \textbf{\gls{retargeting}} en cada una de ellas para adaptarlo al esqueleto que del personaje del que se hace uso (que sí usa un esqueleto compatible con el esqueleto por defecto de Unreal Engine 4).
+
+\subsection{Equipo y mejoras}
+
+TODO: Poderes
+
+\subsection{Entorno}
+
+TODO
+
+\subsection{Audio}
+
+TODO

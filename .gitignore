@@ -18,4 +18,6 @@
 *.thm
 *.toc
 *.sty
+*.bak
+*.sav
 makeglossaries
