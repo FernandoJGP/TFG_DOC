@@ -1,5 +1,5 @@
 %!TEX root =  tfg.tex
-\chapter{Puesta a punto}
+\chapter{Iteración cero}
 
 \begin{quotation}[Novelist]{Ernest Hemingway (1899--1961)}
 The good parts of a book may be only something a writer is lucky enough to overhear or it may be the wreck of his whole damn life -- and one is as good as the other.
@@ -9,12 +9,61 @@ The good parts of a book may be only something a writer is lucky enough to overh
 TODO TODO TODO
 \end{abstract}
 
-\section{Características a desarrollar}
+\section{Inicialización del proyecto}
 
-\section{Diseño}
+El motor gráfico sobre el que vamos a trabajar, como se decía al inicio de esta memoria, es gratuito y para obtenerlo solamente tenemos que acceder a su página oficial, \url{https://www.unrealengine.com/}.
 
-\section{Implementación}
+Con esto habremos obtenido el "`launcher"' de Epic Games / Unreal Engine por lo que una vez descargado e instalado, queda un paso más: descargar una versión concreta del motor, en nuestro caso elegiremos la versión "`4.16"'.
 
-\section{Pruebas}
+Una vez descargada e instalada la versión deseada del motor, procedemos con el siguiente paso: para la confección del trabajo vamos a crear un nuevo proyecto de Unreal Engine en "`C++"' y sin contenido adicional, es decir, vamos a crear un proyecto limpio en "`C++"'. Para ello, en el Launcher de Unreal Engine, hacemos click en el botón "`Iniciar"' y se nos abrirá una ventana de selección de proyecto. Como queremos crear uno nuevo, hacemos click en la pestaña "`New Project"' o "`Nuevo Proyecto"' y una vez en esa pestaña hacemos click en la pestaña "`C++"', seleccionamos "`Basic Code"' o "`Código básico"' y configuramos el proyecto de la siguiente manera:
 
-\section{Despliegue}
+\begin{itemize}
+	\item "`Desktop / Console"' (o "`Escritorio / Consola"'): Puesto que nuestro proyecto está destinado a dispositivos sobremesa, y no a móviles o tablets, es la opción que debemos marcar cuando creamos nuestro proyecto.
+	\item "`Maximum quality"' (o "`Máxima calidad"'): La calidad, como se detalla en el documento de diseño anexo a esta memoria, no es una prioridad para el proyecto, pero intentaremos que el resultado final luzca lo máximo posible.
+	\item "`No starter content"' (sin contenido inicial): Como se detallaba previamente, vamos a crear un proyecto en "`C++"' con el mínimo contenido, para conocer nuestro proyecto el máximo posible, y si en algún momento necesitamos material del contenido inicial lo añadiremos manualmente.
+\end{itemize}
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.5]{figures/creacion-proyecto.png}
+		\caption{Ventana del creador de proyectos de Unreal Engine}
+\end{figure*}
+
+Una vez configurado, hacemos click en "`Create Project"' (o "`Crear Proyecto"').
+
+Con esto, habremos terminado la creación de nuestro proyecto y tendremos casi lista la base sobre la que empezar a trabajar.
+
+\section{Puesta a punto y primeros pasos}
+
+Antes de empezar a trabajar tenemos que realizar una serie de modificaciones:
+
+TODO.
+
+\section{Directrices generales y reseñas}
+
+Durante la ejecución del proyecto se seguirán una serie de pautas, métodos y en definitiva trabajos que no se van a ver reflejados en su totalidad en la documentación de las siguientes iteraciones. Es por ello que eta sección pretende explicarlos y que ese trabajo, difícil de documentar ya que en muchos casos es paralelo al trabajo principal de cada iteración o engloba más de una iteración, esté documentado.
+
+\subsection{Uso de animaciones profesionales "`Mixamo"'}
+
+"`Mixamo"' es una empresa filial de la conocida "`Abobe"' dedicada al mundo de la animación 3D y que se centraba en generar estas animaciones para su posterior comercialización. Actualmente, todas sus animaciones son de libre uso, por lo que supone una gran oportunidad para un proyecto \glslink{independiente}{indie} como este.
+
+Las animaciones son de máxima calidad, tanto es así que se usan en juegos con alto presupuesto o ingresos: el juego más vendido del momento en PC, "`Playerunknown's Battlegrounds"' \cite{ventaspubg}, utiliza varias de las animaciones de "`Mixamo"' y las sigue incorporando junto con nuevas funcionalidades en sus actualizaciones mensuales.
+
+Sin embargo, hay un gran problema derivado del uso de estas animaciones en concreto: el personaje que se usa en este proyecto utiliza el esqueleto estándar de Unreal Engine, y hace ya muchas versiones del motor gráfico "`Mixamo"' retiró el soporte para personajes que usen el esqueleto "`por defecto"' de Unreal Engine.
+
+La manera de solucionar esto es la incorporación de un esqueleto auxiliar, que no se utiliza en el proyecto salvo para este cometido, que nos servirá para realizar un "`retargeting"' a la animación. El proceso, una vez que tenemos listo el esqueleto destino y el esqueleto auxiliar es el siguiente:
+
+\begin{enumerate}
+	\item Se
+\end{enumerate}
+
+Hay que repetir todos los pasos del 2 al X para cada una de las animaciones que se quieren incorporar al proyecto. TODO.
+
+TODO: Añadir al glosario retargeting.
+TODO: Capturas Retargeting.
+
+\subsection{Implementación del sistema de animación del personaje}
+
+Para la ... se utilizará una máquina de estados...
+
+TODO.

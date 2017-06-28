@@ -6,7 +6,7 @@ The good parts of a book may be only something a writer is lucky enough to overh
 \end{quotation}
 
 \begin{abstract}
-Durante este capítulo de la memoria se presentará la lista de características que conforman el proyecto así como el diseño arquitectónico, que describe los sistemas de producción, preproducción y pruebas.
+Durante este capítulo de la memoria se presentará la lista de características que conforman el proyecto, así como el diseño arquitectónico de Unreal Engine, el motor gráfico elegido para llevar a cabo el proyecto.
 \end{abstract}
 
 \section{Lista de características}
@@ -83,34 +83,150 @@ La lista de características está confenccionada a partir del documento de diseño
 	\item .
 \end{enumerate}
 
+\clearpage
+
 \section{Diseño arquitectónico}
 \label{sec:arquitectura}
-Para la realización del proyecto se dispone de dos dispositivos, un ordenador sobremesa y un ordenador portátil (a partir de ahora sobremesa y portátil) en el que se realizarán las labores de producción, preproducción y pruebas.
+
+En el momento que hablamos de diseño arquitectónico en el marco de este proyecto estamos refiriéndonos al diseño arquitectónico del motor que estamos utilizando, "`Unreal Engine 4"'. La información que se muestra a continuación está extraída de fuentes oficiales de Epic Games, propietaria de "`Unreal Engine"', en concreto de la documentación (en inglés) del motor \cite{uedoc}.
+
+Cuando programamos elementos del \gsl{gameplay} (elementos del juego) usando código C++, cada módulo ("`gameplay module"') puede contener muchas clases en C++.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.85]{figures/ue4-arquitectura.png}
+		\caption{Arquitectura Unreal Engine 4}
+\end{figure*}
+
+Cada clase determina una plantilla para un nuevo actor u objeto. En el archivo de encabezado de clase ("`.h"') se declaran la clase y cualquier función o propiedades de la clase. Las clases también pueden contener "`structs"', estructuras de datos que ayudan en la organización y manipulación de las propiedades relacionadas. Las estructuras también pueden ser definidas en su propia interfaz, permitiendo que puedan ser implementadas en diferentes clases.
+
+Cuando programamos en Unreal Engine, es posible tener clases, funciones y variables estándar del lenguaje C++, usando la sintaxis estándar de C++. Sin embargo, también podemos usar las instrucciones "`UCLASS()"', "`UFUNCTION()"' y "`UPROPERTY()"' para que Unreal Engine conozca nuevas clases, funciones y propiedades, respectivamente. Por ejemplo, una variable cuya declaración está precedida por "`UPROPERTY()"' puede ser reconocida por el motor y ser mostrada y editada en el editor de Unreal Engine. También existen "`UINTERFACE()"' y "`USTRUCT()"' y palabras claves para cada una que pueden ser usadas para especificar el comportamiento de una clase, función, propiedad, interfaz o estructura en Unreal Engine.
+
+\subsection{Módulos de juego}
+
+De la misma forma en la que el propio motor está compuesto por una colección de módulos, cada juego está compuesto por uno o más módulos de juego. Estos son similares a los paquetes de las versiones anteriores del motor, en las cuales estos eran contenedores de una colección de clases relacionadas. En Unreal Engine 4, ya que está basado en C++, \textbf{los módulos son en realidad DLLs}, en lugar de paquetes.
+
+Los módulos de juego deben contener, como mínimo, un archivo de cabecera ("`.h"'), un archivo C++ ("`.cpp"') y un archivo de compilación ("`*.Build.cs"').
+
+El archivo de cabecera debe estar localizado en la carpeta "`Public"' de la localización del módulo, por ejemplo: "`[NombreDelJuego]/Source[NombreDelMódulo]/Public"'. Este archivo contiene cualquier archivo de cabecera, incluyendo las cabeceras auto-generadas del módulo, necesario para compilar las clases que incluye el módulo.
+
+El archivo "`C++"', localizado en la carpeta "`Privada"' de la localización del módulo ("`[NombreDelJuego]/Source[NombreDelMódulo]/Private"'), implementa el módulo.
+
+El archivo de compilación ("`build"') es está localizado en la raíz del directorio del módulo ("`[NombreDelJuego]/Source[NombreDelMódulo]"') y contiene información usada por la herramienta de compilación de Unreal Engine ("`UnrealBuildTool"') para compilar el módulo.
+
+\subsubsection{Módulos de juego múltiples}
+
+Hay diferentes puntos de vista respecto a la separación en DLL. Separar el juego en un montón de archivos DLL puede tener más inconvenientes que beneficios, pero es una decisión que debe ser hecha por cada equipo de desarrollo basada en sus necesidades. Usar múltiples módulos de juego puede conducir en mejores tiempos de enlace e iteración de código más rápida, pero con más módulos será necesario lidiar con exportaciones de DLL e interfaces más a menudo. Esta concesión es la correcta para el motor y el editor, pero es cuestionable para el \gls{gameplay}.
+
+También se puede crear un módulo de juego primario y un número indeterminado de módulos de juego adicionales, para ello es necesario crear los archivos "`*.Build.cs"' para los citados módulos adicionales, además de añadir las referencias pertinentes en el archivo "`Target.cs"'. Además, el módulo principal deberá contener la etiqueta "`IMPLEMENT\_PRIMARY\_GAME\_MODULE"' y el resto de módulos secundarios la etiqueta "`IMPLEMENT\_GAME\_MODULE"'. La herramienta de compilación de Unreal Engine deberá entonces descubrir automáticamente los módulos y compilar los DLL adicionales.
+
+\subsubsection{Limitaciones}
+
+Unreal Engine soporta la creación de módulos que son dependientes entre sí (es decir, que ambos contienen importaciones y exportaciones que hacen referencia al otro), pero no es ideal para los tiempos de compilación. Los módulos sin dependencias cruzadas son difíciles de diseñar y mantener, pero a cambio el código es más limpio por ello.
+
+\subsection{Plugins}
+
+Muchos subsistemas de Unreal Engine fueron diseñados para ser extensibles, permitiéndole al usuario añadir nuevas funcionalidades y modificar la funcionalidad existente sin modificar el código del propio motor directamente. Se pueden crear nuevos tipos de archivos, agregar nuevos elementos en el menú, nuevos comandos a la barra de herramientas o incluso agregar nuevas funciones y sub-modos de editor.
+
+\subsubsection{Anatomía}
+
+Los plugins con código tendrán una carpeta fuente ("`Source"'). Esta carpeta contendrá un o más directorios con el código fuente del código para el plugin. Nótese que los plugins a menudo contienen código, pero no tienen por qué contenerlo.
+
+Para plugins con módulos de código, el plugin tendrá su propia carpeta de binarios ("`Binaries"') que contendrá el código compilado para ese plugin. También se guardarán archivos de compilación temporales en la carpeta "`Intermediate"' dentro del directorio del plugin.
+
+Los plugins pueden tener su propia carpeta de contenido ("`Content"') que contendrá \glspl{asset} específicos para ese plugin.
+
+\subsection{Clases de gameplay}
+
+Cada clase de gameplay en Unreal Engine está compuesta por una clase cabecera ("`.h"') y una clase de archivo fuente ("`.cpp"'). La clase cabecera contiene las declaraciones de la clase y sus miembros, como variables y funciones, mientras que la clase de archivo fuente es donde la funcionalidad de la clase se define implementando las funciones que pertenecen a la clase.
+
+Las clases en Unreal Engine tienen una estructura de nombres estandarizadas, por la que se podrá conocer instantáneamente qué tipo de clase es simplemente mirando a la primera letra, o prefijo. Los prefijos de la clases de gameplay son:
 
 \begin{table*}[h!]
 	\centering
-	\begin{coolTable}{ll}{2}
-{Características sobremesa}
-	\textbf{Sistema/s operativo/s}&Windows 10\\
-	\textbf{Procesador}&Intel Core i7 930 2.80Ghz\\
-	\textbf{Placa base}&Asus P6X58D-E\\
-	\textbf{Memoria RAM}&12GB DDR3 1600Mhz PC3-12800 CL6 (2x4GB + 2x2GB)\\
-	\textbf{Disp. de almacenamiento}&SSD 120GB + Disco duro 3TB SATA3 7200rpm\\
-	\textbf{Tarjeta gráfica}&Sapphire Radeon HD 7950 OC 3GB GDDR5\\
+	\begin{coolTable}{lp{13cm}}{2}
+{Prefijos de clases de gameplay en Unreal Engine}
+	\textbf{Prefijo}&\textbf{Significado}\\
+	\textbf{A}&Extiende desde la clase base "`spawneable"'. Son los denominados "`actores"', y pueden ser emplazados directamente en el mundo o escenario del juego.\\
+	\textbf{U}&Extiende desde la clase base de todos los objetos de juego. No pueden ser instanciados directamente en el mundo, deben pertenecer a un "`actor"'. Son generalmente objetos como "`componentes"'.\\
 	\end{coolTable}
-	\caption{Tabla de características del dispositivo sobremesa}
+	\caption{Prefijos de clases de gameplay en Unreal Engine}
 \end{table*}
 
-\begin{table*}[h!]
-	\centering
-	\begin{coolTable}{ll}{2}
-{Características portátil}
-	\textbf{Sistema/s operativo/s}&Windows 10\\
-	\textbf{Procesador}&Intel Core i7 4712MQ 2.3 GHz\\
-	\textbf{Placa base}&(Dato no proporcionado)\\
-	\textbf{Memoria RAM}&8GB DDR3 SODIMM (1x8GB)\\
-	\textbf{Disp. de almacenamiento}&Disco duro 1TB SATA 5400rpm\\
-	\textbf{Tarjeta gráfica}&Nvidia GeForce GT820M 2GB GDDR3\\
-	\end{coolTable}
-	\caption{Tabla de características del dispositivo portátil}
-\end{table*}
+\subsubsection{Clases de cabecera}
+
+Las clases de juego o "`gameplay"' en Unreal Engine generalmente tienen archivos de cabecera por separado y únicos. Estos archivos suelen ser nombrados para coincidir con la clase que se está definiendo, menos por el prefijo "`A"' o "`U"', y usando la extensión "`.h"'. Por tanto, la clase de cabecera para la supuesta clase "`AActor"' sería "`Actor.h"'. Nótese que aunque se recomiende hacer uso de esta nomenclatura no se establece ninguna relación formal entre los archivos por definirlos de ese modo (al menos en la versión actual del motor).
+
+Las clases de cabecera usan la sintaxis estándar de "`C++"', que se pueden combinar con instrucciones especializadas como ya se vio anteriormente al inicio de la sección (\ref{sec:arquitectura})).
+
+Al principio de cada clase de cabecera de una clase de gameplay, el archivo de cabecera generado (creado automáticamente) necesita incluirse. Por tanto, al principio de la clase "`ClasePrueba.h"' deberá aparecer la siguiente línea:
+
+\begin{lstlisting}
+#include "ClasePrueba.generated.h"
+\end{lstlisting}
+
+\subsubsection{Declaración de clases}
+
+La declaración de clase indica el nombre de la clase, de qué clase hereda y, además, cualquier función o variable que herede.
+
+\begin{lstlisting}
+UCLASS([especificador, especificador, ...], 
+	[meta(clave=valor, clave=valor, ...)])
+class NombreDeLaClase : public NombreDeLaClasePadre
+{
+    GENERATED_BODY()
+}
+\end{lstlisting}
+
+La declaración consiste en una declaración estándar de "`C++"' para una clase, pero además de la declaración estándar, como se ve en la pieza de código, se usa la instrucción "`UCLASS()"' para añadir especificadores de clase y metadatos. Así mismo, la etiqueta "`GENERATED\_BODY()"' debe ser colocada justo al principio de la clase.
+
+\subsubsection{Especificadores de clases}
+
+Cuando declaramos una clase podemos añadir especificadores a la declaración para controlar cómo es el comportamiento de la clase en varios aspectos del motor y del editor. La siguiente lista muestra estos especificadores:
+
+\begin{itemize}
+\setlength\itemsep{0em}
+	\item Abstract
+	\item AdvancedClassDisplay
+	\item AutoCollapseCategories
+	\item AutoExpandCategories
+	\item Blueprintable
+	\item BlueprintType
+	\item ClassGroup
+	\item CollapseCategories
+	\item Config
+	\item Const
+	\item ConversionRoot
+	\item CustomConstructor
+	\item DefaultToInstanced
+	\item DependsOn
+	\item Deprecated
+	\item DontAutoCollapseCategories
+	\item DontCollapseCategories
+	\item EditInlineNew
+	\item HideCategories
+	\item HideDropdown
+	\item HideFunctions
+	\item Intrinsic
+	\item MinimalAPI
+	\item NoExport
+	\item NonTransient
+	\item NotBlueprintable
+	\item NotPlaceable
+	\item PerObjectConfig
+	\item Placeable
+	\item ShowCategories
+	\item ShowFunctions
+	\item Transient
+	\item Within
+\end{itemize}
+
+\subsubsection{Implementación de clases}
+
+Todas las clases de juego (o "`gameplay"') para poder ser implementadas correctamente deben hacer uso de la etiqueta "`GENERATED\_BODY"'. Esto se hace, como acabamos de ver, en la clase de cabecera ("`.h"') que define la clase y todas sus funciones y variables.
+
+Los archivos de código fuente ("`.cpp"') deben incluir los archivos de cabecera ("`.h"') que contiene la declaración C++ de la clase, que normalmente es generada automáticamente pero puede ser creada manualmente si así se desea.
+
+\subsubsection{Constructores de clases}
+
+Los objetos en Unreal Engine usan constructores para asignar valores por defecto a propiedades así como realizar otras inicializaciones necesarias. El constructor de clase está emplazado en la clase de implementación y, por ejemplo, para la clase de implementación "`AActor.cpp"' el método del constructor será "`AActor::AActor"'.
