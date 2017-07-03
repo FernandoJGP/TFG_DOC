@@ -1,82 +1,156 @@
 %!TEX root =  tfg.tex
 \chapter{Contexto}
 
-\begin{quotation}[Novelist]{Ernest Hemingway (1899--1961)}
-The good parts of a book may be only something a writer is lucky enough to overhear or it may be the wreck of his whole damn life -- and one is as good as the other.
-\end{quotation}
-
 \begin{abstract}
-En este primer capítulo abordaremos el entorno que rodea al producto software que pretendemos crear, la industria del videojuego, con el objetivo de situarnos en el mismo para conocer las oportunidades que ofrece el mercado y los riesgos, relacionados con el mismo, que debemos tener presentes.
+En este primer capítulo abordaremos el entorno que rodea al producto software que pretendemos crear, la industria del videojuego, con el objetivo de situarnos para conocer las oportunidades que ofrece el mercado y los riesgos, relacionados con el mismo, que debemos tener presentes.
 \end{abstract}
 
 \section{El mundo del videojuego}
 
-La industria del videojuego vive, desde hace años, una etapa de popularización y expansión. Según datos de la asociación española de videojuegos (AEVI) y del informe anual de Newzoo (2016) \cite{aevimundo, newzoo2016report} el pasado año el sector creció un 8.5\%, lo que representa pasar de 91.800 millones de dólares en 2015 a 99.600 millones de dólares en 2016. Además, esta tendencia es global y aumenta en cada uno de los cinco continentes, siendo la región geográfica que representan África y Oriente medio la que más prosperó en el transcurso del año.
+La industria del videojuego vive, desde hace años, una etapa de popularización y expansión. Según datos de la asociación española de videojuegos ("`AEVI"') y del informe anual de Newzoo \cite{aevimundo, newzoo2016report} el pasado año el sector creció un 8.5\%, lo que representa pasar de 91.800 millones de dólares en 2015 a 99.600 millones de dólares en 2016. Además, esta tendencia es global y aumenta en cada uno de los cinco continentes, siendo la región geográfica que representan África y Oriente medio la que más prosperó en el transcurso del año.
 
-Teniendo siempre presente que estamos en un mercado global y que lanzar un producto desarrollado en nuestro país, si se satisfacen necesidades como la localización del producto, puede repercutir en ventas en todo el mundo, España se sitúa en la octava posición del ranking mundial, gracias a la nada despreciable cifra de 1.812 millones de dólares de beneficios generados en 2016, pero lejos de los dos principales países, China y Estados Unidos, que sobrepasan con holgura los 20.000 millones de beneficios el pasado año \cite{newzoo2016report}.
+Teniendo siempre presente que estamos en un mercado global y que lanzar un producto desarrollado en nuestro país, si se satisfacen necesidades como la localización del producto, puede repercutir en ventas en todo el mundo, España se sitúa en la octava posición del ranking mundial, gracias a la nada despreciable cifra de 1.812 millones de dólares de beneficios generados en 2016, pero lejos de los dos principales países, China y Estados Unidos, que sobrepasan con holgura los 20.000 millones de beneficios en el pasado año \cite{newzoo2016report}.
 
 \begin{figure*}[htb]
 	\centering
-		\includegraphics[scale=0.6]{figures/newzoo-beneficios-europa.png}
+		\includegraphics[scale=0.65]{figures/newzoo-beneficios-europa.png}
 		\caption{Beneficios de los videojuegos en Europa Occidental (datos en billones americanos) \cite{newzoo2016report}}
 \end{figure*}
 
-La transformación del sector no tiene sólo que ver con cifras económicas y no me gustaría pasar por alto algo que bajo mi punto de vista es bastante más interesante y que, aunque bien daría para un trabajo aparte, describe perfectamente el giro tan drástico al que se está viendo sometida la industria en estos momentos: hace no tanto tiempo jugar a videojuegos era un territorio un tanto desconocido, lo que provocaba que a veces fuese visto con cierto recelo socialmente por una parte de la población. Esta tendencia se ha revertido vertiginosamente en un breve lapso de tiempo e incluso se podría decir que los videojuegos, en gran medida, han pasado a formar parte de la cultura popular: las grandes empresas textiles hacen camisetas con referencias a videojuegos o videoconsolas reconocidas; se realizan grandes eventos mediáticos en torno a personas relacionadas con los videojuegos, a los que se les tratan como a auténticas estrellas del rock; se crean canales de televisión en grandes plataformas audiovisuales dirigidos únicamente a los videojuegos y toda esta vorágine alcanza su súmmum cuando en un evento de tanta proyección internacional como es el acto de clausura de los juegos olímpicos, el primer ministro del país que recibe el testigo para organizarlos en cuatro años, en este caso Japón, aparece disfrazado de un reconocido personaje de videojuegos: Mario. Aún queda un largo camino por recorrer, es un problema que persigue al sector desde su creación, pero en los últimos años hemos vivido una apertura de los videojuegos a la sociedad de tal magnitud que una parte relevante de la misma lo ha pasado a ver de una forma distinta, dejando de lado ese citado recelo o cualquier connotación negativa, lo cual sin duda no puede ser más que favorable para la industria y su crecimiento.
-
-Estableciendo un símil, podríamos comparar en algunos aspectos la fase en la que se encuentra la industria del videojuego con aquella en la que se podría encontrar la industria cinematográfica hace ya unas décadas: el sector está en etapa de expansión, cada vez más universidades empiezan a formar en ámbitos relacionados directamente con los videojuegos, se crean cada vez más puestos de trabajo bajo su cobijo e incluso están creciendo verdaderas celebridades en torno a la industria, ya que es habitual que las personas que son consumidores de la industria conozcan directores de juegos, compositores o jugadores profesionales, por citar unos ejemplos. Igualmente, no todos los aspectos el sector cinematográfico está más avanzado, ya que no podemos comparar las industrias del videojuego y del cine pasando por alto que la primera, pese a su más que notable juventud, ya consigue doblar en beneficios a la segunda. En conclusión, es cuestión de tiempo que a los videojuegos se le otorgue socialmente el mismo estatus que al cine: ser calificados de cultura o arte, y remarco socialmente porque en países como el nuestro ya se les consideran cultura, pero ese mensaje aún está por calar en muchos estratos de la sociedad.
-
-\subsection{El boom de los e-sports y los juegos para móvil}
-
-Aunque ninguno de los dos sectores estén estrictamente relacionados con lo que nos ocupa en este proyecto, son dos importantes partes de la industria que debemos analizar para contextualizarnos y entender plenamente la magnitud del mercado de los videojuegos actualmente.
-
-Los deportes electrónicos, también denominados e-sports, son prueba del auge que está viviendo la industria, de los puestos de trabajo que genera en diversos sectores y de las posibilidades de negocio que hay alrededor del éxito que están viviendo actualmente.
+La transformación del sector no tiene sólo que ver con cifras económicas y no me gustaría pasar por alto algo que bajo mi punto de vista es bastante más interesante y que, aunque bien daría para un trabajo aparte, describe perfectamente el giro tan drástico al que se está viendo sometida la industria en los últimos años: hace no tanto tiempo los videojuegos eran un territorio un tanto desconocido, lo que provocaba que en algunas ocasiones fuesen vistos con cierto recelo por una parte de la población. Esta tendencia se ha revertido vertiginosamente en un breve lapso de tiempo, e incluso se podría decir que los videojuegos, en gran medida, han pasado a formar parte de la cultura popular: las grandes empresas textiles hacen camisetas con referencias a videojuegos o videoconsolas reconocidas; se realizan grandes eventos mediáticos en torno videojuegos o personas relacionadas con los videojuegos, a las que se les da el trato de auténticas estrellas del rock; se crean canales de televisión en grandes plataformas audiovisuales dirigidos únicamente a los videojuegos y podríamos decir que toda esta vorágine alcanza su súmmum cuando en un evento de tanta proyección internacional como es el acto de clausura de los juegos olímpicos, el primer ministro del país que recibe el testigo para organizarlos en cuatro años, en este caso Japón, aparece disfrazado de un reconocido personaje de videojuegos: "`Mario"'.
 
 \begin{figure*}[htb]
 	\centering
-		\includegraphics[scale=0.75]{figures/newzoo-espectadores-esports.png}
+		\includegraphics[scale=0.42]{figures/evolucion-grafica-videojuegos.png}
+		\caption{Evolución gráfica de los videojuegos}
+\end{figure*}
+
+Aún queda un largo camino por recorrer, es un problema que persigue al sector desde su creación, pero en los últimos años hemos vivido una apertura de los videojuegos a la sociedad de tal magnitud que una parte relevante de la misma lo ha pasado a ver de una forma distinta, dejando de lado ese citado recelo o cualquier connotación negativa, lo cual sin duda no puede ser más que favorable para la industria y su crecimiento.
+
+Estableciendo un símil, podríamos comparar en algunos aspectos la fase en la que se encuentra la industria del videojuego con aquella en la que se podría encontrar la industria cinematográfica hace unas décadas: el sector está en etapa de expansión, cada vez más universidades empiezan a formar en ámbitos relacionados directamente con los videojuegos, se crean cada vez más puestos de trabajo bajo su cobijo \cite{sectorvideojuegoimparableesp} e incluso están creciendo verdaderas celebridades en torno a la industria, ya que es habitual que las personas que son consumidores de la industria conozcan directores de juegos, compositores o jugadores profesionales, por citar unos ejemplos. Igualmente, no todos los aspectos el sector cinematográfico está más avanzado, ya que no podemos comparar las industrias del videojuego y del cine pasando por alto que la primera, pese a su más que notable juventud, consigue doblar en beneficios a la segunda en nuestro país \cite{economistavideojuegosdoblaacine}.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.52]{figures/relacion-videojuegos-musica-cine-esp.png}
+		\caption{Relación entre el dinero generado por los videojuegos, la música grabada y el cine durante 2015 en España \cite{economistavideojuegosdoblaacine}}
+\end{figure*}
+
+En conclusión, es cuestión de tiempo que a los videojuegos se le otorgue socialmente el mismo estatus que al cine: ser calificados de cultura o arte, y remarco socialmente porque en países como el nuestro ya están catalogados como cultura, pero ese mensaje aún está por calar en muchos estratos de la sociedad.
+
+\clearpage
+
+\subsection{El boom de los e-sports y los juegos para móvil}
+
+Aunque ninguno de los dos sectores estén estrictamente relacionados con lo que nos ocupa en este proyecto, son dos importantes motores de la industria que debemos analizar para contextualizarnos y entender plenamente la magnitud del mercado de los videojuegos actualmente.
+
+Los deportes electrónicos, también denominados e-sports, son prueba del auge que está viviendo la industria, de los puestos de trabajo que genera en diversos sectores y de las posibilidades de negocio que hay alrededor del éxito que están viviendo actualmente. Actualmente sufren un vertiginoso ascenso y muestra de ello son las cifras de espectadores, que suben año tras año. Actualmente se cifran en 385 millones las personas que siguen los deportes electrónicos (entre espectadores ocasionales y entusiastas, con una proporción similar para ambos), con el pronóstico de llegar a 589 millones de espectadores en 2020, lo que supone un incremento de más del 50\% en 3 años \cite{newzoo2017esports}.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.8]{figures/newzoo-espectadores-esports.png}
 		\caption{Audiencia y previsión de crecimiento de los espectadores de deportes electrónicos \cite{newzoo2017esports}}
 \end{figure*}
 
-Como se describía en la sección anterior, cadenas de ámbito nacional ya dedican algunos de sus diales a tiempo completo a los videojuegos y, realmente, casi la totalidad de estos suelen estar ligados a los e-sports, algo que actualmente es tendencia en los estados de nuestro entorno y algo normal desde hace años en algunos países concretos como Corea del Sur, pero el poderío de los e-sports va más allá: los deportes electrónicos mueven millones de personas en todo el mundo, consiguen llenar estadios, reparten millones en premios y, quizá algo que es mucho más importante, generan un fenómeno fan que, aunque pueda impresionar si no se conoce a fondo este sector, está en vías de convertirse en uno tan poderoso como el que podría ser a día de hoy el fútbol: los espectadores de este tipo de entretenimiento no paran de crecer, conocen los equipos, sus jugadores y, de manera similar como ocurre en los deportes tradicionales, muchos de ellos marcan en el calendario el siguiente torneo de su juego preferido o el próximo partido de su equipo favorito. El fenómeno es tal que incluso se realizan realities de cómo estos equipos de deportes electrónicos viven o entrenan.
+Igualmente, como se describía en la sección anterior, cadenas de ámbito nacional ya dedican algunos de sus diales a tiempo completo a los videojuegos y, realmente, casi la totalidad de estos suelen estar ligados a los e-sports, algo que actualmente es tendencia en los estados de nuestro entorno y algo normal desde hace años en algunos países concretos como Corea del Sur.
 
-Por otra parte, los dispositivos móviles están ayudando a que la industria llegue a un número mucho mayor de personas y, lo que es mucho más importante, de una manera más indirecta: ya no es necesario que el usuario sienta esa necesidad, deseo o impulso específico de jugar a videojuegos y realice un desembolso para adquirir una consola, algo que sin duda puede hacer que muchos usuarios potenciales se pierdan en el proceso, sino que cualquiera que disponga de un teléfono móvil puede gozar de un gran catálogo de juegos sea cual sea su plataforma y de una manera muy accesible, por lo que tarde o temprano la mayoría probará lanzar algún videojuego en su dispositivo.
+Aún así, la fuerza de los e-sports va más allá: los deportes electrónicos mueven millones de personas en todo el mundo, consiguen llenar estadios con sus eventos, reparten millones en premios y, quizá algo que es mucho más importante, generan un fenómeno fan que, aunque pueda impresionar si no se conoce a fondo este sector, está en vías de convertirse en uno tan poderoso como el que podría ser a día de hoy el fútbol: como se comentaba previamente los espectadores de este tipo de entretenimiento no paran de crecer, pero no sólo eso, un amplio sector conoce los equipos, sus jugadores y, de manera similar como ocurre en los deportes tradicionales, muchos de ellos marcan en el calendario el siguiente torneo de su juego preferido o el próximo partido de su equipo favorito. El fenómeno es tal que incluso se realizan realities de cómo estos equipos de deportes electrónicos viven o entrenan.
 
-Este cambio en la accesibilidad amplía no sólo el espectro de jugadores que llegarán a poseer una consola o un ordenador \gls{gaming} para tener más títulos a su disposición, generando beneficios para la industria en el proceso, sino que llega a sectores de la población a los que antes era difícil acceder, como el de las personas de mediana edad, y provocan cambios en las tendencias tales como que las mujeres superen a los hombres, en un sector tradicionalmente de los últimos, en el número total de jugadores.
+Este fenómeno coincide en el tiempo con la expansión del mercado del videojuego en los terminales móviles, el cuál genera una importante cantidad de dinero para la industria y, de igual manera que pasa con los deportes electrónicos, está en alza con beneficios que superan los 36.000 millones de dólares en 2016 \cite{newzoo2016report, newzoo2017mobilereport}, lo que supone en torno al 37\% de los beneficios totales de la industria obtenidos el pasado año \cite{newzoo2016report}.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.45]{figures/newzoo-comparatiba-app-moviles.png}
+		\caption{Comparativa, beneficios y previsiones entre los juegos para móvil y el resto de aplicaciones (datos en billones americanos) \cite{newzoo2017mobilereport}}
+\end{figure*}
+
+Además, los dispositivos móviles están ayudando a que la industria llegue a un número mucho mayor de personas y, lo que es mucho más importante, de una manera más indirecta: ya no es necesario que el usuario tenga el deseo específico de jugar a videojuegos y realice un desembolso para adquirir una consola u ordenador \gls{gaming}, algo que sin duda puede hacer que muchos usuarios potenciales se pierdan en el proceso, sino que cualquiera que disponga de un teléfono móvil, sea cual sea su plataforma, puede gozar de un amplio catálogo de juegos y de una manera muy accesible, por lo que tarde o temprano la mayoría probará lanzar algún videojuego en su dispositivo y parte de ellos pasarán a ser usuarios habituales de la industria, con las repercusiones que ello conlleva.
+
+Este cambio en la accesibilidad amplía no sólo el espectro de jugadores que llegarán a poseer una consola o un ordenador \gls{gaming} para tener más títulos a su disposición, generando beneficios para la industria en el proceso, sino que llega a sectores de la población a los que antes era difícil acceder, como el de las personas de mediana edad, y provocan cambios en las tendencias tales como que las mujeres igualen a los hombres \cite{mujeresvideojuegos}, en un sector tradicionalmente de los últimos, en el número total de jugadores.
+
+\clearpage
 
 \subsection{El auge del videojuego independiente}
 
-Centrándonos más en el proyecto que nos ocupa, cabe destacar el fenómeno de los videojuegos \glslink{independiente}{indie}: juegos desarrollados con poco presupuesto, por un equipo de desarrollo pequeño y que, generalmente, se atreven a arriesgarse un poco más que la media puesto que, tradicionalmente, los juegos desarrollados por grandes empresas y que cuentan con un gran presupuesto detrás tienden a asegurar más, a ser un producto similar a lo que ya está triunfando en ese momento en el mercado. En definitiva, no suelen estar dirigidos al gran público sino que suelen ser un producto de nicho dirigido a un sector muy específico dentro de la comunidad de jugadores.
-
-Si bien se podría decir que nacieron en la clandestinidad, desde hace años están teniendo una enorme aceptación y prueba de ello es que cada vez tienen mayor visibilidad: Steam, la principal plataforma de \glslink{distribuidora}{distribución} digital en PC y que es propiedad de "`VALVe"', apoya los videojuegos \glspl{independiente} gracias a su "`Steam Greenlight"', permitiendo a los usuarios de su plataforma valorar juegos desconocidos y, si la aceptación es buena, incluirlos en su catálogo. Sony con su videoconsola PlayStation y Microsoft con su homónima Xbox incorporan desde hace ya algunos años \glslink{independiente}{indies} en su catálogo, y si bien en un principio eran bastante escasos y sujetos a una serie de restricciones (por ejemplo, en Xbox se apoyaban los juegos realizados con su propio creador de juegos) cada vez son más, y recientemente ha sido Nintendo quien no ha podido dejar pasar el carro de los videojuegos \glslink{independiente}{indies} incorporando estos a su catálogo de lanzamiento de Nintendo Switch.
+Centrándonos más en el proyecto que nos ocupa, cabe destacar el fenómeno de los videojuegos \glslink{independiente}{indie}: juegos desarrollados con poco presupuesto, por un equipo de desarrollo pequeño y que, generalmente, se atreven a arriesgarse más que la media puesto que, tradicionalmente, los juegos desarrollados por grandes empresas y que cuentan con un gran presupuesto detrás tienden a asegurar más, a ser un producto similar a lo que ya está triunfando en ese momento en el mercado. En definitiva, no suelen estar dirigidos al gran público sino que suelen ser un producto de nicho dirigido a un sector muy específico dentro de la comunidad de jugadores. Además, cabe destacar que gran parte de la culpa de su irrupción la tuvo la consolidación \glslink{distribuidora}{distribución} digital, que abrió puertas a muchos desarrolladores y abarató costes, ya que es más rentable para el desarrollador que negociar con una \glslink{distribuidora}{distribución} tradicional.
 
 \begin{figure*}[htb]
 	\centering
 		\includegraphics[scale=0.36]{figures/lanzamientos-indies-steam-greenlight.png}
-		\caption{Lanzamientos indies a partir de Steam Greenlight \cite{zehndesarrolloesp}}
+		\caption{Relevancia del programa "`Greenlight"' en los lanzamientos indies \cite{zehndesarrolloesp}}
+\end{figure*}
+
+Si bien se podría decir que nacieron en la clandestinidad, desde hace años gozan de una enorme aceptación y prueba de ello es que cada vez tienen mayor visibilidad: "`Steam"', la principal plataforma de \glslink{distribuidora}{distribución} digital en PC, propiedad de "`VALVe"', apoya los videojuegos \glspl{independiente} gracias a su "`Steam Greenlight"', permitiendo a los usuarios de su plataforma valorar juegos desconocidos y, si la aceptación es buena, pasar a incluirlos en su catálogo. Sony con su videoconsola PlayStation y Microsoft con su homónima Xbox incorporan desde hace ya algunos años \glslink{independiente}{indies} en su catálogo, y si bien en un principio eran bastante escasos es un hecho que cada vez se apuesta más por ellos y se fomenta la aparición de nuevos \cite{playstationindiesesp, xboxindiesesp}. Más recientemente ha sido Nintendo quien no ha podido dejar pasar el tren de los videojuegos \glslink{independiente}{indies} incorporándolos al catálogo de lanzamiento de Nintendo Switch.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.42]{figures/videojuegos-indies.png}
+		\caption{Ejemplos de videojuegos indies se hicieron un hueco en el mercado}
 \end{figure*}
 
 Cabe remarcar que recientemente, desde Junio de 2017, el programa de "`VALVe"' para sus juegos independientes de "`Steam"' denominado "`Steam Greenlight"' no acepta nuevas aportaciones. Esto es porque la compañía está haciendo algunas modificaciones y el sistema pasará a denominarse "`Steam Direct"'. El principal cambio será que los desarrolladores tendrán que abonar una fianza 100\$ por juego, en lugar de realizar un único pago como en "`Greenlight"' y que permitía publicar tantos juegos en el programa como se quisiese, y al recaudar 1000\$ en beneficios la fianza será devuelta. El principal motivo de esto es mejorar la calidad de los juegos que se incorporan finalmente a la plataforma al salir del programa de lanzamientos \cite{steamdirectannouncement, steamgreenlightdirectdiferencias}.
 
+En la actualidad, existen un gran número de \glslink{independiente}{indies} que han saltado a la fama, el caso más conocido es el de "`Minecraft"' (2011), pero existen otros muchos títulos como "`Super Meat Boy"' (2010), "`The Binding Of Isaac"' (2011 y su remasterización, "`Rebirth"', lanzada en 2014), "`FEZ"' (2012) o "`Hotline Miami"' (2012).
+
 En conclusión, estamos en un momento en el que existe un público dentro de la comunidad que valora desde hace años el soplo de aire fresco que supone el contenido independiente en la industria, que permanecen atentos al panorama \glslink{independiente}{indie} y no sólo a los lanzamientos \gls{triplea} (o  \glslink{triplea}{AAA}), y en muchos casos valoran este tipo de contenido por encima de una superproducción que va dirigida a un público mucho menos específico.
+
+\clearpage
 
 \subsection{La irrupción de los trofeos / logros y su impacto}
 
-Aunque en la década de los 90 ya aparecieron los primeros videojuegos con algún sistema de desafíos (en concreto el juego "`E-Motion"' para la videoconsola "`Amiga"'), no fue hasta hace muy poco, con la aparición de la consola "`Xbox 360"' y su sistema de logros (asociados a una "`Gamertag"'), que no se redefinieron hasta como los conocemos hoy en día: los logros son definidos en cada juego por los desarrolladores, pero una vez que obtienen se quedan registrados en el perfil del usuario. Esto permite al jugador exhibir los logros que más le gusten, los más raros, mostrar el número total de ellos, el número de juegos con todos los logros completados, el porcentaje de obtención de logros medio en sus juegos... En resumen, con esta renovación pasaron a tener un aspecto mucho más social.
+Aunque en la década de los 90 ya aparecieron los primeros videojuegos con algún atisbo de sistema de desafíos no fue hasta hace muy poco, con la aparición de la consola "`Xbox 360"' y su sistema de logros (asociados a una "`Gamertag"'), que no se redefinieron hasta como los conocemos hoy en día: los logros son diseñados e implementados en cada juego por los desarrolladores, pero una vez que obtienen se quedan registrados en el perfil del usuario. Esto permite al jugador exhibir los logros que más le gusten, los más raros, mostrar el número total de ellos, el número de juegos con todos los logros desbloqueados, el porcentaje de obtención de logros medio, etc. En resumen, con esta renovación pasaron a tener un aspecto mucho más social.
 
-Además cabe destacar que su propósito inicial se ha ido desvirtualizando con el tiempo: un logro, como si propio nombre indica, originariamente era otorgado al jugador cuando este realizaba algún tipo de proeza en el juego o cuando completaba el mismo. Actualmente también se usan en muchos casos para mostrar la progresión del jugador en el juego pero por otra parte existen cada vez más títulos, conocidos como "`achievement machines"' (que podría traducirse como "`máquinas de logros"'), que recompensan excesivamente al jugador (por ejemplo, cada vez que realiza una acción básica como saltar, disparar, o bien múltiples logros por completar la misma acción) y además permiten completar el juego en cuestión de minutos, y aunque pudiera parecer lo contrario este tipo de juegos, por el mero hecho de permitirte obtener un gran número de logros en poco tiempo o logros que te permitan decorar el perfil, tiene un público y va creciendo.
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.9]{figures/e-motion.png}
+		\caption{Captura del juego "`E-Motion"' (1990), para la videoconsola "`Amiga"', uno de los primeros juegos en implementar algún tipo de logro}
+\end{figure*}
 
-A día de hoy existen numerosas plataformas destinadas a los "`achievement hunters"' o "`cazadores de logros"' (como pueden ser "`AStats"' o "`AchievementStats"' en "`Steam"'), que elaboran numerosas estadísticas con los logros y confeccionan un ranking de jugadores atendiendo a los mismos, y otras muchas comunidades con guías o tutoriales para obtener logros específicos (las más importantes de habla inglesa podrían ser "`XBoxAchievements"' en "`Xbox"' o "`PlayStationTrofies"' en "`PlayStation"').
+Cabe destacar que su propósito inicial se ha ido desvirtualizando con el tiempo: un logro, como si nombre indica, originariamente era otorgado al jugador cuando este realizaba algún tipo de proeza en el juego o, por ejemplo, cuando completaba el mismo. Actualmente también se usan en muchos casos para mostrar la progresión del jugador pero por otra parte existen cada vez más títulos, conocidos como "`achievement machines"' (que podría traducirse como "`máquinas de logros"'), que recompensan excesivamente al jugador (por ejemplo, cada vez que realiza una acción básica como saltar, disparar, o bien múltiples logros por completar la misma acción) \cite{pcgamerachievementmachine} y además permiten completar el juego en cuestión de minutos. Aunque en primera instancia pudiera parecer lo contrario, este tipo de juegos, por el mero hecho de permitirte obtener un gran número de logros en poco tiempo o logros que te permitan decorar el perfil, tiene un público y va creciendo \cite{comportamientologros}.
+
+A día de hoy existen numerosas plataformas destinadas a los "`achievement hunters"' o "`cazadores de logros"' (como pueden ser "`AStats"' o "`AchievementStats"' en "`Steam"'), que elaboran numerosas estadísticas con los logros y confeccionan un ranking de jugadores atendiendo a los mismos, y otras muchas comunidades con guías o tutoriales para obtener logros específicos (como podrían ser "`XBoxAchievements"' en "`Xbox"' o "`PlayStationTrofies"' en "`PlayStation"').
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=1.3]{figures/minecraft-achievements.png}
+		\caption{Imagen del sistema de logros interno de "`Minecraft"' (2011), que se mantuvo hasta la versión 1.11}
+\end{figure*}
 
 En definitiva, en la actualidad los logros tienen un peso importante para un sector considerable de los jugadores, de tal manera que algunos incluso dejan de comprar un título por carecer de logros o retrasan la compra hasta que incorporen los mismos.
+
+\clearpage
 
 \section{Estado del arte}
 
 La industria de los videojuegos, aunque es difícil determinar su origen exacto (los primeros videojuegos surgieron tras la Segunda Guerra Mundial, pero a un ritmo lento y no son más que los albores del sector que conocemos hoy en día), es una industria joven. A pesar de esta juventud, y poniéndonos en antecedentes, es un sector que ya ha pasado por una grave crisis a principios de los ochenta y que lo llevó al borde de su extinción. Esta crisis fue motivada, principalmente, por el descontrol que originó la coexistencia en el mercado de demasiadas consolas y, sobre todo, el lanzamiento al mercado de un gran número de videojuegos de baja calidad, sin ningún tipo de control, mermando la confianza del usuario y haciendo descender las cifras de ventas.
 
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.7]{figures/atari-et.png}
+		\caption{Imagen del juego "`E.T."' para la "`Atari 2600"', uno de los máximos detonantes de la crisis del videojuego \cite{atariet}}
+\end{figure*}
+
 La crisis se extendió hasta mediado de los ochenta y, desde entonces, la industria goza de salud y ha ido en crecimiento sin atravesar de nuevo ningún valle, por el contrario, es un sector que desde aquel momento ha ido en una clara tendencia positiva y que actualmente sigue en pleno auge.
 
-Centrándonos en lo que supone en nuestro país, cada vez las universidades y academias ofertan más titulaciones o cursos relacionados con los videojuegos, y esto ayuda a que poco a poco el tejido empresarial relacionado con la industria del videojuego vaya creciendo. La existencia de poco tejido empresarial no ha impedido que en el pasado, durante la corta historia de la industria, en nuestro país hayan aparecido títulos de primer orden a nivel internacional: el caso más conocido es el de la saga "`Commandos"', que hizo su aparición a finales de los noventa y, más recientemente, un título que podríamos catalogar de súper producción, "`Castlevania: Lord of the Shadows"' (2010).
+Además, debemos hacer mención que en España justo después de la crisis se entró en un periodo denominado "`la edad de oro del software español"', que se extendió entre 1983 y 1992, en la que el país se convirtió en uno de los principales creadores de videojuegos de Europa.
 
-Aunque hay excepciones, la notable la mayoría de los juegos actuales son realizados a partir de un \gls{motorgrafico} comercial ya definido. Estos motores suelen ser propiedad de la compañía, o bien de terceros bajo acuerdo, pero en los últimos años han surgido varios motores de uso gratuito que han ganado enorme popularidad y que hacen más accesible el desarrollo de videojuegos, entre los que encontramos Unreal Engine, CryEngine o Unity.
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.89]{figures/la-abadia-del-crimen.png}
+		\caption{Fotograma de "`La abadía del crimen"' (1987), uno de los máximos estandartes de "`la edad de oro del software español"'}
+\end{figure*}
 
-Tomando como ejemplo Unreal Engine, que es el motor que se usará para llevar a cabo este proyecto, es una potente herramienta que más allá de satisfacer las necesidades básicas del desarrollador (\glslink{renderizar}{renderizado} 2D/3D, detección de colisiones, texturizado de objetos, sistema de luces, etc.) incorpora importantes herramientas en su haber tales como "`Persona"', que permite al desarrollador crear o realizar cambios en animaciones o "`UMG"', que permite crear una interfaz de usuario de una manera sencilla dentro del motor. Además, permite utilizar tanto C++ como programación gráfica (a lo que se suele hacer referencia como "`Blueprints"') siendo la segunda forma unas 10 veces peor en rendimiento que la primera, según la propia Epic Games, desarrolladores de Unreal Engine.
+Volviendo a nuestros días y centrándonos en lo que la industria supone en nuestro país, cada vez las universidades y academias ofertan más titulaciones o cursos relacionados con los videojuegos, y esto ayuda a que poco a poco el tejido empresarial relacionado con la industria del videojuego vaya creciendo \cite{sectorvideojuegoimparableesp}. La existencia de poco tejido empresarial no ha impedido que en el pasado, durante la corta historia de la industria, en nuestro país hayan aparecido títulos de primer orden a nivel internacional: el caso más conocido es el de la saga "`Commandos"', que hizo su aparición a finales de los noventa y, más recientemente, un título que podríamos catalogar de súper producción, "`Castlevania: Lord of the Shadows"' (2010).
+
+Aunque hay excepciones, la notable la mayoría de los juegos actuales son realizados a partir de un \gls{motorgrafico} comercial ya definido. Estos motores suelen ser propiedad de la compañía, o bien de terceros bajo acuerdo, pero en los últimos años han surgido varios motores de uso gratuito que han ganado enorme popularidad y que hacen más accesible el desarrollo de videojuegos, entre los que encontramos Unreal Engine 4, CryEngine 3 o Unity.
+
+\clearpage
+
+Tomando como ejemplo Unreal Engine, que es el motor que se usará para llevar a cabo este proyecto, es una potente herramienta que más allá de satisfacer las necesidades básicas del desarrollador (\glslink{renderizar}{renderizado} 2D/3D, detección de colisiones, texturizado de objetos, sistema de luces, etc.) incorpora importantes herramientas en su haber tales como "`Persona"', que permite al desarrollador crear o realizar cambios en animaciones o "`UMG"', que permite crear una interfaz de usuario de una manera sencilla dentro del motor. Además, permite utilizar tanto C++ como programación gráfica (a lo que se suele hacer referencia como "`Blueprints"') siendo la segunda forma unas 10 veces peor (de media) en rendimiento que la primera, según la propia Epic Games, desarrolladores de Unreal Engine \cite{epicgamesblueprintsvscpp}.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.45]{figures/ue4-infiltrator-tech-demo.png}
+		\caption{Imagen de la primera demostración técnica en tiempo real de Unreal Engine 4, titulada "`Infiltrator"'}
+\end{figure*}
+
+Podemos concluir que la industria pasa por un buen momento, está en continuo crecimiento y no hay ningún indicio que nos haga pensar que se pueda volver a repetir una crisis como la que se originó en los ochenta, y mucho menos por la misma razón: la desinformación, premisa que es impensable que se pueda volver a dar en nuestros días. Por otro lado, los motores gráficos actuales son un avanzado conjunto de herramientas que permiten a los desarrolladores crear sus productos de una manera más sencilla y rápida que antaño, lo que repercute en los tiempos de ejecución y permite abordar cada vez proyectos más extensos o ambiciosos influyendo, por lo tanto, de manera directa en el acabado final del producto conforme van evolucionando.
