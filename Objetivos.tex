@@ -1,10 +1,6 @@
 %!TEX root =  tfg.tex
 \chapter{Objetivos del proyecto}
 
-\begin{quotation}[Novelist]{Sir James Matthew Barrie (1860--1937)}
-The secret of happiness is not in doing what one likes, but in liking what one does. 
-\end{quotation}
-
 \begin{abstract}
 La siguiente sección presenta más detalladamente el proyecto, la razón de ser del mismo y un listado de objetivos, tantos del producto como individuales, que se pretenden alcanzar en el transcurso de su realización.
 \end{abstract}
@@ -12,7 +8,13 @@ La siguiente sección presenta más detalladamente el proyecto, la razón de ser de
 \section{Motivación}
 \label{sec:motivacion}
 
-Dada la saturación del mercado con productos similares o clónicos se pretende crear un videojuego que, siguiendo la filosofía indie que se describía previamente, consiga ser innovador mezclando géneros, que se salga del esquema predominante y rete al jugador siendo desafiante con sus \glspl{mecanica} y haciéndole pensar, haga uso de la principalmente primera persona para tener la posibilidad de aprovechar el auge de la tecnología de realidad virtual y que, premeditadamente, deje bastante de lado la historia, personajes o desarrollo de los mismos y, por tanto, se centre plenamente en la \gls{jugabilidad}. El jugador deberá ir haciendo uso de todas las \glspl{mecanica} de las que dispone para sortear obstáculos, esquivar trampas, solucionar puzzles y hallar el camino correcto para ir avanzando en el juego.
+Dada la saturación del mercado con productos similares o, directamente, clónicos se pretende crear un videojuego que, siguiendo la filosofía \glslink{independiente}{indie} que se describía previamente, consiga ser innovador mezclando géneros, que se salga del esquema predominante y rete al jugador siendo desafiante con sus \glspl{mecanica} y haciéndole pensar, que haga uso de la principalmente primera persona para tener la posibilidad de aprovechar el auge de la tecnología de realidad virtual y que, premeditadamente, deje bastante de lado la historia, personajes o desarrollo de los mismos y, por tanto, se centre plenamente en la \gls{jugabilidad}. El jugador deberá ir haciendo uso de todas las \glspl{mecanica} de las que dispone para sortear obstáculos, esquivar trampas, solucionar puzzles y hallar el camino correcto para ir avanzando en el juego.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.55]{figures/bioshock.png}
+		\caption{Fotograma de "`Bioshock"' (2007), uno de los pocos "`First Person Shooter"' ("`FPS"') que se supieron diferenciar dentro de la saturación del género}
+\end{figure*}
 
 El \gls{gameplay} se basaría en la repetición y memorización de niveles, esquive y \gls{timing}, así como en la gestión de adrenalina y, en menor medida, en la resolución de pequeños puzles y exploración:
 
@@ -26,11 +28,19 @@ El \gls{gameplay} se basaría en la repetición y memorización de niveles, esquive
 
 Podríamos concluir que, principalmente, mezcla los géneros de primera persona, aventura / exploración, \gls{plataformas}, \gls{bullethell} y puzle.
 
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.68]{figures/enter-the-gungeon.png}
+		\caption{Captura de "`Enter the gungeon"' (2016), ejemplo de la forma más tradicional de bullet hell en dos dimensiones}
+\end{figure*}
+
 Teniendo en cuenta lo descrito anteriormente sería un producto que no va dirigido al gran público, sino que el público objetivo sería más bien un público de nicho, que busque algo diferente e intente poner a prueba sus capacidades.
+
+\clearpage
 
 \section{Listado de objetivos}
 
-He decidido dividir esta sección en dos partes, los objetivos que pretendo alcanzar individualmente y los objetivos que pretendo que alcance el producto:
+Para una mayor claridad se ha decidido dividir esta sección en dos partes, los objetivos que se pretenden alcanzar individualmente y los objetivos que se pretende que alcance, una vez finalizado, el producto:
 
 \subsection{Objetivos del producto}
 
@@ -47,6 +57,8 @@ He decidido dividir esta sección en dos partes, los objetivos que pretendo alcan
 	\item \textbf{Sistema interno de desafíos / logros:} Se guardará también el progreso del jugador en materia de desafíos en su archivo de guardado. Esto es independiente de cualquier sistema de logros que se pudiesen implementar en el futuro en el juego (logros de Steam, trofeos de PlayStation, logros de Xbox, etc.), pero serían los mismos desafíos por lo que sólo faltaría la comunicación con el sistema de logros externo pertinente. Un sistema como éste es el que usan actualmente muchos títulos del mercado, como "`The Binding of Isaac: Rebirth"' o "`Payday: The Heist"': cuando el usuario alcanza un requisito para un logro se marca el desafío como completado internamente (archivo de guardado) y a la vez lo comunican al servidor de logros pero, si esto por algún motivo falla, lo comunican de nuevo al iniciar otra vez el juego.
 	\item \textbf{Optimización:} Optimizar lo máximo posible realizando todo el contenido posible en C++ ya que como explicaba anteriormente (tomando la propia Epic Games como fuente, desarrolladora de Unreal Engine), los tiempos de ejecución de ese código se reducen en torno a 10 veces usando el lenguaje de programación en C++ sobre la implementación en programación gráfica.
 \end{description}
+
+\clearpage
 
 \subsection{Objetivos individuales}
 
