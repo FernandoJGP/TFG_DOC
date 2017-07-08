@@ -1,10 +1,6 @@
 %!TEX root =  tfg.tex
 \chapter{Planificación}
 
-\begin{quotation}[Novelist]{Ernest Hemingway (1899--1961)}
-The good parts of a book may be only something a writer is lucky enough to overhear or it may be the wreck of his whole damn life -- and one is as good as the other.
-\end{quotation}
-
 \begin{abstract}
 En la siguiente sección se expone la planificación del proyecto y el informe de tiempos generado durante el transcurso del mismo que, comparado con lo anterior, nos permitirá ver la desviación en cuanto a tiempo del proyecto.
 \end{abstract}
@@ -16,11 +12,11 @@ En la siguiente sección se expone la planificación del proyecto y el informe de 
 	\centering
 	\begin{coolTable}{ll}{2}
 {Resumen del proyecto}
-	\textbf{Fecha de inicio}&TODO/TODO/2017\\
-	\textbf{Fecha de fin}&TODO/TODO/2017\\ %Entrega memoria 13-06-2017 o 04-09-2017
-	\textbf{Periodicidad de las revisiones (promedio)}&TODO semanas\\
-	\textbf{Carga de trabajo semanal (promedio)}&TODO horas\\
-	\textbf{Horas totales previstas}&TODO horas\\ % entre 25-30 horas por crédito
+	\textbf{Fecha de inicio}&20/02/2017\\
+	\textbf{Fecha de fin}&27/08/2017\\ %Entrega memoria 13-06-2017 o 04-09-2017
+	\textbf{Periodicidad de las revisiones (promedio)}&2 semanas\\
+	\textbf{Carga de trabajo semanal (promedio)}&16,31 horas\\
+	\textbf{Horas totales previstas}&310 horas\\ % entre 25-30 horas por crédito
 	\textbf{Horas finales}&TODO horas\\
 	\end{coolTable}
 	\caption{Tabla resumen de tiempos y planificación}
@@ -28,94 +24,232 @@ En la siguiente sección se expone la planificación del proyecto y el informe de 
 
 \section{Planificación inicial}
 
-La siguiente tabla muestra un resumen de las iteraciones junto con su fecha de comienzo y fin:
+Para su planificación, se ha decidido dividir el proyecto en siguientes fases o iteraciones, las cuales se describen a continuación junto con los roles que participan principalmente:
+
+\begin{itemize}
+	\item \textbf{Fase de estudio}: En esta primera etapa interviene únicamente el rol \textbf{jefe de proyecto} (aunque en un contexto real intervendrían más personas, como por ejemplo el diseñador jefe), que será el encargado de estudiar las diferentes tecnologías que tiene a su disposición y de poner los cimientos más básicos de la ruta que seguirá el proyecto.
+	\item \textbf{Fase de inicio del proyecto (o iteración 0)}: Es la etapa en la que se realizan las siguientes tareas:
+		\begin{itemize}
+			\item Las primeras fases de la metodología y buena parte de la elaboración de la memoria, salvando los apartados finales (por ejemplo, el manual o las conclusiones) y las secciones centradas en el desarrollo, principalmente.
+			\item El diseño general del videojuego y, por tanto, el documento de diseño del videojuego.
+			\item La inicialización del proyecto, preparación del repositorio, etc.
+		\end{itemize}
+	Teniendo en cuenta lo descrito, en esta fase intervienen el \textbf{jefe de proyecto} (documentación del proyecto), el \textbf{diseñador} (realización del "`Documento de diseño del juego"' o "`GDD"') y el \textbf{programador} (inicialización del proyecto).
+	\item \textbf{Iteraciones 1-6}: Son las etapas más puramente de desarrollo. Intervienen tanto el \textbf{diseñador}, que será el encargado de preparar las iteraciones, como el \textbf{programador}, que será quien codifique y genere documentación de las iteraciones (como ya se explicó en la sección \ref{sec:adaptacionmetodologia}), además del \textbf{jefe de proyecto} que tendrá una labor de supervisión (principalmente gestionar tiempos empleados y retrasos). A continuación, se describen muy escuetamente las iteraciones (para más información, consultar el documento de diseño \ref{sec:gdd}):
+		\begin{itemize}
+			\item \textbf{Iteración 1. \textit{Mecánicas básicas y poderes}:} La primera iteración se implementarán las mecánicas más básicas, como saltar, agacharse, correr, etc. y, además, las mecánicas de las que podrá hacer uso el personaje cuando esté potenciado.
+			\item \textbf{Iteración 2. \textit{Mecánicas de escalada}:} En la segunda iteración se implementarán las mecánicas de "`plataformeo"' avanzadas.
+			\item \textbf{Iteración 3. \textit{HUD y menú}:} Durante la tercera iteración se creará el menú principal y el HUD del que dispondrá el usuario.
+			\item \textbf{Iteración 4. \textit{Peligros del entorno}:} La cuarta iteración tratará sobre la implementación los peligros del entorno que deberá esquivar el personaje.
+			\item \textbf{Iteración 5. \textit{Inteligencia artificial y sistema de guardado}:} Durante la quinta iteración se implementará la IA de los enemigos y el sistema de guardado.
+			\item \textbf{Iteración 6. \textit{Diseño de escenarios}:} En la sexta y última iteración se llevarán a cabo la creación de los escenarios de los que dispondrá, a modo de demostración, el videojuego a entregar. Esto incluye el diseño de un tutorial.
+		\end{itemize}
+	\item \textbf{Fase de cierre del proyecto}: En esta iteración intervienen el \textbf{diseñador}, encargado de elaborar el manual de la aplicación, y el \textbf{jefe de proyecto}, que será quien finalice los últimos apartados de la memoria, haga las últimas modificaciones sobre la misma y posteriormente realice la presentación mediante la cuál se expondrán los resultados del proyecto.
+\end{itemize}
+
+\clearpage
+
+A tenor de lo descrito y de la metodología establecida en el capítulo anterior, podemos establecer la siguiente relación:
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.45]{figures/fdd-correspondencias.png}
+		\caption{Equivalencias fases-metodología}
+\end{figure*}
+
+Además, analizando la diferentes fases \textbf{desde el punto de vista de los roles} podemos concluir que:
+
+\begin{itemize}
+	\item \textbf{Jefe de proyecto:} Realiza la mayor parte del esfuerzo en las primeras etapas del proyecto (fase de estudio y fase de inicio) y, en menor medida, al final del mismo (fase de cierre). Entre dichas fases, en las iteraciones, tiene un papel mucho más testimonial en el proyecto que nos ocupa.
+	\item \textbf{Diseñador:} La mayor parte del esfuerzo en este caso recae en la fase de inicio del proyecto, donde se tienen que sentar las bases del juego y diseñar el documento de diseño del juego. Durante las iteraciones tiene un papel mucho menos relevante que el programador pero más que el jefe de proyecto y, al igual que pasaba con éste último, también crece su esfuerzo al final del proyecto (fase de cierre).
+	\item \textbf{Programador:} Únicamente concentra su esfuerzo durante las iteraciones, durante el resto del proyecto no está presente en el escenario planteado.
+\end{itemize}
+
+\clearpage
+
+La siguiente tabla muestra un resumen de la planificación proyectada para las iteraciones junto con su fecha de comienzo y fin:
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{ll}{2}
-{Resumen de fases e iteraciones}
-	\textbf{Fase de estudio}&20/02/17 a 12/03/17\\
-	\textbf{Fase de inicio del proyecto}&13/03/17 a 02/04/17\\
-	\textbf{Iteración 1}&03/04/17 a 16/04/17\\
-	\textbf{Iteración 2}&24/04/17 a 14/05/17\\
-	\textbf{Iteración 3}&01/05/17 a 14/05/17\\
-	\textbf{Iteración 4}&15/05/17 a 28/05/17\\
-	\textbf{Iteración 5}&29/05/17 a 11/06/17\\
-	\textbf{Iteración 6}&12/06/17 a 25/06/17\\
-	\textbf{Fase de cierre del proyecto}&26/06/17 a 30/06/17\\
+{Resumen de fases e iteraciones (planificación)}
+	\textbf{Fase de estudio}&20/02/17 a 12/03/17 (3 semanas)\\
+	\textbf{Fase de inicio del proyecto}&13/03/17 a 02/04/17 (3 semanas)\\
+	\textbf{Iteración 1}&03/04/17 a 16/04/17 (2 semanas)\\
+	\textbf{Iteración 2}&24/04/17 a 14/05/17 (3 semanas)\\
+	\textbf{Iteración 3}&15/05/17 a 28/05/17 (2 semanas)\\
+	\textbf{Iteración 4}&03/07/17 a 09/07/17 (1 semana)\\
+	\textbf{Iteración 5}&10/07/17 a 23/07/17 (2 semanas)\\
+	\textbf{Iteración 6}&24/07/17 a 06/08/17 (2 semanas)\\
+	\textbf{Fase de cierre del proyecto}&07/08/17 a 13/08/17 (1 semana)\\
+	\hline
+	\textbf{\textit{Red de seguridad}}&14/08/17 a 31/08/17 (2,5 semanas)\\
 	\end{coolTable}
-	\caption{Planificación temporal de fases e iteraciones}
+	\caption{Planificación temporal de fases e iteraciones (planificación)}
 \end{table*}
 
-Observando la tabla, podemos apreciar que podríamos establecer una clara diferenciación ente las iteraciones:
+Como podemos extraer de la tabla, durante la ejecución del proyecto hay planificadas dos paradas, la primera es de sólo una semana y la segunda de un mes. Se describen a continuación:
 \begin{itemize}
-	\item \textbf{Fase de estudio}: En esta primera etapa interviene principalmente el jefe de proyecto, que será el encargado de estudiar las diferentes tecnologías que tiene a su disposición y de poner los cimientos más básicos de la ruta que seguirá el proyecto.
-	\item \textbf{Fase de inicio del proyecto o iteración 0}: Es la etapa en la que se realizan las primeras fases de la metodología y buena parte de la elaboración de la memoria, salvando los apartados finales (por ejemplo, el manual o las conclusiones) y las secciones centradas en el desarrollo, principalmente. Teniendo en cuenta lo descrito, en esta fase intervienen el jefe de proyecto y el diseñador.
-	\item \textbf{Iteraciones 1-6}: Son las etapas más puramente de desarrollo. Intervienen tanto el analista, que será el encargado de preparar las iteraciones, como el programador, que será quien codifique y genere documentación de las iteraciones (como ya se explicó en la sección \ref{sec:adaptacionmetodologia}).
-	\item \textbf{Fase de cierre del proyecto}: En esta iteración intervienen el diseñador, encargado de elaborar el manual de la aplicación, y el jefe de proyecto, que será quien finalice los últimos apartados de la memoria, haga las últimas modificaciones sobre la misma y realice la presentación mediante la cuál se expondrán los resultados del proyecto.
+	\item \textbf{Semana del 17 al 23 de Abril:} Esta semana es coincidente con los primeros parciales.
+	\item \textbf{Mes de Junio (semanas entre el 29 de Mayo y el 02 de Julio):} Coincidente con los segundos parciales, exámenes finales y entrega y posterior defensa de proyectos de diversas asignaturas.
 \end{itemize}
 
-Nota: En prácticamente todas las fases del proyecto intervendrían los tres roles, pero dado el escenario en el que se enmarca el proyecto (con una única persona para tres roles), en cada fase debemos focalizar más en uno u otro.
+Además, como también figura en la tabla, se ha decidido establecer un periodo denominado "`\textbf{Red de seguridad}"' a modo de medida de contingencia para paliar cualquier retraso que surja durante la ejecución del proyecto. Esto es una medida recomendable en todos los proyectos pero más antes el que nos encontramos, ya que es el primer proyecto de este tipo / tecnología. En concreto tendremos un colchón de seguridad de dos semanas y media.
 
-TODO: Explicar cómo se han decidido las fechas, interacción con fechas importantes y situaciones personales.
+\clearpage
 
 A continuación se muestra una tabla detallada de las iteraciones, mostrando qué rol interviene, el número de horas de trabajo que participa y el número de horas totales de cada iteración:
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{llll}{4}
-{Iteraciones detalladas}
+{Planificación de fases e iteraciones detalladas}
 	\textbf{Iteración}&\textbf{Roles implicados}&\textbf{Horas est. / rol}&\textbf{Horas estimadas}\\
 	\midrule
 	\textbf{Fase de estudio}&Jefe de proyecto&30 horas&\textbf{30 horas}\\
 	\hline
-	\multirow{2}{*}{\textbf{Fase inicio proyecto}}&Jefe de proyecto&30 horas&\multirow{2}{*}{\textbf{40 horas}}\\&Diseñador&10 horas\\
+	\multirow{3}{*}{\textbf{Fase inicio proyecto}}&Jefe de proyecto&30 horas&\multirow{3}{*}{\textbf{60 horas}}\\&Diseñador&20 horas\\&Programador&10 horas\\
 	\hline
-	\multirow{2}{*}{\textbf{Iteración 1}}&Diseñador&4 horas&\multirow{2}{*}{\textbf{24 horas}}\\&Programador&20 horas\\
+	\multirow{3}{*}{\textbf{Iteración 1}}&Jefe de proyecto&4 horas&\multirow{3}{*}{\textbf{34 horas}}\\&Diseñador&6 horas\\&Programador&24 horas\\
 	\hline
-	\multirow{2}{*}{\textbf{Iteración 2}}&Diseñador&4 horas&\multirow{2}{*}{\textbf{24 horas}}\\&Programador&20 horas\\
+	\multirow{3}{*}{\textbf{Iteración 2}}&Jefe de proyecto&6 horas&\multirow{3}{*}{\textbf{51 horas}}\\&Diseñador&9 horas\\&Programador&36 horas\\
 	\hline
-	\multirow{2}{*}{\textbf{Iteración 3}}&Diseñador&4 horas&\multirow{2}{*}{\textbf{24 horas}}\\&Programador&20 horas\\
+	\multirow{3}{*}{\textbf{Iteración 3}}&Jefe de proyecto&4 horas&\multirow{3}{*}{\textbf{34 horas}}\\&Diseñador&6 horas\\&Programador&24 horas\\
 	\hline
-	\multirow{2}{*}{\textbf{Iteración 4}}&Diseñador&4 horas&\multirow{2}{*}{\textbf{24 horas}}\\&Programador&20 horas\\
+	\multirow{3}{*}{\textbf{Iteración 4}}&Jefe de proyecto&2 horas&\multirow{3}{*}{\textbf{18 horas}}\\&Diseñador&4 horas\\&Programador&12 horas\\
 	\hline
-	\multirow{2}{*}{\textbf{Iteración 5}}&Diseñador&4 horas&\multirow{2}{*}{\textbf{24 horas}}\\&Programador&20 horas\\
+	\multirow{3}{*}{\textbf{Iteración 5}}&Jefe de proyecto&4 horas&\multirow{3}{*}{\textbf{34 horas}}\\&Diseñador&6 horas\\&Programador&24 horas\\
 	\hline
-	\multirow{2}{*}{\textbf{Iteración 6}}&Diseñador&4 horas&\multirow{2}{*}{\textbf{24 horas}}\\&Programador&20 horas\\
+	\multirow{3}{*}{\textbf{Iteración 6}}&Jefe de proyecto&4 horas&\multirow{3}{*}{\textbf{34 horas}}\\&Diseñador&6 horas\\&Programador&24 horas\\
 	\hline
-	\multirow{2}{*}{\textbf{Fase cierre proyecto}}&Diseñador&0 horas&\multirow{2}{*}{\textbf{0 horas}}\\&Jefe de proyecto&0 horas\\
+	\multirow{2}{*}{\textbf{Fase cierre proyecto}}&Jefe de proyecto&10 horas&\multirow{2}{*}{\textbf{15 horas}}\\&Diseñador&5 horas\\
 	\midrule
-	\textbf{TOTAL}&&&\textbf{X horas}\\
+	\textbf{TOTAL}&&&\textbf{310 horas}\\
 	\end{coolTable}
-	\caption{Planificación temporal detallada de iteraciones}
+	\caption{Planificación temporal detallada de fases e iteraciones}
 \end{table*}
 
-Y, por último, de la anterior tabla podemos extraer el número total de horas de trabajo de cada rol, lo cuál nos será útil en el próximo capítulo cuando elaboremos la documentación relativa a los costes de personal (ver sección \ref{sec:costespersonal}):
+\clearpage
+
+Recordemos que es un proyecto realizado con una tecnología, que genera un producto nuevo y del que, por tanto, no se tienen referencias previas por lo que estimar las horas es especialmente difícil. Respecto a esto no hay mucho que podamos hacer, tan solo se han podido calcular las estimaciones sobre las horas dedicadas de cada rol durante las \textbf{fases de iteración} en base a las siguientes normas, para conseguir que sean homogéneas:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{ll}{2}
+{Calculo de horas por rol en iteraciones}
+	\textbf{Rol}&\textbf{Horas estimadas}\\
+	\hline
+	\textbf{Jefe de proyecto}&2 horas por semana\\
+	\textbf{Diseñador}&3 horas por semana\\
+	\textbf{Programador}&12 horas por semana\\
+	\end{coolTable}
+	\caption{Tabla del calculo de horas por rol en iteraciones}
+\end{table*}
+
+Por último, de la tabla de planificación detallada podemos extraer el número total de horas de trabajo de cada rol, lo cuál nos será útil en el próximo capítulo cuando elaboremos la documentación relativa a los costes de personal (ver sección \ref{sec:costespersonal}):
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{ll}{2}
 {Resumen de horas de trabajo por rol}
-	\textbf{Jefe de proyecto}&X horas\\
-	\textbf{Diseñador}&X horas\\
-	\textbf{Programador}&X horas\\
+	\textbf{Jefe de proyecto}&94 horas\\
+	\textbf{Diseñador}&62 horas\\
+	\textbf{Programador}&154 horas\\
 	\end{coolTable}
 	\caption{Tabla resumen de horas de trabajo por rol}
 \end{table*}
 
+\clearpage
+
 \section{Informe de tiempos del proyecto}
 
-TODO: Lo mismo que el anterior pero con datos reales. 
+Durante el desarrollo del proyecto se han obtenido los siguientes resultados respecto a tiempo:
 
 \begin{table*}[h!]
 	\centering
-	\begin{coolTable}{ll}{2}
-{Resumen de iteraciones}
-	\textbf{Iteración 1}&10/10/14 a 21/10/14\\
-	\textbf{Iteración 2}&21/10/14 a 15/11/14\\
-	\textbf{...}&dd/mm/aa a dd/mm/aa\\
+	\begin{coolTable}{llll}{4}
+{Tiempos empleados en fases e iteraciones detallados}
+	\textbf{Iteración}&\textbf{Roles implicados}&\textbf{Horas reales / rol}&\textbf{Horas reales}\\
+	\midrule
+	\textbf{Fase de estudio}&Jefe de proyecto&23,2 horas&\textbf{23,2 horas}\\
+	\hline
+	\multirow{3}{*}{\textbf{Fase inicio proyecto}}&Jefe de proyecto&48,2 horas&\multirow{3}{*}{\textbf{75,3 horas}}\\&Diseñador&21,6 horas\\&Programador&5,5 horas\\
+	\hline
+	\multirow{3}{*}{\textbf{Iteración 1}}&Jefe de proyecto&2,8 horas&\multirow{3}{*}{\textbf{26,8 horas}}\\&Diseñador&6,7 horas\\&Programador&17,3 horas\\
+	\hline
+	\multirow{3}{*}{\textbf{Iteración 2}}&Jefe de proyecto&4,3 horas&\multirow{3}{*}{\textbf{58,8 horas}}\\&Diseñador&9,8 horas\\&Programador&44,7 horas\\
+	\hline
+	\multirow{3}{*}{\textbf{Iteración 3}}&Jefe de proyecto&TODO horas&\multirow{3}{*}{\textbf{TODO horas}}\\&Diseñador&TODO horas\\&Programador&TODO horas\\
+	\hline
+	\multirow{3}{*}{\textbf{Iteración 4}}&Jefe de proyecto&TODO horas&\multirow{3}{*}{\textbf{TODO horas}}\\&Diseñador&TODO horas\\&Programador&TODO horas\\
+	\hline
+	\multirow{3}{*}{\textbf{Iteración 5}}&Jefe de proyecto&TODO horas&\multirow{3}{*}{\textbf{TODO horas}}\\&Diseñador&TODO horas\\&Programador&TODO horas\\
+	\hline
+	\multirow{3}{*}{\textbf{Iteración 6}}&Jefe de proyecto&TODO horas&\multirow{3}{*}{\textbf{TODO horas}}\\&Diseñador&TODO horas\\&Programador&TODO horas\\
+	\hline
+	\multirow{2}{*}{\textbf{Fase cierre proyecto}}&Jefe de proyecto&TODO horas&\multirow{2}{*}{\textbf{TODO horas}}\\&Diseñador&TODO horas\\
+	\midrule
+	\textbf{TOTAL}&&&\textbf{TODO horas}\\
 	\end{coolTable}
-	\caption{Planificación temporal de iteraciones}
+	\caption{Tabla de tiempos empleados en fases e iteraciones detallados}
 \end{table*}
 
-TODO: Justificar los retrasos de forma detallada aquí para cada una de las iteraciones. Explicar las razones.
+\clearpage
+
+La tabla que se muestra a continuación muestra la \textbf{desviación de tiempo} por iteración que se ha obtenido (en la cuál el símbolo "`\textbf{+}"' representará una desviación de tiempo negativa, es decir, que la fase ha llevado más tiempo del planeado y por contrapartida el símbolo "`\textbf{-}"' representará que se ha realizado en menos tiempo del previsto):
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lrr}{3}
+{Desviación de tiempo por iteración}
+	\textbf{Fase}&\textbf{Desviación de la iteración}&\textbf{Desviación acumulada}\\
+	\hline
+	\textbf{Fase de estudio}&\textbf{-6,8} horas&\textbf{-6,8} horas\\
+	\textbf{Fase de inicio del proyecto}&\textbf{+13,5} horas&\textbf{+6,7} horas\\
+	\textbf{Iteración 1}&\textbf{-7,2} horas&\textbf{-0,5} horas\\
+	\textbf{Iteración 2}&\textbf{+7,8} horas&\textbf{+7,3} horas\\
+	\textbf{Iteración 3}&\textbf{TODO} horas&\textbf{TODO} horas\\
+	\textbf{Iteración 4}&\textbf{TODO} horas&\textbf{TODO} horas\\
+	\textbf{Iteración 5}&\textbf{TODO} horas&\textbf{TODO} horas\\
+	\textbf{Iteración 6}&\textbf{TODO} horas&\textbf{TODO} horas\\
+	\textbf{Fase de cierre del proyecto}&\textbf{TODO} horas&\textbf{TODO} horas\\
+	\hline
+	\textbf{\textit{Desviación final}}&&\textbf{TODO} horas\\
+	\end{coolTable}
+	\caption{Tabla de desviación de tiempo por iteración}
+\end{table*}
+
+Asimismo, vamos a recopilar la desviación de tiempo por rol, que nos será útil para sacar conclusiones una vez finalizado el proyecto.
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lrrr}{4}
+{Desviación de tiempo por rol}
+	\textbf{Rol}&\textbf{Horas planeadas}&\textbf{Horas reales}&\textbf{Desviación final}\\
+	\hline
+	\textbf{Jefe de proyecto}&94 horas&TODO horas&\textbf{TODO} horas\\
+	\textbf{Diseñador}&62 horas&TODO horas&\textbf{TODO} horas\\
+	\textbf{Programador}&154 horas&TODO horas&\textbf{TODO} horas\\
+	\end{coolTable}
+	\caption{Tabla de desviación de tiempo por rol}
+\end{table*}
+
+\clearpage
+
+La siguiente tabla muestra, por periodos, el \textbf{retraso acumulado} del proyecto:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{llp{6cm}}{3}
+{Retrasos del proyecto}
+	\textbf{Periodo}&\textbf{Retraso acumulado}&\textbf{Justificación}\\
+	\hline
+	\textbf{20/02/17 a 20/05/17}&Periodo sin retrasos&-\\
+	\textbf{21/05/17 a Actualidad}&1 semana de retraso&Mala planificación de la segunda parada. El retraso además se extiende más tiempo del deseado porque ocurre antes de la citada parada.\\
+	\end{coolTable}
+	\caption{Tabla de retrasos del proyecto}
+\end{table*}
+
+Debemos tener presente que, respecto a la planificación inicial, disponemos de \textbf{2,5 semanas de red de seguridad} y, aunque no sea lo más idóneo, podemos usar éstas a lo largo del proyecto.
+
+TODO: Conclusiones, por ejemplo, el rol de jefe de proyecto durante las iteraciones trabajó más horas de las proyectadas, etc.
