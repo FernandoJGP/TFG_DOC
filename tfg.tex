@@ -1,10 +1,5 @@
-% A sample model to write a thesis project
-
-% Search for the string "TBC: " and follow the instructions
-
 \documentclass[titlepage,openright,twoside,a4paper,draft,12pt]{book}
 
-%%% TBC: Select your language here: english or spanish
 \usepackage[spanish]{babel}
 \usepackage[latin1]{inputenc}
 \usepackage[pdftex,final]{graphicx}
@@ -40,17 +35,17 @@
 \makeglossaries
 
 \newglossaryentry{agil}{name={Metodologías ágiles}, text={ágil}, description={Las metodologías ágiles surgieron como contraposición a las metodologías tradicionales. Son aquellas que se basan en el desarrollo iterativo y donde los requisitos y soluciones evolucionan a lo largo del tiempo según lo necesite el proyecto}}
-\newglossaryentry{asset}{name={Asset}, text={asset}, description={TODO}}
+\newglossaryentry{asset}{name={Asset}, text={asset}, description={Representación de cualquier elemento que pueda ser utilizado por el \gls{motorgrafico} (música, efecto de sonido, modelado 3D, textura, etc.). Su origen puede ser externo al motor o bien crearse dentro del mismo}}
 \newglossaryentry{bullethell}{name={Bullet hell}, text={bullet hell}, description={Traducido al español como "`infierno de balas"', bullet hell es un subgénero de videojuegos que se caracteriza por llenar el entorno ("`la pantalla"') de peligros (tradicionalmente balas, de ahí su nombre) que matan, dañan o provocan algún tipo de alteración al personaje}}
-%TODO Revisar: Identificar más entradas
+\newglossaryentry{blueprint}{name={Blueprint}, text={blueprint}, description={En Unreal Engine, los blueprints son cada una de las plantillas sobre las que se implementa programación gráfica. Los blueprints permiten emplazar nodos y unirlos entre sí, creando así un flujo entre los mismos similar al que obtendríamos utilizando métodos de codificación más tradicionales, como "`C++"', donde cada nodo se traduciría como una línea de código}}
 \newglossaryentry{distribuidora}{name={Distribuidora}, text={distribuidora}, description={En el mundo de los videojuegos es una empresa que distribuye juegos, ya sean propios o de terceros, y que normalmente se encarga también de aspectos propios de una editora, como de llevar a cabo la promoción de la obra}}
 %TODO Revisar: Identificar más entradas
 \newglossaryentry{escenario}{name={Escenario}, text={escenario}, description={Escena o escenario es la manera en la que se suele denominar un mapa o escenario de un videojuego (en inglés, se suele denominar "`scenario"')}}
 \newglossaryentry{gameplay}{name={Gameplay}, text={gameplay}, description={Forma en la que se juega a un videojuego, incluyendo las reglas, los objetivos y la forma de alcanzarlos}}
 \newglossaryentry{gaming}{name={Gaming}, text={gaming}, description={Hace referencia a que el dispositivo está diseñado o enfocado para el uso relacionado con videojuegos}}
 \newglossaryentry{frame}{name={Frame}, text={frame}, description={Los frames, o fotogramas en nuestro idioma, son típicamente cada una de las imágenes en las que se divide un vídeo. Cuando hablamos de frames en animaciones nos referimos a un instante de la animación (la posición, rotación y escala de cada uno de los huesos que forman el esqueleto)}}
-\newglossaryentry{independiente}{name={Independiente / indie}, text={independiente}, description={Generalmente se denomina videojuego  independiente o indie a aquel realizado por un número reducido de personas y/o con poco presupuesto, sin el respaldo de una gran compañía}}
-\newglossaryentry{jugabilidad}{name={Jugabilidad}, text={jugabilidad}, description={Experiencia del jugador durante la interacción con las distintas \glspl{mecanica}, controles y situaciones del videojuego}}
+\newglossaryentry{independiente}{name={Independiente}, text={independiente}, description={Generalmente se denomina videojuego independiente o indie a aquel realizado por un número reducido de personas y/o con poco presupuesto, sin el respaldo de una gran compañía}}
+\newglossaryentry{jugabilidad}{name={Jugabilidad}, text={jugabilidad}, description={Experiencia del jugador durante la interacción con las distintas \glspl{mecanica}, controles y situaciones del videojuego. Se podría decir que una buena jugabilidad es aquella que transmite correctamente las acciones que el jugador le da al software (a través de los dispositivos de entrada) a su "`avatar"' (en este caso, personaje) dentro del videojuego}}
 \newglossaryentry{landscape}{name={Landscape}, text={landscape}, description={En un videojuego, un landscape es un plano, generalmente con diferentes alturas, que se utiliza principalmente para la recreación de un paisaje natural pudiendo contener montañas, valles, etc. Principalmente se usa como base para un \gls{escenario} y en él se emplazarán árboles, edificios y \glspl{modelado} de todo tipo}}
 \newglossaryentry{mecanica}{name={Mecánica}, text={mecánica}, description={Son cada una de las reglas del universo del videojuego y conjunto de acciones que puede realizar el jugador. Por ejemplo: Una mecánica sería que el personaje muriese al caer desde una determinada altura o bien que el personaje, simplemente, pueda correr o saltar}}
 \newglossaryentry{modelado}{name={Modelado}, text={modelado}, description={Un modelado o malla (del inglés “mesh”) es la representación mediante polígonos de un determinado objeto, que normalmente tiene asociado un material o textura, pudiendo también tener asociado varios}}
@@ -59,8 +54,10 @@
 \newglossaryentry{retargeting}{name={Retargeting}, text={retargeting}, description={Técnica usada cuando se trabaja con animaciones para adaptar las animaciones creadas sobre un esqueleto a otro. Consiste en encontrar similitudes entre los huesos de uno y otro esqueleto. Además, para que la técnica funcione ambos esqueletos deben estar en la misma pose de inicio (si no lo están, se deberá modificar la pose del esqueleto destino)}}
 \newglossaryentry{renderizar}{name={Renderizar}, text={renderizar}, description={Proceso de generar un espacio que normalmente consta de tres dimensiones (3D), pero también se utiliza para generar espacios de dos (2D), representando en el proceso objetos, materiales, luces, etc}}
 \newglossaryentry{scrum}{name={Metodología SCRUM}, text={SCRUM}, description={Metodología ágil orientada a equipos autogestionados que, muy resumidamente, se caracteriza por sus reuniones diarias de corta duración (15 minutos como máximo) para hablar de lo que se ha hecho, lo que se va a hacer y los problemas que se han encontrado y basada en sprints: la realización de un conjunto de funcionalidades (Sprint Backlog), extraídas del Product Backlog (el conjunto de funcionalidades totales)}}
+\newglossaryentry{tick}{name={Tick}, text={tick}, description={Se denomina tick a cada ciclo generado en el bucle del proceso del juego. Este concepto va enormemente ligado al concepto de \gls{frame}, ya que cada tick genera a su vez un fotograma del juego. En resumidas cuentas se podría decir que en cada tick del juego se elaboran los cálculos pertinentes para generar un nuevo fotograma (los ejemplos más básicos podrían ser la posición y rotación de los actores o su estado, en ese mismo momento)}}
 \newglossaryentry{timing}{name={Timing}, text={timing}, description={Realizar una acción específica en el momento preciso. Normalmente está sujeto a la repetición de niveles, es decir, si el jugador realiza las mismas acciones en el mismo momento pasará el nivel o una parte del mismo (siempre que no haya elementos aleatorios involucrados)}}
 \newglossaryentry{triplea}{name={Triple A (AAA)}, text={triple A}, description={Se denominan así a los videojuegos lanzados por grandes empresas, con un gran presupuesto detrás tanto para su producción como para su promoción. El motivo de esto es que las tres aes (AAA), tradicionalmente, significaban un diez en gráficos, un diez en sonido y un diez en \gls{jugabilidad}, pero el término ha ido evolucionando hasta llegar al descrito anteriormente, sin tener que ser necesariamente un juego de diez en ningún apartado}}
+\newglossaryentry{volumetrico}{name={Volumétrico}, text={volumétrico}, description={En concepto de volumétrico en el ámbito de los gráficos generados por ordenador hace referencia a la técnica de añadir efectos de luz o niebla en un escenario de forma que interaccione con el mismo. Por ejemplo, al emplazar una luz solar volumétrica en un escenario los rayos de luz traspasarían entre las hojas de los posibles árboles e ignorarían materiales que no sean opacos como cristales}}
 
 \begin{document}
 \makeTitlePage
@@ -70,6 +67,8 @@
 Dedicado a todos los que me han apoyado 
 
 Y en especial a...
+
+A mi familia, amigos, pareja y todos aquellos que me han dado ánimos para realizar el proyecto.
 \end{dedication}
 \pagenumbering{roman}
 \pagestyle{trinidadPhD}
@@ -102,13 +101,14 @@ Y en especial a...
 \input{iteracion1}
 \input{iteracion2}
 \input{iteracion3}
+\input{iteracion4}
+\input{iteracion5}
+\input{iteracion6}
 
 \part{Cierre del proyecto}
 
 \input{Manual}
 \input{Conclusiones}
-
-
 
 \part{Appendices}
 \appendix

@@ -1,42 +1,148 @@
 %!TEX root =  tfg.tex
 \chapter{Conclusiones}
 
-\begin{quotation}[Novelist]{Ernest Hemingway (1899--1961)}
-The good parts of a book may be only something a writer is lucky enough to overhear or it may be the wreck of his whole damn life -- and one is as good as the other.
-\end{quotation}
-
 \begin{abstract}
-Resumen de lo que va a ocurrir en el capítulo. ¿Cuál es el objetivo que tenemos con este capítulo?
+En el último capítulo del cuerpo del documento, y a modo de clausura del mismo, se plasman a modo de memoria las conclusiones extraídas de la realización del proyecto, una pieza clave en la ingeniería software, lo que nos será de una inmensa utilidad en proyectos similares futuros.
 \end{abstract}
 
 \section{Informe post-mortem}
 
-Qué es un informe post-mortem
+Un informe post-mortem es aquel que se elabora a la conclusión de un proyecto y enumera los aciertos y problemas que han surgido al llevar a cabo el mismo, con el objetivo principal de aprender de dichos aciertos y errores en futuros proyectos del mismo tipo que se vayan a realizar.
+
+Este tipo de informes son de una enorme utilidad y su realización está más que recomendada en el mundo de la ingeniería software. Sobre todo son de utilidad para personas que no estuvieron involucradas en ese proyecto (o lo estaban, pero desempeñando un rol diferente) ya que normalmente el equipo que se encargó de realizar el proyecto habrá pasado por situaciones similares a las que nos encontraremos si queremos llevar a cabo un proyecto del mismo ámbito, suponiendo un gran ahorro en tiempo: lo que por tanto se traduce directamente en un gran ahorro de dinero o recursos.
+
+Durante las siguientes secciones detallaremos los aspectos más relevantes que han ido bien del proyecto, los que han ido mal, lo que se ha aprendido y lo que se mejoraría de cara a nuevos proyectos, así como los aspectos del proyecto que podrían quedar pendientes o son ampliables en proyectos futuros.
 
 \subsection{Lo que ha ido bien}
 
+\subsubsection{Planificación y presupuesto}
+
+La importancia de una buena planificación es vital, ya que repercute directamente en el coste de un proyecto, pero lo es aún más en un proyecto de una naturaleza completamente nueva como es el caso.
+
+En este caso, salvo en las excepciones explicadas en el propio capítulo de planificación (Ver sección \ref{sec:planificacion}) todo ha transcurrido de acuerdo a lo esperado y los retrasos se han podido subsanar perfectamente con el colchón de tiempo que se fijó durante la fase de planificación.
+
+Además de esto, se ha conseguido evitar prácticamente por completo el denominado "`síndrome del 90\%"' \cite{sindrome90}, aquel que aparece en proyectos de una considerable envergadura cuando se acerca su final y que nos hace creer que estamos a punto de finalizar el proyecto pero surgen nuevas tareas sin cesar, quedando el software estancado debido a esto durante un largo periodo de tiempo.
+
+\subsubsection{Código "`C++"' frente a "`blueprints"'}
+
+Una de las principales apuestas del proyecto ha sido la utilización del lenguaje de programación C++ frente a la programación gráfica o visual en \glspl{blueprint} para las tareas más complejas, es decir, principalmente aquellas tareas que hicieran uso reiterado del \gls{tick} para calcularse.
+
+Esta decisión aportó inmediatamente un mayor rendimiento \cite{epicgamesblueprintsvscpp}, frente a pequeños prototipos que se realizaron antes del proyecto, así como una ventaja muy clara y necesaria que es el uso del control de versiones, en este caso "`git"', para tener un control sobre los cambios en nuestro software.
+
+Sin embargo, y aunque el balance final es claramente positivo, durante el desarrollo del proyecto se hicieron palpables algunas carencias que pusieron en entredicho esta opción y que son dignas de mención:
 \begin{itemize}
-\item Argumento a favor 1.
-
-\item Argumento a favor 2.
-
-\item Argumento a favor 3.
+	\item La mayoría de conocimiento que circula por la red está en \glspl{blueprint}, tanto es así que incluso hay diversas carencias en la documentación oficial de C++ de Epic Games frente a la documentación de \glspl{blueprint}, que es mucho más completa. Esto ha ocasionado que aprender a programar Unreal Engine en C++ fuese una tarea mucho más costosa y tediosa de lo que en un principio debería.
+	\item Mientras que si usamos \glspl{blueprint} podemos acceder a variables, funciones o clases definidas en C++ sin ningún tipo de problema no ocurre lo mismo al contrario: para modificar una variable, función o clase de un \gls{blueprint} no podemos hacerlo directamente, sino que tenemos, por ejemplo, hacer que el \gls{blueprint} herede de una clase "`cpp"' y acceder o trabajar con dicho "`cpp"'. Esto es un aspecto muy a tener en cuenta puesto que el uso de \glspl{blueprint} en Unreal Engine es prácticamente obligatorio para tareas como las de animación de un personaje o la implementación de inteligencia artificial.
+	\item El tiempo de compilación de un \gls{blueprint} se sitúa por debajo del segundo (en el equipo utilizado para el desarrollo de este proyecto), sin embargo, compilar código "`C++"' toma mucho más tiempo, llegando a tardar minutos en muchos casos, lo que lastra tanto el tiempo empleado para realizar una tarea como el ritmo de trabajo en sí, que se ve seriamente resentido ocasionando un desánimo en muchas ocasiones que debería ser evitable.
+	\item Los \glspl{blueprint}, además de ser más intuitivos si no se domina a la perfección Unreal Engine, ofrecen mucha más comodidad a la hora de trabajar con elementos 3D, puesto que disponen de un visor que permite ver la posición y rotación de dichos elementos y ajustarlos con unos simples clicks del ratón. Sin embargo, si trabajamos con elementos 3D en C++ no sólo deberemos compilar cada vez que queramos ver el resultado, sino que incluso a veces será necesario reiniciar Unreal Engine en su totalidad puesto que no siempre se actualizan los cambios.
 \end{itemize}
+
+\subsubsection{Construcciones periódicas del proyecto durante el desarrollo}
+
+Como se fijó en la metodología, cada vez que se implementara una nueva funcionalidad se pasaría a la construcción del proyecto. Esto ha sido tremendamente útil durante el desarrollo del proyecto principalmente porque no toda la funcionalidad implementada que se prueba en el editor (y que parece funcionar correctamente) funciona realmente en la versión construida / exportada del proyecto.
+
+Además, cabe destacar que Unreal Engine es especialmente poco explícito con sus errores en algunos casos (sobre todo, en cuanto a construcción del proyecto), siendo un auténtico quebradero de cabeza encontrar el problema.
+
+Sin estas construcciones periódicas probablemente se hubiese llegado a una entrega de proyecto mucho más apurada, en la que muchas de las funcionalidades que parecían funcionar correctamente en el editor de Unreal Engine dejarían de funcionar sin motivo aparente, teniendo que revisar código que para más inri podría ser de hace meses.
+
+\subsubsection{Incorporación de animaciones profesionales}
+
+Otra de las grandes apuestas del proyecto ha sido optar en reiteradas ocasiones por las animaciones profesionales de Mixamo.
+
+Aunque la incorporación de estas animaciones requiere de un procesamiento, como se ha visto en secciones anteriores del documento, ya que no se adaptan al esqueleto del personaje utilizado, el resultado final ha merecido la pena, puesto que están muy por encima de las animaciones que se podrían haber desarrollado desde cero.
+
+\clearpage
 
 \subsection{Lo que ha ido mal}
 
+\subsubsection{Dificultad en la detección de errores}
+
+En un producto complejo de estas características, en el que se toma información en tiempo real de un escenario en tres dimensiones y en el que, por ende, influyen gran cantidad de variables en cada acción hace que sea especialmente difícil detectar el origen de un problema cuando se produce uno.
+
+Antes del cierre del proyecto, un grupo de personas ha podido probar el producto, en distintas etapas del desarrollo. Sin embargo, cada vez que se producía un error, y pese a que numerosas de estas personas estaban familiarizadas con el mundo de la informática o los videojuegos, en contadas ocasiones podían dar una pista sobre el error, y mucho menos dar una lista de acciones que llevaron a cabo para que el error se produjese.
+
+Como se comentaba previamente esto se debe a la complejidad del producto, que dista enormemente de los fallos que puede arrojar un software más convencional, en los que si alguien encuentra un error al rellenar un formulario, acceder a una determinada URL, etc. con total seguridad, al menos muchos de ellos, nos podrán dar al menos una pista de cómo se originó el error. Esto hace que sea especialmente difícil la reproducción de errores, algo que en muchas circunstancias es vital para solucionarlo, lo que puede lastrar seriamente el desarrollo del software aunque afortunadamente en el caso de este proyecto no ha llegado a tal extremo.
+
+Cabe destacar un error en especial que persiguió al software desde la segunda iteración: en muy contadas ocasiones (estamos hablando de alrededor de un 1\% de las veces) el personaje se agarraba a un saliente y empezaba a caer poco a poco en vez de quedarse a la misma altura del saliente, pero sin embargo la animación del personaje lo mostraba como agarrado, la variable que controla esto estaba en orden e incluso podíamos soltarnos del saliente o realizar alguna otra acción si las comprobaciones necesarias se daban. Algunas personas completaron el videojuego sin que este error se reprodujese pero otras experimentaron este bug sin que supieran describir mínimamente cómo llegaron a él. Tras algunas horas de testeo se llegó a la conclusión de que el error sólo se producía cuando llegábamos a la acción de agarrar el saliente provenientes de una escalada en pared: esa acción contiene una instrucción que fija el modo de movimiento del personaje en caída y por algún motivo seguía ejecutándose después de para la escalada en pared. Una simple instrucción "`if"', que controlase que el personaje no estuviera agarrado a un saliente antes de fijar el modo de movimiento en caída, bastó para solucionar el problema que podría haberse solucionado mucho antes con las indicaciones adecuadas.
+
+\subsubsection{El riesgo de las actualizaciones}
+
+Es bien conocido en el desarrollo software que actualizar nuestras aplicaciones de desarrollo entraña una serie de riesgos (así como, en muchos casos, de grandes ventajas).
+
+Durante el desarrollo de este producto se ha intentado ir con pies de plomo en lo referido a actualizar nuestras herramientas:
 \begin{itemize}
-\item Argumento en contra 1.
-
-\item Argumento en contra 2.
-
-\item Argumento en contra 3.
+	\item Antes del lanzamiento de las versiones en Unreal Engine, de igual manera que ocurre con muchos productos software, antes del lanzamiento final dichas versiones pasan por versiones "`previews"' o versiones candidatas al lanzamiento. De ninguna manera se pensó en actualizar a estas versiones.
+	\item Para asegurarnos aún más, se ha evitado actualizar a las versiones 4.XX.0, para cerciorarnos de que la nueva versión del motor tenía ya cierto rodaje y evitar aún más los fallos que se hayan podido ocasionar con la actualización del motor.
 \end{itemize}
 
-\subsection{Discusión}
+Durante el desarrollo, la versión del motor se ha actualizado en dos ocasiones:
+\begin{enumerate}
+	\item Como se explicará más adelante en la sección "`trabajos futuros"' no toda la funcionalidad inicial pudo ser implementada con la versión de Unreal Engine en la que se inició el desarrollo, la versión 4.15.1, sino que para añadir luz \glslink{volumetrico}{volumétrica} para implementar una funcionalidad relacionada con un enemigo se optó por actualizar Unreal Engine a la versión 4.16.1, que actualizaba el motor añadiendo esta característica.
+	\item Igualmente se optó por actualizar a la nueva versión 4.17.1, esta vez por motivos de rendimiento, que preocupaban en la etapa final del desarrollo y que se han subsanado añadiendo opciones gráficas para adaptar el motor a cada equipo (ya que por defecto, al exportar el proyecto, se comprobó que el motor establecía las opciones de calidad gráfica más altas, y eso en un motor que aspira a estar en la vanguardia visual, como lo es Unreal Engine, hace que muchos dispositivos tengan enormes problemas de rendimiento).
+\end{enumerate}
 
-En función de lo anterior, qué cambiaría si empezara hoy el proyecto de nuevo.
+La actualización a la versión 4.16.1 fue sin problemas, pero con la actual versión 4.17.1 se han experimentado diversos errores que, si bien no son graves, son evitables en el proyecto. Entre otros, con la actualización a esta versión se han podido detectar: valores por defecto de variables que se guardan pero sólo hasta que se cierra el editor de Unreal Engine (siendo necesario guardar y cerrar Unreal entre 5 y 10 veces para que los valores finalmente se guarden, algo fuera de toda lógica aparente), avisos de imposibilidad de guardar a la hora de intentar salvar \glspl{escenario} pero sin embargo guardan correctamente, etc.
+
+De igual manera, tenemos que tener en cuenta que muchos de los \glslink{asset}{assets} o plugins que estemos usando pueden dejar de funcionar. Fue el caso de "`Ocean plugin"', que tras la actualización a la versión 4.17.1 dejó de funcionar y fue eliminado del proyecto. Esto, ya se previó antes de la actualización y no es un contratiempo puesto que sólo se usaba con motivos estéticos en el menú y se prefirieron las mejoras de optimización (y aliviar el espacio que ocuparía el proyecto) antes que proseguir con este plugin, pero igualmente es algo que hay que tener en cuenta.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.3]{figures/main-menu-early.png}
+		\caption{Captura del menú principal durante versiones tempranas del desarrollo}
+\end{figure*}
+
+Afortunadamente en este caso estos fallos no fueron importantes, pero sin duda podrían haber ido a más y es un punto negativo que sin duda hay que tener presente de cara al futuro.
+
+\subsubsection{Un videojuego requiere aptitudes muy dispares entre sí}
+
+Llevar a buen puerto un producto software con las características de un videojuego requiere no sólo habilidades de programación, que sin duda juegan un papel fundamental ya que inciden directamente en la \gls{jugabilidad}, sino aptitudes muy dispares entre sí que hacen que se antoje muy difícil que recaigan en una misma persona: modelado 3D, texturizado, iluminación, animación, etc.
+
+Esto, de nuevo, difiere mucho de las habilidades necesarias para desarrollar un producto software más tradicional, como una página web, en el que el papel artístico queda en un relativo segundo plano: sin duda forma parte del conjunto del software, pero es mucho más accesible para un ingeniero de software que realizar, por ejemplo, un modelado 3D de un personaje.
+
+Realizar el proyecto individualmente, sin duda, tiene algunas ventajas como que no recorta un ápice de creatividad, permitiéndonos tomar las decisiones de diseño que personalmente consideremos mejor para el producto, pero por otra parte hace mucho más difícil abarcar tantos aspectos y tan diferentes. Por ello, en una empresa de desarrollo de videojuegos coexisten no sólo programadores, sino diseñadores y artistas, jugando estos últimos un papel mucho más relevante que en otro tipo de aplicaciones.
+
+\clearpage
+
+\section{Discusión}
+
+En función de lo anterior, si hoy empezáramos un nuevo proyecto...
+
+\begin{itemize}
+	\item Se seguiría apostando por C++ frente a \glspl{blueprint}: pese a que ambas opciones libran una ardua batalla, como se ha dejado patente en este capítulo, la ventaja de tener control sobre el código (en cuanto al uso de repositorios) y la optimización pesan más que los tiempos de compilación, para lo cuál se barajaría la posibilidad de adquirir nuevos equipos para reducir notablemente el tiempo de compilación (y, colateralmente, el tiempo de construcción de proyecto o el cálculo de la iluminación, cosa que se ha comprobado ser también muy costosa en cuanto a tiempo).
+	\item Se apostaría por la ampliación del equipo de trabajo, pero no sólo con la incursión de nuevos programadores que permitiesen llegar a objetivos más ambiciosos o reducir los tiempos de desarrollo, sino definitivamente de artistas y diseñadores que se encargasen de cubrir las carencias del resto del grupo con sus aptitudes de diseño o artísticas, ayudando además a diferenciar mucho más el producto. En definitiva, se trataría de formar un equipo polifacético.
+	\item Se barajaría también la posibilidad de contar con "`beta-testers"' más especializados que supieran dar indicaciones más precisas para poder reproducir los bugs que se encontrasen en el producto. Igualmente, en este tipo de productos existen bugs con una muy baja probabilidad de repetición, incluso en los que influya un tanto la aleatoriedad, y se necesitaría gente dedicada al testeo para paliar esta carencia de la naturaleza de este tipo de software.
+	\item Se haría aún más hincapié en la necesidad de hacer construcciones periódicas del proyecto, por los motivos previamente explicados: los errores de construcción son difíciles de determinar y una construcción del proyecto periódica definitivamente ayuda a acotar el error y, sobre todo, porque funcionalidad que podría funcionar en el editor no funciona en el proyecto construído o no lo hace de la misma forma (dando incluso lugar a cierres del programa).
+	\item Salvo en casos de extrema necesidad no se actualizaría Unreal Engine a la versión más reciente de forma precipitada, sino que se estudiaría la migración del proyecto a dichas versiones previamente y se buscaría información en la comunidad de Unreal de los posibles fallos de las nuevas versiones.
+\end{itemize}
+
+\clearpage
 
 \section{Trabajos futuros}
 
-Enumera los puntos abiertos y que no se han resuelto. Indica si darían lugar a otro proyecto y de qué forma se podría acotar.
+Esta sección pretende enumera los puntos abiertos, aquellos que por un motivo u otro o bien no se han resuelto en el trascurso del proyecto o bien son candidatos a una revisión o mejora en el futuro. Si bien todo lo que se había planeado al inicio del proyecto ha podido realizarse de una manera satisfactoria a la conclusión del mismo hay una serie de matices o puntos de mejora que podemos comentar.
+
+Si bien el \textbf{sistema de escalada} es algo en lo que se ha hecho especial énfasis en la realización del proyecto y es una pieza que se podría catalogar como clave, a la cual se la ha tratado con mimo y cuya funcionalidad planeada ha sido totalmente implementada existen algunas nuevas funcionalidades que podríamos añadir a la misma, además de una manera sencilla gracias al conocimiento que se ha adquirido con la realización del proyecto y gracias a que base de la que goza el sistema de escalada está implementada y depurada. Una de estas funcionalidades podrían ser los saltos verticales hacia arriba en los que nuestro personaje, estando ya agarrado a un saliente, pudiera saltar para alcanzar uno que se encontrase en un nivel superior, lo que haría ganar al diseño de niveles de una preciada verticalidad. Esta nueva funcionalidad no es más que un ejemplo puesto que, como siempre, el límite es la imaginación, lo que podría original un proyecto futuro centrado en parte en ampliar el sistema de escalada.
+
+De igual manera, otro punto que podría sufrir una mejora notable es el \textbf{repertorio de habilidades} de las que nuestro personaje dispone cuando está potenciado. Actualmente dispone de dos habilidades: pasar a tiempo bala (habilidad que ralentiza el tiempo del entorno en un 50\% y el de nuestro personaje en un 25\%, haciendo más fácil solucionar algunos puzles) y realizar un teletransporte en la dirección indicada por la cámara (también denominado "`blink"' o "`parpadeo"'), pero se podrían añadir muchas más. Una de ellas, descartada antes del desarrollo del proyecto pero que se llegó a implementar en un prototipo realizado con \glspl{blueprint}, podría ser el poder de resistir una serie de impactos de bala de las torretas, a cambio de cambiar la velocidad de movimiento del personaje a una considerablemente más lenta. Esto podría dar también lugar a un nuevo proyecto.
+
+Otro punto candidato de mejora sería la incursión de nuevos tipos de \textbf{enemigos} y sus respectivas inteligencias artificiales. Estos enemigos podrían combinarse con los ya presentes en el producto dando lugar a innumerables nuevos tipos de puzles.
+
+\clearpage
+
+Por supuesto, el punto de mejora más claro es el de los \textbf{niveles}: actualmente el juego consta de un tutorial y dos niveles y si bien el juego está destinado a jugarse haciendo énfasis en la repetición, lo cuál alarga de manera contundente la duración de los niveles, este punto es un claro candidato a ampliarse en futuros proyectos que tengan como objetivo trabajar a partir de la base de éste. Además, de igual manera se podría realizar una revisión de los primeros niveles para añadir más motivos de decoración.
+
+Además, si bien el \textbf{sistema de logros} está implementado en el proyecto tal y como se quería, debemos recordar que por un lado no todos los logros diseñados están implementados en el producto (aunque esto es un mero trámite, puesto que el sistema como tal ya existe) y que, sobre todo, el sistema de logros interno está pensado para interaccionar con el sistema de logros de diversas plataformas en el hipotético caso de que el producto se lanzara en ellas. Esta parte de la funcionalidad no está implementada puesto que no se dispone de acceso a ninguna de las API de las citadas plataformas.
+
+Otros puntos de mejora serían la inclusión de \textbf{configuraciones gráficas personalizadas} en el menú así como un \textbf{soporte total para el controlador}, ya que de momento es necesario usar ratón en el menú principal, y el soporte de más \textbf{idiomas} en el producto.
+
+La \textbf{adaptación a realidad virtual} no es que se pueda considerar como un punto abierto en este proyecto, puesto que desde el principio se planteó como finalmente se ha incluido, pero sí que podría dar lugar a un pequeño proyecto de adaptación parcial a esta tecnología en el futuro. El motivo por el que no se ha realizado esta pequeña adaptación es que, simplemente, no se dispone del hardware necesario para su testeo, pero entre implementación y pruebas no superaría unas horas de trabajo gracias a las facilidades que nos ofrece Unreal Engine 4 y a que sólo se quiere adaptar el control de la cámara con los cascos / gafas de realidad virtual, siendo necesario igualmente un controlador o bien teclado y ratón para jugar.
+
+Por último, cabe hacer mención a una característica que finalmente ha podido ser incluida en el juego, pero que en un momento se pensó que podría ser descartada por limitaciones tecnológicas y que daría lugar a un nuevo proyecto: la implementación del cono de visión de los enemigos denominados como "`vigilantes"'. Estos enemigos, como se detalla en este documento, entre otras particularidades poseen un cono de visión que debe ser renderizado por el juego para que el jugador pueda conocer el área de visión de dicho enemigo y así ocultarse en el momento oportuno, pero esto es un problema difícil de solucionar en más de un escenario, entre los que se incluye este juego. Unreal Engine 4.15 no soportaba la posibilidad de incluir luz \glslink{volumetrico}{volumétrica} y, típicamente, para la implementación de esta característica se usaba un cono, con colisiones desactivadas y alta transparencia en cada uno de los objetos en los que quisiéramos simular luz, el ejemplo más típico es el de una farola que, en la oscuridad, emite luz desde su foco hasta el suelo (que sería la extensión del cono en este caso, la base del cono se situaría en el suelo y el vértice en el foco de la farola). En nuestro caso no era posible llevar a cabo esta solución puesto que, si bien podríamos adjuntar un cono con transparencias y sin colisiones a la cabeza de nuestro modelo de enemigo no tendríamos ninguna forma de que dicho cono no traspasase las paredes, ni mucho menos de que su longitud se adaptase a los objetos con los que colisiona en el escenario (pudiendo colisionar partes del cono con un obstáculo y partes continuar su recorrido). Sin embargo, con la aparición de Unreal Engine 4.16 se incluyeron las luces \glslink{volumetrico}{volumétricas} y este problema pudo ser solucionado adjuntando un foco de luz a la cabeza del modelo del vigilante y configurándolo para que la luz que emitiese se comportase como \glslink{volumetrico}{volumétrica}.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.5]{figures/fallout-4-volumetric.png}
+		\caption{Fotograma del título "`Fallout 4"' (2015) que muestra una farola que emite un cono de luz}
+\end{figure*}
+
+Como podemos apreciar, ninguno de estos detalles son aspectos que hayan quedado pendientes en el desarrollo sino mejoras que se podrían aplicar.

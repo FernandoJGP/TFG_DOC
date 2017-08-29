@@ -1,14 +1,299 @@
 %!TEX root =  tfg.tex
 \chapter{Manual de usuario}
 
-\begin{quotation}[Novelist]{Ernest Hemingway (1899--1961)}
-The good parts of a book may be only something a writer is lucky enough to overhear or it may be the wreck of his whole damn life -- and one is as good as the other.
-\end{quotation}
-
 \begin{abstract}
-Resumen de lo que va a ocurrir en el capítulo. ¿Cuál es el objetivo que tenemos con este capítulo?
+Durante este capítulo se muestran los distintos dispositivos de entrada que admite el videojuego, los controles asociados a cada uno de ellos, la explicación detallada de las opciones de los menús y el significado de cada elemento de los HUDs.
 \end{abstract}
 
-\section{Sección libre}
+\section{Controles}
+\label{sec:controles}
 
-Estructurar en función del proyecto.
+En esta sección se definen los enlaces entre las diferentes entradas al alcance del jugador y su traducción al universo del juego.
+
+El producto ofrece al jugador dos métodos de entrada: "`teclado y ratón"' y "`mando"'. Ambos métodos no son excluyentes entre sí, y si se dispone de los dos métodos de entrada en cualquier momento se podrá pasar de uno a otro, sin ser necesario reiniciar el videojuego.
+
+\subsection{Controles con teclado y ratón}
+\subsubsection{Esquemas}
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.42]{figures/keyboard-diagram.png}
+		\caption{Diagrama de la asignación de acciones del teclado}
+\end{figure*}
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.65]{figures/mouse-diagram.png}
+		\caption{Diagrama de la asignación de acciones del ratón}
+\end{figure*}
+
+\subsubsection{Listado detallado}
+\begin{itemize}
+	\item Tecla \textbf{W}: Desplazamiento del jugador hacia el frente.
+	\item Tecla \textbf{A}: Desplazamiento del jugador hacia atrás.
+	\item Tecla \textbf{S}: Desplazamiento del jugador hacia la izquierda.
+	\item Tecla \textbf{D}: Desplazamiento del jugador hacia la derecha.
+	\item \textbf{Eje X} del ratón: Regula el movimiento horizontal de la cámara.
+	\item \textbf{Eje Y} del ratón: Regula el movimiento vertical de la cámara.
+	\item Tecla \textbf{E}: Botón de acción.
+	\item \textbf{Barra espaciadora}: Salto / Wall running / Salto en wall running / Escalar o saltar de saliente.
+	\item Tecla \textbf{Ctrl Izquierdo}: Agachado / Abandonar saliente.
+	\item Tecla \textbf{Shift Izquierdo}: Sprint.
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Botón izquierdo} del ratón: Blink (*).
+	\item \textbf{Botón derecho} del ratón: Conmutador de tiempo bala (*).
+\end{itemize}
+
+\textbf{Nota:} Las acciones marcadas con (*) necesitan que el jugador tenga en su poder un orbe dorado para que lleguen a producirse.
+
+\clearpage
+
+\subsection{Controles con mando}
+
+La siguiente sección muestra los controles con mando, en concreto se usa como referencia un controlador de "`Xbox 360"' o "`Xbox One"' (puesto que las versiones de los controladores ambas consolas son muy similares). Esto se debe a que actualmente este es el estándar en PC, pero no hay motivos para que el software no pueda ser jugado con otro mando compatible diferente de los citados: simplemente los nombres de los botones, gatillos, etc. serán diferentes.
+
+\subsubsection{Esquema}
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.46]{figures/controller-diagram.png}
+		\caption{Diagrama de la asignación de acciones del controlador}
+\end{figure*}
+
+\subsubsection{Listado detallado}
+\begin{itemize}
+	\item Joystick izquierdo \textbf{Eje Y+}: Desplazamiento del jugador hacia el frente.
+	\item Joystick izquierdo \textbf{Eje Y-}: Desplazamiento del jugador hacia atrás.
+	\item Joystick izquierdo \textbf{Eje X-}: Desplazamiento del jugador hacia la izquierda.
+	\item Joystick izquierdo \textbf{Eje X+}: Desplazamiento del jugador hacia la derecha.
+	\item Joystick derecho \textbf{Eje X}:  del ratón: Regula el movimiento horizontal de la cámara.
+	\item Joystick derecho \textbf{Eje Y}: Regula el movimiento vertical de la cámara.
+	\item Botón \textbf{Start}: Botón de pausa.
+	\item Botón \textbf{Back}: Cambio de cámara.
+	\item Botón \textbf{A}: Botón de acción.
+	\item Botón \textbf{B}: Salto / Wall running / Salto en wall running / Escalar o saltar de saliente.
+	\item Botón \textbf{X}: Agachado / Abandonar saliente.
+	\item Disparador \textbf{RT}: Sprint.
+	\item Disparador \textbf{LT}: Blink (*).
+	\item Botón \textbf{LB}: Conmutador de tiempo bala (*).
+\end{itemize}
+
+\textbf{Nota:} Las acciones marcadas con (*) necesitan que el jugador tenga en su poder un orbe dorado para que lleguen a producirse.
+
+\clearpage
+
+\section{Menú principal}
+
+El menú principal es nuestra pantalla de bienvenida al juego, en el que se nos brindan cuatro opciones: "`Nuevo juego"', "`Cargar juego"', "`Ajustes"' y "`Salir a Windows"'.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.58]{figures/main-menu.png}
+		\caption{Fotograma del menú principal del software}
+\end{figure*}
+
+Como podemos apreciar las opciones que se muestran son bastante intuitivas, pero esto es lo que hace \textbf{en detalle} cada una de esas opciones al interaccionar con ellas:
+\begin{itemize}
+	\item \textbf{Nuevo juego}: Inicia el juego desde el principio. \textbf{Si hubiese datos guardados anteriores, los borraría y empezaría una nueva partida}.
+	\item \textbf{Cargar juego}: Carga la partida anterior. \textbf{Esta opción estará deshabilitada si no tenemos un punto de guardado creado}.
+	\item \textbf{Ajustes}: Oculta el menú y muestra el menú de ajustes (Ver sección \ref{sec:ajustes}).
+	\item \textbf{Salir a Windows}: Cierra el videojuego y vuelve a Windows.
+\end{itemize}
+
+\clearpage
+
+\section{Menú de pausa}
+
+Este menú es prácticamente idéntico al menú principal, pero con algunas opciones extras: "`Cerrar menú"' y "`Volver al menú principal"'.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.435]{figures/pause-menu.png}
+		\caption{Fotograma del menú de pausa del software}
+\end{figure*}
+
+Las opciones vuelven a ser muy intuitivas pero, de nuevo, en detalle:
+\begin{itemize}
+	\item \textbf{Cerrar menú}: Cierra el menú y reanuda el juego.
+	\item \textbf{Volver al menú principal}: Carga el mapa del menú principal como si entrásemos nuevamente al juego.
+\end{itemize}
+
+\clearpage
+
+\section{Menú de ajustes}
+\label{sec:ajustes}
+
+Esta opción es accesible vía menú principal o menú de pausa, haciendo click en "`Settings"' o "`Ajustes"' (dependiendo del idioma en el que el software esté configurado).
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.435]{figures/main-menu-settings.png}
+		\caption{Fotograma del menú de ajustes del software}
+\end{figure*}
+
+Estas son las opciones del menú de ajustes, en detalle:
+\begin{itemize}
+	\item \textbf{Idioma}
+	\begin{itemize}
+		\item \textbf{Descripción}: Nos permite elegir el idioma en el que se mostrarán todos los mensajes del juego.
+		\item \textbf{Opciones disponibles}: Inglés y español.
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Relación de aspecto}
+	\begin{itemize}
+		\item \textbf{Descripción}:  Nos permite visualizar las opciones de resolución compatibles con la relación de aspecto que seleccionemos.
+		\item \textbf{Opciones disponibles}: "`4:3"', "`16:9"', "`16:9+"' y "`16:10"', siendo "`16:9+"' las resoluciones con ese aspect ratio mayores que Full HD (1920x1080).
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Resolución}
+	\begin{itemize}
+		\item \textbf{Descripción}: Muestra las opciones de resolución que concuerden con el ajuste seleccionado en la opción anterior. Al hacer click se cambiará a dicha resolución.
+		\item \textbf{Opciones disponibles (según la relación de aspecto)}:
+		\begin{itemize}
+			\item \textbf{"`4:3"'}: "`640x480"', "`800x600"', "`1024x768"' y "`1280x1024"'.
+			\item \textbf{"`16:9"'}: "`1280x720"', "`1366x768"' y "`1920x1080"'.
+			\item \textbf{"`16:9+"'}: "`2560x1440"', "`3840x2160"' y "`7680x4320"'.
+			\item \textbf{"`16:10"'}: "`720x480"', "`1280x768"', "`1280x800"' y "`1680x1050"'.
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Pantalla completa}
+	\begin{itemize}
+		\item \textbf{Descripción}: Nos permite alternar entre modo ventana y pantalla completa.
+		\item \textbf{Opciones disponibles}: "`Sí"' y "`No"'.
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Opciones gráficas}
+	\begin{itemize}
+		\item \textbf{Descripción}: Nos permite ajustar la calidad visual del juego (así como, indirectamente, su rendimiento).
+		\item \textbf{Opciones disponibles}: "`Bajo"', "`Medio"', "`Alto"' y "`Ultra"', siendo "`Bajo"' la que peor calidad visual tiene (pero mejor rendimiento) y "`Ultra"' la que mejor calidad ofrece (y, por ende, peor rendimiento).
+	\end{itemize}
+\end{itemize}
+
+\clearpage
+
+\section{HUD del usuario}
+
+El HUD del usuario es el que se le muestra al jugador durante el tiempo de juego.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.46]{figures/hud-widget.png}
+		\caption{Instantánea mostrando el widget blueprint del HUD del usuario, en el que se pueden observar todos los elementos que se pueden mostrar en pantalla}
+\end{figure*}
+
+Este HUD se compone de los siguientes elementos:
+\begin{itemize}
+	\item \textbf{Punto de referencia}:
+	\begin{itemize}
+		\item \textbf{Tipo}: Imagen.
+		\item \textbf{Funcionalidad}: Imagen (punto) de referencia que se usa principalmente para evitar el "`motion sickness"' o "`cinetosis"'. En otras palabras, para suavizar mareos en jugadores con propensión a tenerlos.
+		\item \textbf{Posición}: Equidistante de todos los lados de la pantalla.
+		\item \textbf{Visibilidad}: Siempre.
+	\end{itemize}
+\end{itemize}
+
+\clearpage
+
+\begin{itemize}
+	\item \textbf{Indicador de habilidad "`blink"'}:
+	\begin{itemize}
+		\item \textbf{Tipo}: Imagen.
+		\item \textbf{Funcionalidad}: Indica cuando el jugador puede ejecutar la habilidad blink.
+		\item \textbf{Posición}: Alrededor del punto de referencia.
+		\item \textbf{Visibilidad}: Sólo cuando el personaje pueda realizar la habilidad blink y esté mirando a una superficie propicia para ello.
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Indicador de adrenalina}:
+	\begin{itemize}
+		\item \textbf{Tipo}: Barra.
+		\item \textbf{Funcionalidad}: Muestra la cantidad de adrenalina restante.
+		\item \textbf{Posición}: Adyacente al límite inferior de la pantalla.
+		\item \textbf{Tamaño}: Ancho de la pantalla.
+		\item \textbf{Visibilidad}: Se muestra si la adrenalina no está cargada por completo.
+	\end{itemize}
+\end{itemize}
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.435]{figures/hud-preview.png}
+		\caption{Captura del juego que muestra distintos componentes del hud: punto de referencia (centro), indicador de "`blink"' (alrededor de éste último), brújula (parte superior) y barra de adrenalina (parte inferior)}
+\end{figure*}
+
+\begin{itemize}
+	\item \textbf{Brújula / indicador de fin de nivel}:
+	\begin{itemize}
+		\item \textbf{Tipo}: Brújula.
+		\item \textbf{Funcionalidad}: Muestra la dirección en la que se encuentra el cristal de teletransportación para avanzar por los diferentes mapas del juego.
+		\item \textbf{Posición}: Parte superior de la pantalla.
+		\item \textbf{Tamaño}: Aproximadamente el 50\% de la pantalla.
+		\item \textbf{Visibilidad}: Se muestra siempre que haya un cristal de nivel en el mapa.
+		\item \textbf{Nota}: Si el cristal está cerca del campo de visión del personaje se mostrará un diamante en la brújula y estará en una posición u otra dentro de la propia barra de la brújula dependiendo de la posición del cristal respecto al centro del campo de visión del personaje. Si se encuentra lejos del campo de visión del jugador por la izquierda el "`diamante"' se situará en el extremo izquierdo de la brújula, y su forma cambiará a una flecha apuntando hacia la izquierda. Lo propio pasará cuando se encuentre en la parte derecha del campo de visión: esta vez el "`diamante"' se situará en el extremo derecho y su forma será una flecha apuntando a la derecha.
+	\end{itemize}
+\end{itemize}
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.435]{figures/hud-achievement.png}
+		\caption{Captura del juego tomada durante la obtención de un logro}
+\end{figure*}
+
+\begin{itemize}
+	\item \textbf{Recuadro de logro}:
+	\begin{itemize}
+		\item \textbf{Tipo}: Caja y texto.
+		\item \textbf{Funcionalidad}: Caja que muestra un texto con información correspondiente al logro obtenido.
+		\item \textbf{Posición}: Parte inferior izquierda de la pantalla.
+		\item \textbf{Visibilidad}: Se mostrará, junto a una animación, al obtener el logro y desaparecerá, con una animación de igual manera, en unos breves segundos.
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Recuadro de tutorial}:
+	\begin{itemize}
+		\item \textbf{Tipo}: Caja y texto.
+		\item \textbf{Funcionalidad}: Caja que muestra un texto con información correspondiente al tutorial que está en ese momento activo.
+		\item \textbf{Posición}: Centro de la pantalla.
+		\item \textbf{Tamaño}: Alrededor de un 50\% de la pantalla.
+		\item \textbf{Visibilidad}: Se mostrará siempre que el personaje esté inmerso en un tutorial, mostrando el texto relativo a cada tutorial.
+	\end{itemize}
+\end{itemize}
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.435]{figures/hud-tutorial.png}
+		\caption{Captura del juego tomada durante un tutorial}
+\end{figure*}
+
+\begin{itemize}
+	\item \textbf{Mensaje de fin de juego}:
+	\begin{itemize}
+		\item \textbf{Tipo}: Texto.
+		\item \textbf{Funcionalidad}: Muestra el mensaje de fin de juego.
+		\item \textbf{Posición}: Parte superior de la pantalla, centrado.
+		\item \textbf{Tamaño}: Ocupando toda la pantalla horizontalmente.
+		\item \textbf{Visibilidad}: Aparecerá al alcanzarse cualquiera de las condiciones de fin de juego.
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Recuadro de juego guardado}:
+	\begin{itemize}
+		\item \textbf{Tipo}: Caja y texto.
+		\item \textbf{Funcionalidad}: Caja que muestra un texto con la advertencia de que el juego ha sido guardado.
+		\item \textbf{Posición}: Parte superior de la pantalla, centrado.
+		\item \textbf{Visibilidad}: Se mostrará, junto a su animación, cuando el jugador llegue a un punto de control, con una animación también, en unos breves segundos.
+	\end{itemize}
+\end{itemize}

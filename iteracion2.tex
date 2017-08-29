@@ -1,20 +1,538 @@
 %!TEX root =  tfg.tex
 \chapter{Segunda iteración}
 
-\begin{quotation}[Novelist]{Ernest Hemingway (1899--1961)}
-The good parts of a book may be only something a writer is lucky enough to overhear or it may be the wreck of his whole damn life -- and one is as good as the other.
-\end{quotation}
-
 \begin{abstract}
-TODO TODO TODO
+Durante esta iteración nos centraremos en el sistema de escalada, uno de los ejes principales del proyecto, e implementaremos acciones como agarrar salientes, saltar de uno a otro o carreras por las paredes.
 \end{abstract}
 
 \section{Características a desarrollar}
 
+\begin{enumerate}
+	\item Base del sistema de escalada (*).
+	\begin{itemize}
+		\item Implementación del código de la base del sistema de escalada.
+	\end{itemize}
+	\item Mecánica: Agarrar un saliente (*).
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+		\item Mecánica: Agarrar un saliente pequeño y escalarlo (*).
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Escalar un saliente al que estemos agarrados (*).
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+	\end{itemize}
+	\item Mecánica: Soltar un saliente (*).
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Movernos por un saliente.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Saltar desde saliente lateralmente.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Mirar hacia atrás desde saliente.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Saltar desde saliente mirando hacia atrás
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Escalada en pared (*).
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Giro y salto durante escalada en pared.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+\end{enumerate}
+
+\midrule
+
+Para la realización (o parte de la realización) de las mecánicas marcadas con un asterisco (*) se siguieron las siguientes referencias:
+\begin{itemize}
+	\item \textbf{Agarrar un saliente}: \url{https://youtu.be/4yjcwZLQqlE}
+	\item \textbf{Escalar un saliente}: \url{https://youtu.be/H2xqW7lKkyw}
+	\item \textbf{Soltar un saliente y escalada por pared}: \url{https://youtu.be/2vDjzr9EvUc}
+	\item \textbf{Agarrar un saliente pequeño y escalarlo}: \url{https://youtu.be/fLLKgc0LDqc}
+\end{itemize}
+
+No obstante, estando basada buena parte de esta iteración del proyecto en dichas referencias tenemos que tener en cuenta lo siguiente:
+\begin{enumerate}
+	\item \textbf{Están implementadas en diferentes lenguajes de programación}: esta ya es una diferencia de enorme de por sí, pero además no debemos olvidarnos que al tener que lidiar con los \glspl{blueprint} de animaciones desde C++ todo se hace de manera diferente, tanto es así que se necesitan instrucciones adicionales en el \gls{blueprint} de animaciones del personaje para que el sistema funcione correctamente.
+	\item \textbf{Cada una está realizada en diferentes versiones del motor}: lo que provocó que instrucciones no funcionaran instrucciones y hubiese que buscar alternativas.
+	\item \textbf{Es una versión depurada en la que se han corregido numerosos fallos}: algunos de ellos de enorme importancia.
+	\item Se han modificado, añadido y eliminado funcionalidades, así como que se ha ampliado el sistema base con numerosas mejoras.
+\end{enumerate}
+
+\clearpage
+
 \section{Diseño}
+
+Antes de empezar la fase de diseño, vamos a intentar centrarnos en la parte más importante del sistema de escalada: la base.
+
+La base del sistema de escalada nos ofrece información en tiempo real del escenario y que usarán cada una de las funciones de escalada que se implementen para funcionar, por tanto, es el germen del que emanan todas ellas.
+
+Para obtener información del escenario, lo que hacemos es trazar líneas por determinados canales desde el personaje o alguna de sus partes, con una determinada longitud, y ver si impactan con algún elemento del escenario y con cuál.
+
+Esto se hace en cada \gls{tick} del juego, por lo que está implementado totalmente en "`C++"' para optimizar su funcionamiento.
+
+El sistema traza en todo momento, mientras que estemos cayendo y no estemos agarrados a nada (o bien estemos realizando una escalada en pared):
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.5cm} p{6cm} p{2cm} p{2.5cm}}{2}
+		{Trazadores de la base del sistema de escalada 1/2}
+		\textbf{Nombre}&\textbf{Descripción}&\textbf{Tipo}&\textbf{Canal}\\
+		\midrule
+		Trazador de pared&Intenta buscar si tenemos una pared adecuada enfrente&Esfera&Especial\\
+		\midrule
+		Trazador de techo&Intenta saber si hemos chocado con un techo al correr por la pared&Esfera&Visibilidad\\
+		\midrule
+		Trazador de altura izquierdo&Trata de saber si el personaje podría emplazar la mano ahí una vez agarrado&Esfera&Especial\\
+		\midrule
+		Trazador de altura derecho&Igual que el anterior, pero referido a la otra mano&Esfera&Especial\\
+		\midrule
+		Trazador de suelo&Trata de conocer si estamos demasiado cerca del suelo para escalar&Esfera&Visibilidad\\
+	\end{coolTable}
+	\caption{Trazadores de la base del sistema de escalada 1/2}
+\end{table*}
+
+\clearpage
+
+Y cuando el personaje está agarrado algún saliente, se trazan:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.5cm} p{6cm} p{2cm} p{2.5cm}}{2}
+		{Trazadores de la base del sistema de escalada 2/2}
+		\textbf{Nombre}&\textbf{Descripción}&\textbf{Tipo}&\textbf{Canal}\\
+		\midrule
+		Trazador pie izquierdo&Intenta buscar si nuestro personaje puede emplazar el pie izquierdo&Esfera&Visibilidad\\
+		\midrule
+		Trazador pie derecho&Intenta buscar si nuestro personaje puede emplazar el pie derecho&Esfera&Visibilidad\\
+	\end{coolTable}
+	\caption{Trazadores de la base del sistema de escalada 2/2}
+\end{table*}
+
+Además de estos, hay varios trazadores más que se implementan dentro de las propias funciones de escalada.
+
+\clearpage
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 2002: Agarrar un saliente}
+		\textbf{Asunto}&Agarrar un saliente\\
+		\textbf{Resumen}&Se requiere que nuestro personaje se agarre a determinados salientes, previamente indicados dichos salientes.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando el personaje esté en una posición en la que pueda agarrar una de estas superficies especiales se quedará agarrado a ellas, sin necesidad de que el usuario interaccione más con el juego.\\
+		\textbf{Motivación}&Es la solución más simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 2002: Agarrar un saliente}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 2003: Agarrar un saliente pequeño para escalarlo}
+		\textbf{Asunto}&Agarrar un pequeño saliente y escalarlo\\
+		\textbf{Resumen}&Se requiere que nuestro personaje cuando nuestro personaje se agarre con suficiente holgura a un objeto escalable, lo escale sin más, sin tener que caer y soportarse sobre sus manos.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando el personaje esté en una posición en la que pueda agarrar y saltar directamente una de las superficies especiales se agarrará a ella y la escalará, sin necesidad de que el usuario interaccione más con el juego.\\
+		\textbf{Motivación}&Es la solución más simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 2003: Agarrar un saliente pequeño para escalarlo}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 2004: Escalar un saliente al que estemos agarrados}
+		\textbf{Asunto}&Escalar un saliente al que estemos agarrados\\
+		\textbf{Resumen}&Se requiere que nuestro personaje, estando agarrado de un saliente, puede saltarlo y subir al piso superior si puede.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando el personaje esté agarrado a un saliente, si pulsa el botón "`saltar"', puede hacer fuerzas con los pies y no hay ningún impedimento que permita al personaje emplazarse en la posición de destino, podrá saltar el saliente e incoorporarse al siguiente nivel.\\
+		\textbf{Motivación}&Es la solución más simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 2004: Escalar un saliente al que estemos agarrados}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 2005: Soltar un saliente}
+		\textbf{Asunto}&Soltar un saliente\\
+		\textbf{Resumen}&Se quiere que un personaje que esté agarrado a un saliente pueda soltarse.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando el personaje esté en un saliente y pulse el botón "`agachar"', se soltará del saliente.\\
+		\textbf{Motivación}&Es la solución más simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 2005: Soltar un saliente}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 2006: Movernos por un saliente}
+		\textbf{Asunto}&Movernos por un saliente\\
+		\textbf{Resumen}&Se requiere que nuestro personaje pueda moverse libremente por los salientes si no hay nada que lo impida.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando no haya nada que lo impida el personaje podrá moverse por el saliente pulsando las teclas de movimiento izquierda y derecha.\\
+		\textbf{Motivación}&Es la solución más simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 2006: Movernos por un saliente}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 2007: Saltar desde saliente lateralmente}
+		\textbf{Asunto}&Saltar desde saliente lateralmente\\
+		\textbf{Resumen}&Se requiere que nuestro personaje pueda saltar lateralmente cuando llegue a un extremo del saliente para agarrarse a otros.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&El personaje, una vez que llegue al límite del saliente y pueda hacer fuerza con los pies, hará un gesto con la mano indicando que puede saltar y si el usuario pulsa el botón "`saltar"' abandonará el vértice y se propulsará. Si hubiese otro saliente y lo estuviéramos mirando podríamos agarrarnos de nuevo a él.\\
+		\textbf{Motivación}&Es la solución más simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 2007: Saltar desde saliente lateralmente}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 2008: Mirar hacia atrás desde saliente}
+		\textbf{Asunto}&Mirar hacia atrás desde saliente\\
+		\textbf{Resumen}&Se requiere que nuestro personaje pueda volverse y mirar hacia atrás desde un saliente.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&El usuario, en cualquier momento mientras que el personaje esté agarrado a un saliente y pueda hacer fuerza con los pies, podrá girar al personaje y mirar hacia atrás usando la tecla de movimiento "`atrás"'.\\
+		\textbf{Motivación}&Es la solución más simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 2008: Mirar hacia atrás desde saliente}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 2009: Saltar desde saliente mirando hacia atrás}
+		\textbf{Asunto}&Saltar desde saliente hacia atrás\\
+		\textbf{Resumen}&Se requiere que nuestro personaje pueda realizar un salto hacia atrás del saliente, si nada lo impide, para caer en un determinado lugar o agarrarse a otros salientes.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&El usuario, en cualquier momento mientras que el personaje esté agarrado a un saliente y pueda hacer fuerza con los pies, podrá girar al personaje pulsando el botón de movimiento "`atrás"' y, sin soltarlo, pulsar el botón "`saltar"' para que el personaje de una patada a la pared, se impulse, y abandone el saliente.\\
+		\textbf{Motivación}&Es la solución más simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 2009: Saltar desde saliente mirando hacia atrás}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 2010: Escalada en pared}
+		\textbf{Asunto}&Escalada en pared\\
+		\textbf{Resumen}&Se requiere que el personaje pueda escalar zonas propicias para la escalada.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando el personaje esté en frente y mirando una superficie escalabre (no importa si está quieto, en movimiento, saltando o cayendo) si el usuario pulsa el botón de "`salto"' lo suficientemente cerca se iniciará la escalada.\\
+		\textbf{Motivación}&Es la solución más simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 2010: Escalada en pared}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 2011: Giro y salto durante escalada en pared}
+		\textbf{Asunto}&Giro y salto durante escalada en pared\\
+		\textbf{Resumen}&Se quiere que el personaje pueda patear la pared impulsándose mientras está realizando una escalada por pared.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&En cualquier momento mientras que el personaje sigue escalando una pared el usuario podrá apretar el botón "`saltar"' para hacer que el personaje se gire y se impulse.\\
+		\textbf{Motivación}&Es la solución más simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 2011: Giro y salto durante escalada en pared}
+\end{table*}
+
+\clearpage
 
 \section{Implementación}
 
+\begin{asigResponsabilidad}{2002}{Agarrar un saliente}
+{[void] GrabLedge ()}
+\pasoPseudo{1. Comprueba la variable "`bIsClimbingLedge"':}
+\pasoPseudo{1.1. Si es verdadero no hace nada.}
+\pasoPseudo{1.2. Si es falso:}
+\pasoPseudo{1.2.1. Ajusta la caja de colisión de la cámara de primera persona (para evitar que la cámara traspase elementos del escenario).}
+\pasoPseudo{1.2.2. Ajusta levemente la posición del personaje dentro de la cápsula para que se ajuste a la posición de la pared a la que nos agarraremos.}
+\pasoPseudo{1.2.3. Cambia el valor de "`bIsHanging"' del \gls{blueprint} encargado de animar al personaje a verdadero.}
+\pasoPseudo{1.2.4. Cambia el modo de movimiento del personaje a volando.}
+\pasoPseudo{1.2.5. Cambia el valor de "`bIsHanging"' de la clase a verdadero.}
+\pasoPseudo{1.2.6. Mueve al personaje a una posición en la que la animación quede ajustada perfectamente.}
+\pasoPseudo{1.2.7. Cuando termina para el movimiento del personaje inmediatamente.}
+\pasoPseudo{1.2.8. Ajusta el valor de la variable "`bCanDoWallRunning"' a verdadero.}
+\pasoPseudo{1.2.9. Ajusta el valor de la variable "`bUseControllerRotationYaw"' a falso, para que no controlemos la rotación del personaje con ella sino que permanezca siempre alineado con la pared.}
+\pasoPseudo{1.2.10. Aplica restricciones de cámara.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1.2.10.}{AMainCharacter}{[void] RestrictView (YawMin:float, YawMax:float, PitchMin:float)}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{2003}{Agarrar un saliente pequeño para escalarlo}
+{[void] KneeClimbLedge ()}
+\pasoPseudo{1. Comprueba la variable "`bIsClimbingLedge"':}
+\pasoPseudo{1.1. Si es verdadero no hace nada.}
+\pasoPseudo{1.2. Si es falso:}
+\pasoPseudo{1.2.1. Llama a la función "`ClimbingKnees()"' del \gls{blueprint} encargado de animar al personaje.}
+\pasoPseudo{1.2.2. Cambia el valor de "`bIsClimbingLedge"' de la clase a verdadero.}
+\pasoPseudo{1.2.3. Cambia el modo de movimiento del personaje a "`volando"'.}
+\pasoPseudo{1.2.4. Mueve al personaje a una posición en la que la animación quede ajustada perfectamente.}
+\pasoPseudo{1.2.5. Cuando termina para el movimiento del personaje inmediatamente.}
+\pasoPseudo{1.2.6. Ajusta el valor de la variable "`bUseControllerRotationYaw"' a falso, para que no controlemos la rotación del personaje con ella sino que permanezca siempre alineado con la pared.}
+\pasoPseudo{1.2.7. Aplica restricciones de cámara.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1.2.7.}{AMainCharacter}{[void] RestrictView (YawMin:float, YawMax:float, PitchMin:float)}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{2004}{Escalar un saliente al que estemos agarrados (Inicio)}
+{[void] ClimbLedge ()}
+\pasoPseudo{1. Comprueba la variable "`bIsClimbingLedge"':}
+\pasoPseudo{1.1. Si es verdadera no hace nada.}
+\pasoPseudo{1.2. Si es falsa:}
+\pasoPseudo{1.2.1. Cambia el modo de movimiento del personaje a "`volando"'.}
+\pasoPseudo{1.2.2. Cambia el valor de "`bIsClimbingLedge"' de la clase a verdadero.}
+\pasoPseudo{1.2.3. Cambia el valor de "`bIsHanging"' de la clase a falso.}
+\pasoPseudo{1.2.1. Llama a la función "`Climbing()"' del \gls{blueprint} encargado de animar al personaje.}
+\pasoPseudo{1.2.3. Cambia el valor de "`bIsHanging"' del \gls{blueprint} encargado de animar al personaje a falso.}
+\pasoPseudo{1.2.5. Cuando termina para el movimiento del personaje inmediatamente.}
+\pasoPseudo{1.2.6. Ajusta el valor de la variable "`bUseControllerRotationYaw"' a falso, para que no controlemos la rotación del personaje con ella sino que permanezca siempre alineado con la pared.}
+\pasoPseudo{1.2.7. Aplica restricciones de cámara.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1.2.7.}{AMainCharacter}{[void] RestrictView (YawMin:float, YawMax:float, PitchMin:float)}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{2004}{Escalar un saliente al que estemos agarrados (Final)}
+{[void] CompleteClimb ()}
+\pasoPseudo{1. Cambia el modo de movimiento del personaje a "`caminando"'.}
+\pasoPseudo{2. Cambia el valor de "`bIsClimbingLedge"' de la clase a falso.}
+\pasoPseudo{3. Cambia el valor de "`bIsHanging"' de la clase a falso.}
+\pasoPseudo{4. Cambia el valor de "`bIsWallRuning"' de la clase a falso.}
+\pasoPseudo{5. Cuando termina para el movimiento del personaje inmediatamente.}
+\pasoPseudo{6. Ajusta el valor de la variable "`bUseControllerRotationYaw"' a verdadero, para volver a controlar la rotación del personaje con la cámara.}
+\pasoPseudo{7. Aplica un reseteo en las restricciones de cámara.}
+\pasoPseudo{8. Ajusta la caja de colisión de la cámara de primera persona (para evitar que la cámara traspase elementos del escenario).}
+\pasoPseudo{9. Devuelve al personaje a su posición inicial dentro de la caja de colisión}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{7.}{AMainCharacter}{[void] ResetRestrictView ()}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{2005}{Soltar un saliente}
+{[void] LeaveLedge ()}
+\pasoPseudo{1. Cambia el modo de movimiento del personaje a "`caminando"'.}
+\pasoPseudo{2. Cambia el valor de "`bIsHanging"' del \gls{blueprint} encargado de animar al personaje a falso.}
+\pasoPseudo{3. Cambia el valor de "`bCanBraceHang"' del \gls{blueprint} encargado de animar al personaje a falso.}
+\pasoPseudo{4. Cambia el valor de "`GrabRightInput"' del \gls{blueprint} encargado de animar al personaje a 0.}
+\pasoPseudo{5. Cambia el valor de "`GrabLookingRightInput"' del \gls{blueprint} encargado de animar al personaje a 0.}
+\pasoPseudo{6. Cambia el valor de "`bIsGrabingAndLookingRear"' del \gls{blueprint} encargado de animar al personaje a falso.}
+\pasoPseudo{7. Cambia el valor de "`bIsHanging"' de la clase a verdadero.}
+\pasoPseudo{8. Cambia el valor de "`bCanBraceHang"' de la clase a falso.}
+\pasoPseudo{9. Cambia el valor de "`bIsGrabbingLookingSide"' de la clase a falso.}
+\pasoPseudo{10. Cambia el valor de "`bIsGrabbingLookingRear"' de la clase a falso.}
+\pasoPseudo{11. Ajusta el valor de la variable "`bUseControllerRotationYaw"' a verdadero, para volver a controlar la rotación del personaje con la cámara.}
+\pasoPseudo{12. Aplica un reseteo en las restricciones de cámara.}
+\pasoPseudo{13. Ajusta la caja de colisión de la cámara de primera persona (para evitar que la cámara traspase elementos del escenario).}
+\pasoPseudo{14. Devuelve al personaje a su posición inicial dentro de la caja de colisión}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{12.}{AMainCharacter}{[void] ResetRestrictView ()}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{2006}{Movernos por un saliente (PRIMERA PARTE)}
+{[void] GrabLedgeMove ()}
+\pasoPseudo{1. Comprobamos si el usuario intenta moverse lateralmente o está mirando hacia atrás:}
+\pasoPseudo{1.1. Si es verdadero:}
+\pasoPseudo{1.1.1. Detenemos el movimiento del personaje inmediatamente.}
+\pasoPseudo{1.1.2. Cambia el valor de "`GrabRightInput"' del \gls{blueprint} encargado de animar al personaje a 0.}
+\pasoPseudo{1.1.3. Cambia el valor de "`GrabLookingRightInput"' del \gls{blueprint} encargado de animar al personaje a 0.}
+\pasoPseudo{1.2. Si por el contrario no se cumple:}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{2006}{Movernos por un saliente (SEGUNDA PARTE PARTE)}
+{[void] GrabLedgeMove ()}
+\pasoPseudo{1.2.1. Si el usuario intenta moverse hacia la izquierda:}
+\pasoPseudo{1.2.1.1. Trazamos una esfera un poco más a la izquierda de donde nos encontramos, buscando la pared, para ver si aún hay superficie a la que moverse:}
+\pasoPseudo{1.2.1.1.1. Si la esfera impacta:}
+\pasoPseudo{1.2.1.1.1.1. Cambia el valor de "`GrabRightInput"' del \gls{blueprint} encargado de animar al personaje al valor del input que envía el usuario.}
+\pasoPseudo{1.2.1.1.1.2. Cambia el valor de "`GrabLookingRightInput"' del \gls{blueprint} encargado de animar al personaje a 0.}
+\pasoPseudo{1.2.1.1.1.3. Comprobamos la variable "`bCanBraceHang"':}
+\pasoPseudo{1.2.1.1.1.3.1. Si es verdadero:}
+\pasoPseudo{1.2.1.1.1.3.1.1. Le añadimos movimiento al personaje hacia la izquierda, pero dividimos entre 5 el valor que el usuario le quiere dar.}
+\pasoPseudo{1.2.1.1.1.3.2. Si es falso:}
+\pasoPseudo{1.2.1.1.1.3.1.1. Le añadimos movimiento al personaje hacia la izquierda, pero dividimos entre 8 el valor que el usuario le quiere dar.}
+\pasoPseudo{1.2.1.1.1.4. Cambia el valor de "`bIsGrabbingLookingSide"' de la clase a falso.}
+\pasoPseudo{1.2.1.1.2. Si la esfera no impacta:}
+\pasoPseudo{1.2.1.1.2.1. Detenemos el movimiento inmeditamente}
+\pasoPseudo{1.2.1.1.2.2. Lanzamos una esfera hacia la derecha del jugador para asegurarnos de que no hay obstáculos.}
+\pasoPseudo{1.2.1.1.2.2.1. Si la esfera impacta:}
+\pasoPseudo{1.2.1.1.2.2.1.1. Cambia el valor de "`GrabRightInput"' del \gls{blueprint} encargado de animar al personaje a 0.}
+\pasoPseudo{1.2.1.1.2.2.1.2. Cambia el valor de "`GrabLookingRightInput"' del \gls{blueprint} encargado de animar al personaje a 0.}
+\pasoPseudo{1.2.1.1.2.2.1.3. Cambia el valor de "`bIsGrabbingLookingSide"' de la clase a falso.}
+\pasoPseudo{1.2.1.1.2.2.2. Si la esfera no impacta:}
+\pasoPseudo{1.2.1.1.2.2.1.1. Cambia el valor de "`GrabRightInput"' del \gls{blueprint} encargado de animar al personaje a 0.}
+\pasoPseudo{1.2.1.1.2.2.1.2. Cambia el valor de "`GrabLookingRightInput"' del \gls{blueprint} encargado de animar al personaje al valor que está solicitando el jugador.}
+\pasoPseudo{1.2.1.1.2.2.1.3. Cambia el valor de "`bIsGrabbingLookingSide"' de la clase a verdadero.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{2006}{Movernos por un saliente (TERCERA PARTE)}
+{[void] GrabLedgeMove ()}
+\pasoPseudo{1.2.2. Si el usuario intenta moverse hacia la izquierda:}
+\pasoPseudo{1.2.2.1. Trazamos una esfera un poco más a la izquierda de donde nos encontramos, para ver si aún hay superficie a la que moverse:}
+\pasoPseudo{1.2.2.1.1. Si la esfera impacta:}
+\pasoPseudo{1.2.2.1.1.1. Cambia el valor de "`GrabRightInput"' del \gls{blueprint} encargado de animar al personaje al valor del input que envía el usuario.}
+\pasoPseudo{1.2.2.1.1.2. Cambia el valor de "`GrabLookingRightInput"' del \gls{blueprint} encargado de animar al personaje a 0.}
+\pasoPseudo{1.2.2.1.1.3. Comprobamos la variable "`bCanBraceHang"':}
+\pasoPseudo{1.2.2.1.1.3.1. Si es verdadero:}
+\pasoPseudo{1.2.2.1.1.3.1.1. Le añadimos movimiento al personaje hacia la izquierda, pero dividimos entre 5 el valor que el usuario le quiere dar.}
+\pasoPseudo{1.2.2.1.1.3.2. Si es falso:}
+\pasoPseudo{1.2.2.1.1.3.1.1. Le añadimos movimiento al personaje hacia la izquierda, pero dividimos entre 8 el valor que el usuario le quiere dar.}
+\pasoPseudo{1.2.2.1.1.4. Cambia el valor de "`bIsGrabbingLookingSide"' de la clase a falso.}
+\pasoPseudo{1.2.2.1.2. Si la esfera no impacta:}
+\pasoPseudo{1.2.2.1.2.1. Detenemos el movimiento inmeditamente}
+\pasoPseudo{1.2.2.1.2.2. Lanzamos una esfera hacia la izquierda del jugador para asegurarnos de que no hay obstáculos.}
+\pasoPseudo{1.2.2.1.2.2.1. Si la esfera impacta:}
+\pasoPseudo{1.2.2.1.2.2.1.1. Cambia el valor de "`GrabRightInput"' del \gls{blueprint} encargado de animar al personaje a 0.}
+\pasoPseudo{1.2.2.1.2.2.1.2. Cambia el valor de "`GrabLookingRightInput"' del \gls{blueprint} encargado de animar al personaje a 0.}
+\pasoPseudo{1.2.2.1.2.2.1.3. Cambia el valor de "`bIsGrabbingLookingSide"' de la clase a falso.}
+\pasoPseudo{1.2.2.1.2.2.2. Si la esfera no impacta:}
+\pasoPseudo{1.2.2.1.2.2.1.1. Cambia el valor de "`GrabRightInput"' del \gls{blueprint} encargado de animar al personaje a 0.}
+\pasoPseudo{1.2.2.1.2.2.1.2. Cambia el valor de "`GrabLookingRightInput"' del \gls{blueprint} encargado de animar al personaje al valor que está solicitando el jugador.}
+\pasoPseudo{1.2.2.1.2.2.1.3. Cambia el valor de "`bIsGrabbingLookingSide"' de la clase a verdadero.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{2007}{Saltar desde saliente lateralmente}
+{[void] JumpGrabbingSide ()}
+\pasoPseudo{1. Usamos el método "`LeaveLedge()"' para abandonar el saliente primero.}
+\pasoPseudo{2. Comprobamos el valor del input del movimiento izquierda-derecha:}
+\pasoPseudo{2.1. Si el usuario está pulsando el botón para moverse a la izquierda:}
+\pasoPseudo{2.1.1. Usamos el método "`LaunchCharacter"' de la clase "`ACharacter"' para lanzar al jugador hacia la izquierda (y un poco hacia arriba)}
+\pasoPseudo{2.2. Si el usuario está pulsando el botón para moverse a la derecha:}
+\pasoPseudo{2.2.1. Usamos el método "`LaunchCharacter"' de la clase "`ACharacter"' para lanzar al jugador hacia la derecha (y un poco hacia arriba)}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1.}{AMainCharacter}{[void] LeaveLedge ()}{2005}
+\pasoCodigo{2.1.1.}{ACharacter}{[void] LaunchCharacter (LaunchVelocity:FVector, bXYOverride:bool, bZOverride:bool)}{N/A}
+\pasoCodigo{2.2.1.}{ACharacter}{[void] LaunchCharacter (LaunchVelocity:FVector, bXYOverride:bool, bZOverride:bool)}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{2008}{Mirar hacia atrás desde saliente}
+{[void] GrabLedgeRear ()}
+\pasoPseudo{1. Comprobamos el valor de la variable "`bIsGrabbingLookingRear"':}
+\pasoPseudo{1.1. Si es verdadera no hacemos nada.}
+\pasoPseudo{1.2. Si es falsa:}
+\pasoPseudo{1.2.1. Cambia el valor de "`bIsGrabbingLookingRear"' de la clase a verdadera.}
+\pasoPseudo{1.2.2. Cambia el valor de "`bIsGrabingAndLookingRear"' del \gls{blueprint} encargado de animar al personaje a verdadero.}
+\pasoPseudo{1.2.3. Detenemos el movimiento inmeditamente}
+\pasoPseudo{1.2.4. Ajusta el valor de la variable "`bUseControllerRotationYaw"' a falso, para que no controlemos la rotación del personaje con ella sino que permanezca siempre alineado con la pared.}
+\pasoPseudo{1.2.5. Aplica restricciones de cámara.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1.2.5.}{AMainCharacter}{[void] RestrictView (YawMin:float, YawMax:float, PitchMin:float)}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{2009}{Saltar desde saliente mirando hacia atrás}
+{[void] JumpGrabbingRear ()}
+\pasoPseudo{1. Usamos el método "`LeaveLedge()"' para abandonar el saliente primero.}
+\pasoPseudo{2. Usamos el método "`LaunchCharacter"' de la clase "`ACharacter"' para lanzar al jugador en la dirección del vector normal de la pared a la que nos agarramos (y un poco hacia arriba)}
+\pasoPseudo{3. Giramos 180 grados nuestro personaje}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{2.}{ACharacter}{[void] LaunchCharacter (LaunchVelocity:FVector, bXYOverride:bool, bZOverride:bool)}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{2010}{Escalada en pared}
+{[void] JumpOrWallRunning ()}
+\pasoPseudo{1. Comprobamos el valor de la variable "`bIsWallRunning"':}
+\pasoPseudo{1.1. Si es verdadera:}
+\pasoPseudo{1.1.1. Se llama a la función "`WallRunningRearJump()"', para realizar un salto durante la escalada en pared.}
+\pasoPseudo{1.2. Si es falsa:}
+\pasoPseudo{1.2.1. Se comprueba si el modo de movimiento del personaje es "`volando"':}
+\pasoPseudo{1.2.1.1. Si es verdadero:}
+\pasoPseudo{1.2.1.1.1. No ocurre nada.}
+\pasoPseudo{1.2.1.2. Si es falso:}
+\pasoPseudo{1.2.1.2.1. Se comprueba si el modo de movimiento del personaje es "`caminando"':}
+\pasoPseudo{1.2.1.2.1.1. Si es verdadero:}
+\pasoPseudo{1.2.1.2.1.1.1. Ajusta el valor de la variable "`bCanDoWallRunning"' a verdadero.}
+\pasoPseudo{1.2.1.2.1.2. Si es falso:}
+\pasoPseudo{1.2.1.2.1.2.1. No hace nada.}
+\pasoPseudo{1.2.1.2.2. Se traza una esfera hacia delante del jugador para saber si tenemos delante una pared apropiada para escalar:}
+\pasoPseudo{1.2.1.2.2.1. Si impacta y además la variable "`bCanDoWallRunning"' es verdadera:}
+\pasoPseudo{1.2.1.2.2.1.1. Cambia el valor de "`bIsWallRunning"' del \gls{blueprint} encargado de animar al personaje a verdadero.}
+\pasoPseudo{1.2.1.2.2.1.2. Llama a la función "`WallRunning()"' del \gls{blueprint} encargado de animar al personaje.}
+\pasoPseudo{1.2.1.2.2.1.3. Cambiamos el modo de movimiento del personaje a "`volando"'.}
+\pasoPseudo{1.2.1.2.2.1.4. Movemos la cápsula y nuestro personaje hacia arriba verticalmente, poco a poco.}
+\pasoPseudo{1.2.1.2.1.1.5. Ajusta el valor de la variable "`bIsWallRunning"' a verdadero.}
+\pasoPseudo{1.2.1.2.1.1.6. Ajusta el valor de la variable "`bCanDoWallRunning"' a falso.}
+\pasoPseudo{1.2.1.2.2.1.7. Ajusta el valor de la variable "`bUseControllerRotationYaw"' a falso, para que no controlemos la rotación del personaje con ella sino que permanezca siempre alineado con la pared.}
+\pasoPseudo{1.2.1.2.2.1.8. Aplica restricciones de cámara.}
+\pasoPseudo{1.2.1.2.2.2. Si no:}
+\pasoPseudo{1.2.1.2.2.2.1. Saltamos mediante la función "`Jump()"'.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{2010}{Giro y salto durante escalada en pared}
+{[void] WallRunningRearJump ()}
+\pasoPseudo{1. Comprobamos que "`bIsWallRunning"' sea verdadero y "`bIsClimbingLedge"' falso:}
+\pasoPseudo{1.1. Si ocurre:}
+\pasoPseudo{1.1.1. Paramos la escalada en pared.}
+\pasoPseudo{1.1.2. Giramos 180 grados al personaje.}
+\pasoPseudo{1.1.3. Usamos el método "`LaunchCharacter"' de la clase "`ACharacter"' para lanzar al jugador en la dirección del vector normal de la pared a la que nos agarramos (y un poco hacia arriba)}
+\pasoPseudo{1.1.4. Ajusta el valor de la variable "`bCanDoWallRunning"' a verdadero.}
+\pasoPseudo{1.2. Si no ocurre:}
+\pasoPseudo{1.2.1. No pasa nada.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1.1.3.}{ACharacter}{[void] LaunchCharacter (LaunchVelocity:FVector, bXYOverride:bool, bZOverride:bool)}{N/A}
+\end{asigResponsabilidad}
+
+\clearpage
+
 \section{Pruebas}
+
+\clearpage
 
 \section{Despliegue}

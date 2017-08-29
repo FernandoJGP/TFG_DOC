@@ -49,77 +49,15 @@ Respecto a las voces y diálogos el producto carecerá de los mismos.
 
 \section{Interfaz de usuario}
 
-\subsection{Menú principal}
-En el menú principal se le mostrará al jugador las siguientes opciones:
+\subsection{Menús}
 
-\begin{itemize}
-	\item \textbf{Continuar}: Carga el último nivel jugado y sitúa al personaje en el último punto de control.
-	\item \textbf{Nuevo juego}: Carga el nivel del tutorial y sitúa al personaje al inicio del mismo.
-	\item \textbf{Opciones}: Muestra las opciones del juego, que son:
-	\begin{itemize}
-		\item TODO.
-	\end{itemize}
-	\item \textbf{Salir}: Al seleccionar esta opción la aplicación se cerrará.
-\end{itemize}
+Coincide con la sección "`Manual"' del cuerpo del documento.
+%TODO
 
 \subsection{In-game HUD}
-Durante el tiempo de juego, al jugador se le mostrará la siguiente información. TODO.
 
 El HUD se compone de los siguientes elementos:
-\begin{itemize}
-	\item \textbf{Indicador de adrenalina}:
-	\begin{itemize}
-		\item \textbf{Tipo}: Barra.
-		\item \textbf{Funcionalidad}: Muestra la cantidad de adrenalina restante.
-		\item \textbf{Posición}: Adyacente al límite inferior de la pantalla.
-		\item \textbf{Tamaño}: Ancho de la pantalla.
-		\item \textbf{Visibilidad}: Se muestra si la adrenalina no está cargada por completo.
-	\end{itemize}
-\end{itemize}
 
-\begin{itemize}
-	\item \textbf{Punto de referencia}:
-	\begin{itemize}
-		\item \textbf{Tipo}: Imagen.
-		\item \textbf{Funcionalidad}: Imagen (punto) de referencia que se usa principalmente para evitar el "`motion sickness"' o "`cinetosis"', en otras palabras, para suavizar mareos en jugadores con propensión a tenerlos.
-		\item \textbf{Posición}: Equidistante de todos los lados de la pantalla.
-		\item \textbf{Tamaño}: N/A.
-		\item \textbf{Visibilidad}: Siempre.
-	\end{itemize}
-\end{itemize}
-
-\begin{itemize}
-	\item \textbf{Indicador de habilidad "`blink"'}:
-	\begin{itemize}
-		\item \textbf{Tipo}: Imagen.
-		\item \textbf{Funcionalidad}: Indica cuando el jugador puede ejecutar la habilidad blink.
-		\item \textbf{Posición}: Alrededor del punto de referencia.
-		\item \textbf{Tamaño}: N/A.
-		\item \textbf{Visibilidad}: Sólo cuando el personaje pueda realizar la habilidad blink y esté mirando a una superficie propicia para ello.
-	\end{itemize}
-\end{itemize}
-
-\begin{itemize}
-	\item \textbf{Caja de tutorial}:
-	\begin{itemize}
-		\item \textbf{Tipo}: Caja y texto.
-		\item \textbf{Funcionalidad}: Caja que muestra un texto con información correspondiente al tutorial que está en ese momento activo.
-		\item \textbf{Posición}: Centro de la pantalla.
-		\item \textbf{Tamaño}: N/A.
-		\item \textbf{Visibilidad}: Se mostrará siempre que el personaje esté inmerso en un tutorial, mostrando el texto relativo a cada tutorial.
-	\end{itemize}
-\end{itemize}
-
-\begin{itemize}
-	\item \textbf{Mensaje de fin de juego}:
-	\begin{itemize}
-		\item \textbf{Tipo}: Texto.
-		\item \textbf{Funcionalidad}: Muestra el mensaje de fin de juego.
-		\item \textbf{Posición}: Centro de la pantalla.
-		\item \textbf{Tamaño}: N/A.
-		\item \textbf{Visibilidad}: Aparecerá al alcanzarse cualquiera de las condiciones de fin de juego.
-	\end{itemize}
-\end{itemize}
 
 \subsection{In-game Options}
 TODO.
@@ -216,49 +154,7 @@ Las mecánicas son el conjunto de acciones que puede realizar el jugador y las re
 \end{enumerate}
 
 \subsection{Controles}
-En esta sección se definen los enlaces entre las diferentes entradas al alcance del jugador y su traducción al universo del juego.
-
-El producto ofrece al jugador dos métodos de entrada: "`teclado y ratón"' y "`mando"'. Ambos métodos no son excluyentes entre sí, y si se dispone de los dos métodos de entrada en cualquier momento se podrá pasar de uno a otro, sin ser necesario reiniciar el videojuego.
-
-\subsection{Controles con teclado y ratón}
-\subsubsection{Esquema}
-TODO.
-
-\subsubsection{Listado detallado}
-\begin{itemize}
-	\item Tecla \textbf{W}: Desplazamiento del jugador hacia el frente.
-	\item Tecla \textbf{A}: Desplazamiento del jugador hacia atrás.
-	\item Tecla \textbf{S}: Desplazamiento del jugador hacia la izquierda.
-	\item Tecla \textbf{D}: Desplazamiento del jugador hacia la derecha.
-	\item \textbf{Eje X} del ratón: Regula el movimiento horizontal de la cámara.
-	\item \textbf{Eje Y} del ratón: Regula el movimiento vertical de la cámara.
-	\item Tecla \textbf{E}: Botón de acción.
-	\item Tecla \textbf{Shift Izquierdo}: Sprint.
-	\item \textbf{Barra espaciadora}: Salto / Wall running / Salto en wall running / Escalar o saltar de saliente.
-	\item Tecla \textbf{Ctrl Izquierdo}: Agachado / Abandonar saliente.
-	\item Tecla \textbf{TAB} (Tabulador): Conmutador de tiempo bala.
-	\item \textbf{Botón derecho} del ratón: Blink.
-\end{itemize}
-
-\subsection{Controles con mando}
-\subsubsection{Esquema}
-TODO.
-
-\subsubsection{Listado detallado}
-\begin{itemize}
-	\item Joystick izquierdo \textbf{Eje Y+}: Desplazamiento del jugador hacia el frente.
-	\item Joystick izquierdo \textbf{Eje Y-}: Desplazamiento del jugador hacia atrás.
-	\item Joystick izquierdo \textbf{Eje X-}: Desplazamiento del jugador hacia la izquierda.
-	\item Joystick izquierdo \textbf{Eje X+}: Desplazamiento del jugador hacia la derecha.
-	\item Joystick derecho \textbf{Eje X}:  del ratón: Regula el movimiento horizontal de la cámara.
-	\item Joystick derecho \textbf{Eje Y}: Regula el movimiento vertical de la cámara.
-	\item Botón \textbf{A}: Botón de acción.
-	\item Disparador \textbf{RT}: Sprint.
-	\item Botón \textbf{B}: Salto / Wall running / Salto en wall running / Escalar o saltar de saliente.
-	\item Botón \textbf{X}: Agachado / Abandonar saliente.
-	\item Botón \textbf{Y}: Conmutador de tiempo bala.
-	\item Disparador \textbf{LT}: Blink.
-\end{itemize}
+Esta sección coincide con la homónima del cuerpo del documento (Ver sección \ref{sec:controles}).
 
 \subsection{Modos de juego}
 Aunque el jugador sólo perciba uno, en realidad se establecerán dos modos de juego: el primero se utilizará para navegar por los menús y el segundo será la forma de jugar al juego en sí.
@@ -436,6 +332,8 @@ El jugador obtendrá logros al recoger objetos repartidos por el universo del jue
 	\caption{Logro coleccionables - 100\% de coleccionables}
 \end{table*}
 
+\clearpage
+
 \subsubsection{Misceláneos}
 Además de los indicados, el jugador será recompensado con un logro al realizar las siguientes acciones satisfactoriamente:
 
@@ -481,6 +379,8 @@ Además de los indicados, el jugador será recompensado con un logro al realizar l
 	\caption{Logro misceláneos - 10000 saltos}
 \end{table*}
 
+\clearpage
+
 \subsubsection{100\%}
 Verifica que el jugador ha completado el resto de logros.
 
@@ -497,6 +397,8 @@ Verifica que el jugador ha completado el resto de logros.
 	\end{coolTable}
 	\caption{Logro 100\%}
 \end{table*}
+
+\clearpage
 
 \section{Assets}
 

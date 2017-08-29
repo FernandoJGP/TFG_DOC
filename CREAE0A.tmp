@@ -1,0 +1,441 @@
+%!TEX root =  tfg.tex
+\chapter{Primera iteración}
+
+\begin{abstract}
+Durante la primera iteración se abordará el desarrollo de las características más básicas que acompañan a este tipo de software: movimiento del personaje, rotación de su cámara, etc., la implementación de mecánicas básicas como sprint, salto, etc. y las mecánicas (poderes) que el personaje puede utilizar cuando esté potenciado.
+\end{abstract}
+
+\section{Características a desarrollar}
+\begin{enumerate}
+	\item Creación del personaje.
+	\item Creación de una cámara "`True first person camera"'.
+	\item Creación de una cámara en tercera persona.
+	\item Mecánica: Movimiento del personaje.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Rotación del personaje.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Rotación del personaje vinculada a un rate.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+	\end{itemize}
+	\item Mecánica: Sprint.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Salto.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Agachar.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Tiempo bala (o "`Time dilation"').
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+		\item Gestión de adrenalina relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Teletransporte (o "`Blink"').
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+		\item Gestión de adrenalina relacionada con la mecánica.
+		\item Implementación del código del indicador de blink disponible.
+	\end{itemize}
+	\item Control de límites del mapa (en otras palabras, que el usuario no pueda abandonar el mapa y si lo hace, muera).
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+	\end{itemize}
+	\item Control de máxima distancia de caída (en otras palabras, que el usuario al caer en una superficie situada en un foso, muera).
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+	\end{itemize}
+	\item Movimiento de piernas del personaje al girarse.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+\end{enumerate}
+
+\clearpage
+
+\section{Diseño}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0001: Creación del personaje}
+		\textbf{Asunto}&Creación del personaje\\
+		\textbf{Resumen}&Consistiría en la creación de una capsula con la que interaccionarían lo deferentes actores del entorno al, por ejemplo, colisionar con nuestro personaje (en vez de hacerlo con él directamente, ya que es mucho más costoso de calcular) y que alojaría a un modelo de personaje en su interior, adjunto a la capsula.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Creamos nuestro personaje extendiendo la clase ACharacter y usamos la propiedad "`Mesh"', heredada de la clase padre y del tipo "`USkeletalMeshComponent"', para guardar nuestro modelo de personaje. Dependiendo del modelo de personaje debemos adelantar o retrasar un poco el mismo respecto al centro de la cápsula, rotarlo, etc para que la cámara que le añadamos, posteriormenete, a nuestro modelo de personaje no traspase con las paredes ni genere ningún otro inconveniente.\\
+		\textbf{Motivación}&Esta solución se propone por algo que ya se ha comentado previamente: al utilizar una cápsula de colisión (o un cubo, esfera, etc) estamos reduciendo el número de cálculos que se tienen que hacer en muchas circunstancias, como la citada de que el personaje choque con una pared.\\
+		\textbf{Cuestiones abiertas}&Como se comentaba, hay que estar al tanto de si tenemos que mover nuestro personaje respecto a la cápsula, algo que no sabremos hasta que estemos interaccionando ya con el entorno.\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 0001: Creación del personaje}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0002: Creación de la cámara TFP}
+		\textbf{Asunto}&Creación y anclaje de la cámara "`true first person camera"'\\
+		\textbf{Resumen}&El modo "`true first person camera"' (cámara en primera persona real) implica que tengamos un modelo de personaje completo de personaje con una cámara anexa a la cabeza del modelo, por contraposición a la típica cámara en primera persona que se utiliza normalmente.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Creamos un "`camera arm"' (o brazo de cámara) para unir la cabeza del personaje con nuestra cámara, que también crearemos. Ajustamos la distancia del brazo de cámara para que la cámara se quede justo a la altura de los ojos del personaje y por delante de ellos y modificamos la propiedad "`ProbeSize"' del brazo de cámara para que cuando la cámara colisione con un obstáculo retroceda.\\
+		\textbf{Motivación}&Esta decisión genera muchos problemas, como que la cámara pueda traspasar paredes o introducirse dentro del personaje si no está correctamente calibrado, pero a la vez le da una mayor sensación de realismo, mejorando la experiencia del usuario (especialmente en un título encaminado a una adaptación a la realidad virtual).\\
+		\textbf{Cuestiones abiertas}&El valor de "`ProbeSize"' es idóneo, pero con las mecánicas que abordaremos en iteraciones posteriores en las que el personaje debe estar más pegado a obstáculos (por ejemplo cuando esté colgando de una cornisa) el valor actual de dicha variable puede ocasionar que la cámara se introduzca dentro del modelo del personaje.\\
+		\textbf{Alternativas}&La alternativas principales son dos: usar cámara en primera persona sin modelo o usar una cámara en primera persona con un modelo de brazos y manos. La primera, aunque es por mucho la solución más fácil de implementar, queda descartada rápidamente en este género ya que, por ejemplo, debemos saber cuándo el personaje está agarrado a un saliente, cuándo está escalando, etc. La segunda sí podría ser una solución más viable pero tiene el inconveniente de que no generaría una sombra real del personaje y que dichos modelos de personaje, al ser muy específicos, son mucho más complicados de encontrar con una calidad aceptable.\\
+	\end{coolTable}
+	\caption{Memorando técnico 0002: Creación de la cámara TFP}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0003: Creación de la cámara TP}
+		\textbf{Asunto}&Creación de cámara en 3ra persona "`al hombro"'\\
+		\textbf{Resumen}&Se persigue la creación de una cámara más alejada al personaje que la anterior y que nos permita ver su cuerpo.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Creamos un "`camera arm"' (o brazo de cámara) para unir en un extremo la cabeza del personaje dicho brazo. Ahora creamos otro "`camera arm"', pero esta vez cambiando su rotación 90\% respecto al primero y lo unimos al extremo que queda libre del primer brazo de cámara. El final de este último brazo de cámara será el lugar en el que se emplace finalmente la cámara (con la rotación oportuna para que apunte al personaje).\\
+		\textbf{Motivación}&Esta elección es mucho más profesional que utilizar un simple brazo de cámara, que en nos dejaría el personaje demasiado en medio de la pantalla, tapando gran parte de ella.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&La alternativa es usar sólo un brazo de cámara, pero si optásemos por esa decisión, al usar un solo brazo de cámara que saldría directamente de la cabeza del personaje el personaje estaría demasiado en medio de la pantalla y su cabeza estorbaría para ver correctamente.\\
+	\end{coolTable}
+	\caption{Memorando técnico 0003: Creación de la cámara TP}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0004: Movimiento del personaje}
+		\textbf{Asunto}&Movimiento del personaje.\\
+		\textbf{Resumen}&En función de input proporcionado por el jugador se le añade al personaje movimiento en esa dirección.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Al detectar un input por parte del jugador relacionado con una las cuatro acciones de movimiento (delante, atrás, izquierda o derecha) se añade movimiento al personaje en la dirección especificada. Se diferencia movimiento delante-atrás e izquierda-derecha, siendo el resultado final la combinación de ambos movimientos.\\
+		\textbf{Motivación}&Solución propuesta por seguir el estándar.\\
+		\textbf{Cuestiones abiertas}&Debemos tener en cuenta que la solución generada deberá ser modificada en las siguientes iteraciones ya que no queremos que nuestro personaje pueda moverse en todo momento (por ejemplo, no queremos que el personaje se mueva hacia según qué sitios cuando esté agarrado a un saliente).\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+\caption{Memorando técnico 0004: Movimiento del personaje}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0005: Rotación de cámara y personaje}
+		\textbf{Asunto}&Rotación de cámara y personaje.\\
+		\textbf{Resumen}&Debemos permitir al usuario modificar la rotación de la cámara y, a su vez, alterar la rotación horizontal del personaje para que siempre esté mirando en la dirección de la cámara.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&La solución consta de dos partes muy diferenciadas. Por un lado cuando se detecta un cambio en los ejes asignados al movimiento de la cámara se añade rotación a la misma (se añade por separado respecto al eje X e Y, es decir, si el usuario está moviendo el eje X de la cámara con un valor de "`10"' hacia arriba y el eje Y de la misma con un valor de "`5"' hacia la izquierda se añadirá por una parte rotación hacia arriba de "`10"' puntos y por otra rotación hacia la derecha de "`-5"' puntos) y, por otro lado, marcamos como verdadera la variable booleana "`bUsePawnControlRotation"' de la cámara primera persona del jugador para que controle la rotación del personaje.\\
+		\textbf{Motivación}&Solución propuesta por seguir el estándar.\\
+		\textbf{Cuestiones abiertas}&Debemos tener en cuenta que la solución generada deberá ser modificada en las siguientes iteraciones ya que no queremos que nuestra cámara pueda moverse con total libertad en según qué circunstancias (por ejemplo, no queremos que se mueva cuando el personaje esté agarrando un saliente, ya que alteraría la posición del personaje).\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 0005: Rotación de cámara y personaje}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0006: Rotación de cámara y personaje (para controladores)}
+		\textbf{Asunto}&Señal de rotación proveniente de stick analógico.\\
+		\textbf{Resumen}&Existen dos métodos típicos de movimiento de cámara: el producido al desplazar un ratón y el que se origina al mover un stick analógico de un mando. En el primero no hay problema, puesto que el usuario es capaz de regular en todo momento la entrada que quiere dar dependiendo de la velocidad a la que mueva el ratón, y lo puede hacer prácticamente sin límites (o sin que esto resulte un problema). Al utilizar un stick analógico de un mando eso no es del todo así, puesto que el usuario puede elegir entre A) no mover el stick (input = 0), B) moverlo al máximo (input = 1) o C) moverlo en un estado intermedio (input mayor que 0 y menor que 1), por lo que debemos ponderar esa entrada proporcionada por el usuario, lo que sería equivalente a establecerle una sensibilidad.\\
+		\midrule
+		\textbf{Factores causantes}&El factor causante en este caso no es una característica del producto, sino que se debe a la naturaleza de los sticks analógicos.\\
+		\textbf{Solución}&El remedio en este caso es ayudarnos de la solución obtenida para mover la cámara con el ratón y multiplicarle un "`rate"' (sensibilidad).\\
+		\textbf{Motivación}&Solución propuesta por seguir el estándar.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 0006: Rotación de cámara y personaje (para controladores)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0007: Sprint}
+		\textbf{Asunto}&Sprint del personaje.\\
+		\textbf{Resumen}&Para implementar esta mecánica cambiaríamos el valor de andar del personaje a un número más elevado, para que se pudiera desplazar más rápido siempre que tuviésemos el botón indicado pulsado.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando la tecla de "`Sprint"' se accione cambiamos el parámetro "`MaxWalkSpeed"' del movimiento del personaje a 800. Cuando el jugador suelta dicha tecla el valor de la variable vuelve a su estado original.\\
+		\textbf{Motivación}&Solución propuesta por seguir el estándar.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 0007: Sprint}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0008: Salto}
+		\textbf{Asunto}&Salto del personaje.\\
+		\textbf{Resumen}&Una de las mecánicas básicas más fundamentales en el juego será la de salto: el personaje deberá saltar con precisión distintos obstáculos para llegar al final del nivel.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Al accionar el botón asignado al salto y, si procede, el personaje empieza a saltar hasta que llegue al límite del salto o se suelte la tecla asignada.\\
+		\textbf{Motivación}&Solución propuesta por seguir el estándar.\\
+		\textbf{Cuestiones abiertas}&Muchas mecánicas futuras habrán uso de las mismas teclas destinadas para el salto, por lo que tendremos que estar atentos con ello.-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 0009: Agachar}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0009: Agachar}
+		\textbf{Asunto}&Mecánica de agachado del personaje.\\
+		\textbf{Resumen}&Para evitar distintos obstáculos el personaje podrá agacharse pulsando el botón indicado.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando la tecla "`Agachar"' se accione el personaje estéticamente se agachará y cambiaremos la altura de su capsula de colisión para que pueda acceder a zonas en las que agachado no podía. Al soltar el botón, el personaje volverá a ponerse de pié.\\
+		\textbf{Motivación}&Solución propuesta por seguir el estándar.\\
+		\textbf{Cuestiones abiertas}&La tecla usada para esta acción se volverá a usar con otras mecánicas, por lo que, de nuevo, tendremos que estar atentos en interacciones posteriores.\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 0009: Agachar}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0010: Tiempo bala}
+		\textbf{Asunto}&Tiempo bala.\\
+		\textbf{Resumen}&Nuestro personaje, cuando está potenciado (es decir, cuando encuentra un orbe dorado) podrá realizar una serie de acciones entre las que se encuentra el tiempo bala.\\
+		\midrule
+		\textbf{Factores causantes}&Estar potenciado.\\
+		\textbf{Solución}&Cuando la tecla de tiempo bala se acciona, si el personaje está potenciado y aún le queda adrenalina podrá parar el tiempo hasta que la adrenalina se le agote, parando el tiempo del entorno en un 50\% y el suyo propio en un 25\%. Cuando la adrenalina se agote automáticamente se detendrá el tiempo bala.\\
+		\textbf{Motivación}&Solución propuesta por su sencillez.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 0010: Tiempo bala}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0011: Teletransporte o "`blink"'}
+		\textbf{Asunto}&Teletransporte, "`parpadeo"' o "`blink"'.\\
+		\textbf{Resumen}&Nuestro personaje, cuando está potenciado (de nuevo, cuando encuentra un orbe dorado) podrá realizar un teletransporte dentro del rango que se le permite.\\
+		\midrule
+		\textbf{Factores causantes}&Estar potenciado.\\
+		\textbf{Solución}&En cada \gls{tick} del juego, lanzamos una línea desde el vector dirección de la cámara activa del jugador y con una longitud predefinida. Cuando pulsamos la tecla de "`blink"', si tenemos suficiente adrenalina y la mencionada línea choca, se nos teletransportará al lugar de impacto.\\
+		\textbf{Motivación}&Solución propuesta por su sencillez.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&En vez de usar gls{tick} podríamos calcular el punto de impacto cuando el usuario solicite hacer un teletransporte, pero esto no nos permitiría indicarle cuando es posible realizar un teletransporte (por lo tanto, tenemos que estar checkeando el entorno en todo momento).\\
+	\end{coolTable}
+	\caption{Memorando técnico 0011: Teletransporte o "`blink"'}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0012: Control de límites del mapa}
+		\textbf{Asunto}&Caja de colisión para controlar los límites del mapa.\\
+		\textbf{Resumen}&Cuando el personaje abandone los límites del mapa, morirá.\\
+		\midrule
+		\textbf{Factores causantes}&Abandonar los límites del mapa\\
+		\textbf{Solución}&Implementar una "`trigger box"' o caja de colisión que, en el evento "`ActorEndOverlap"' compruebe si el actor que ha salido de la caja de colisión es un personaje y lo mate.\\
+		\textbf{Motivación}&Solución propuesta por simplicidad.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 0012: Control de límites del mapa}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0013: Control de máxima distancia de caída}
+		\textbf{Asunto}&Caja de colisión para controlar que el personaje no sobreviva si cae desde demasiado alto.\\
+		\textbf{Resumen}&Cuando el personaje caiga a un sitio desde demasiado alto, morirá.\\
+		\midrule
+		\textbf{Factores causantes}&Caer a un sitio profundo\\
+		\textbf{Solución}&Implementar una "`trigger box"' o caja de colisión que, en el evento "`ActorBeginOverlap"' compruebe si el actor que ha entrado en la caja de colisión es un personaje y lo mate.\\
+		\textbf{Motivación}&Solución propuesta por simplicidad.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 0013: Control de máxima distancia de caída}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 0014: Movimiento de piernas del personaje al girarse.}
+		\textbf{Asunto}&Queremos que cuando el personaje se gire no "`flote"' sin animación, sino que actúe de una forma menos artificial.\\
+		\textbf{Resumen}&Cuando el sistema detecte algún input horizontal relacionado con la cámara (ya sea controlador o ratón) avisará al blueprint de animación del personaje que debe reproducir esa animación si se dan las circunstancias adecuadas.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Crear un nuevo bind (asignación), ficticio que se active cuando se reciba alguno de los parámetros que necesitamos, independientemente de si se producen mediante controlador o ratón.\\
+		\textbf{Motivación}&Solución propuesta por simplicidad.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 0014: Movimiento de piernas del personaje al girarse.}
+\end{table*}
+
+\textbf{Nota:} Al tratarse de la primera iteración (por tanto, no existían soluciones anteriores que se pudiesen ver afectadas en esta iteración) y teniendo en cuenta que las características a implementar no originan conflictos entre sí, no existen modificaciones que afecten al diseño.
+
+\clearpage
+
+\section{Implementación}
+
+\begin{asigResponsabilidad}{004}{Añade movimiento en la dirección del personaje o en la opuesta}
+{[void] MoveFoward (Value:float)}
+\pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento frontal / trasero del personaje (llamado "`MoveFoward"'), comprueba que el valor de 'Value' sea distinto de 0.}
+\pasoPseudo{1.1. Si es distinto de 0, añade movimiento equivalente al valor de 'Value' en la dirección del vector dirección del actor. Si el valor de 'Value' es positivo el personaje avanzará en la dirección indicada y si es negativo retrocederá.}
+\pasoPseudo{1.2. Si es igual a 0, no se hace nada.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1.1}{APawn}{[void] AddMovementInput (Direction:FVector, Value:float)}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{004}{Añade movimiento a izquierda o derecha de la dirección del personaje}
+{[void] MoveRight (Value:float)}
+\pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento lateral del personaje (llamado "`MoveRight"'), comprueba que el valor de 'Value' sea distinto de 0.}
+\pasoPseudo{1.1. Si es distinto de 0, añade movimiento equivalente al valor de 'Value' en la dirección del vector derecha del actor. Por tanto, si el valor de 'Value' es positivo el personaje avanzará hacia la derecha y si es negativo hacia la izquierda.}
+\pasoPseudo{1.2. Si es igual a 0, no se hace nada.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1.1}{APawn}{[void] AddMovementInput (Direction:FVector, Value:float)}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{005}{Añade rotación horizontal a la cámara}
+{[void] Turn (Value:float)}
+\pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento horizontal de la cámara (llamado "`Turn"'), se delega en el método "`AddControllerYawInput"' de la clase APawn, puesto que no es necesario definir una función en la clase de nuestro personaje para modificar o controlar alguna faceta del resultado.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{APawn}{[void] AddControllerYawInput (Value:float)}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{005}{Añade rotación vertical a la cámara}
+{[void] LookUp (Value:float)}
+\pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento vertical de la cámara (llamado "`LookUp"'), se delega en el método "`AddControllerPitchInput"' de la clase APawn, puesto que no es necesario definir una función en la clase de nuestro personaje para modificar o controlar alguna faceta del resultado.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{APawn}{[void] AddControllerPitchInput (Value:float)}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{006}{Añade rotación horizontal a la cámara para controladores}
+{[void] TurnAtRate (Rate:float)}
+\pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento horizontal de la cámara proveniente de un mando o similar (llamado "`TurnRate"'), se delega en el método "`AddControllerYawInput"' de la clase APawn, pero esta vez le mandamos la multiplicación del (1) Rate que envía el usuario (porcentaje, entre "`-1.0"' y "`1.0"' que mueve, por ejemplo, el eje del joystick del mando asignado),  (2) de la sensibilidad horizontal (definida como "`BaseTurnRate"') y (3) por el tiempo en el que se renderiza cada frame.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{APawn}{[void] AddControllerYawInput (Value:float)}{N/A}
+\pasoCodigo{1}{UWorld}{[Float] GetDeltaSeconds ()}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{006}{Añade rotación vertical a la cámara para controladores}
+{[void] LookUpAtRate (Rate:float)}
+\pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento vertical de la cámara proveniente de un mando o similar (llamado "`LookUpRate"'), se hace eso del método "`AddControllerPitchInput"' de la clase APawn, pero esta vez le mandamos la multiplicación del (1) Rate que envía el usuario (porcentaje, entre "`-1.0"' y "`1.0"' que mueve, por ejemplo, el eje del joystick del mando asignado),  (2) de la sensibilidad vertical (definida como "`BaseLookUpRate"') y (3) por el tiempo en el que se renderiza cada frame.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{APawn}{[void] AddControllerPitchInput (Value:float)}{N/A}
+\pasoCodigo{1}{UWorld}{[Float] GetDeltaSeconds ()}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{007}{El personaje entra en modo sprint}
+{[void] OnSprintPressed ()}
+\pasoPseudo{1. Mientras se hace uso del enlace "`Sprint"' se cambia la velocidad a la que se mueve el personaje ("`MaxWalkSpeed"') al valor de la velocidad de correr (guardada en la constante "`SprintSpeed"').}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{007}{El personaje entra en modo caminar}
+{[void] OnSprintReleased ()}
+\pasoPseudo{1. Cuando se deja de hacer uso del enlace "`Sprint"' se cambia la velocidad a la que se mueve el personaje ("`MaxWalkSpeed"') al valor de la velocidad de andar (guardada en la constante "`WalkSpeed"').}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{008}{El personaje salta}
+{[void] OnJump ()}
+\pasoPseudo{1. Cuando se hace uso del enlace "`Jump"' se llama a la función "`Jump()"' de la clase "`ACharacter"'}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{ACharacter}{[void] Jump ()}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{008}{El personaje deja de saltar}
+{[void] StopJumping ()}
+\pasoPseudo{1. Cuando se deja de hacer uso del enlace "`Jump"' se llama a la función "`StopJumping()"' de la clase "`ACharacter"'}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{ACharacter}{[void] StopJumping ()}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{009}{El personaje se agacha}
+{[void] OnCrouch ()}
+\pasoPseudo{1. Cuando se hace uso del enlace "`Crouch"' se llama a la función "`Crouch()"' de la clase "`ACharacter"'}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{ACharacter}{[void] Crouch ()}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{009}{El personaje deja de agacharse}
+{[void] StopJumping ()}
+\pasoPseudo{1. Cuando se deja de hacer uso del enlace "`Crouch"' se llama a la función "`UnCrouch()"' de la clase "`ACharacter"'}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{ACharacter}{[void] UnCrouch ()}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{010}{El personaje entra en tiempo bala o sale de él}
+{[void] OnTimeDilationToggle ()}
+\pasoPseudo{1. Cuando se hace uso del enlace "`TimeDilation"' se llama a la función "`TimeDilationToggle()"' de "`AMainCharacter"'}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{Se comprueba si el jugador está potenciado}{N/A}
+\pasoCodigo{1.1}{AMainCharacter}{Si el tiempo bala está activo, procede a llamar a EndTimeDilation}{010}
+\pasoCodigo{1.2}{AMainCharacter}{Si, por el contrario, el tiempo bala está inactivo, procede a llamar a StartTimeDilation}{010}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{010}{El personaje entra en el modo tiempo bala}
+{[void] OnTimeDilationStart ()}
+\pasoPseudo{1. Cuando se hace uso del enlace "`TimeDilation"' se llama a la función "`TimeDilationToggle()"' de "`AMainCharacter"' (nuestra clase)}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{Se comprueba si el jugador está potenciado}{N/A}
+\pasoCodigo{1.1}{AMainCharacter}{Si el tiempo bala está activo, procede a llamar a EndTimeDilation}{010}
+\pasoCodigo{1.2}{AMainCharacter}{Si, por el contrario, el tiempo bala está inactivo, procede a llamar a StartTimeDilation}{010}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{010}{El personaje dale del modo tiempo bala}
+{[void] OnTimeDilationEnd ()}
+\pasoPseudo{1. Cuando se hace uso del enlace "`TimeDilation"' se llama a la función "`TimeDilationToggle()"' de "`AMainCharacter"' (nuestra clase)}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{Se comprueba si el jugador está potenciado}{N/A}
+\pasoCodigo{1.1}{AMainCharacter}{Si el tiempo bala está activo, procede a llamar a EndTimeDilation}{010}
+\pasoCodigo{1.2}{AMainCharacter}{Si, por el contrario, el tiempo bala está inactivo, procede a llamar a StartTimeDilation}{010}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{014}{Comunica a la animación que el personaje está rotando}
+{[void] RotationTrick (Value:float)}
+\pasoPseudo{1. Cuando se detecta rotación horizontal de la cámara de cualquier tipo (ya sea proveniente de una fuente que no necesita un "`rateo"', como un ratón, o de una que sí lo necesita, como un mando) se cambia el valor de "`RotationInput"' de la instancia de animación del protagonista.}
+\end{asigResponsabilidad}
+
+\clearpage
+
+\section{Pruebas}
+
+TODO: Descripción de las pruebas realizadas al software
+
+\clearpage
+
+\section{Despliegue}
+
+TODO: Breve resumen de cómo se han desplegado los cambios en el sistema de producción.
