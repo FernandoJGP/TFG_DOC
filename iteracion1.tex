@@ -5,6 +5,40 @@
 Durante la primera iteración se abordará el desarrollo de las características más básicas que acompañan a este tipo de software: movimiento del personaje, rotación de su cámara, etc., la implementación de mecánicas básicas como sprint, salto, etc. y las mecánicas (poderes) que el personaje puede utilizar cuando esté potenciado.
 \end{abstract}
 
+\section{Introducción}
+
+Nuestro objetivo principal en esta iteración es familiarizarnos con el entorno, con la programación en C++ y dejar lista la base sobre la que trabajaremos en el resto del proyecto. No obstante, también nos centraremos en dar vida al personaje, dotándolo de movimientos básicos, y la realización de algunas mecánicas más avanzadas como la de teletransporte.
+
+Nuestro personaje heredará de la clase "`ACharacter"' y se compondrá principalmente de una \textbf{capsula de colisión}, que será la encargada de gestionar las colisiones con el entorno (reduciendo drásticamente la complejidad computacional) y de un \textbf{modelo de personaje}, que irá dentro de la citada cápsula. Como se explica en la iteración cero, el modelo de personaje estará animado por un \gls{blueprint} de animación, que también se empezará a crear en esta iteración.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.8]{figures/camara-preview.png}
+		\caption{Fotograma de los componentes básicos del personaje: capsula de colisión, modelo, cámara en primera persona real y cámara en tercera persona}
+\end{figure*}
+
+\clearpage
+
+Como se especifica en el documento de diseño, podemos alternar entre las dos \textbf{cámaras} disponibles: una anclada al la cabeza del modelo del personaje (primera persona real o "`true first person"') y otra que se situaría detrás y levemente a la derecha del personaje (cámara en tercera persona).
+
+La cámara de primera persona estará anclada a un brazo de cámara que se contraerá al detectar una colisión con el entorno, para evitar traspasar la pared y ver el contenido de las siguientes salas.
+
+La cámara en tercera persona, por el contrario, estará unida a dos brazos de cámara:
+\begin{enumerate}
+	\item El primero saldrá de detrás de la cabeza del personaje y se alejará del personaje por su espalda.
+	\item El segundo estará atado al primero y girará 90 grados a la derecha del mismo. A este segundo brazo de cámara se atará a su vez la cámara en tercera persona.
+\end{enumerate}
+
+Con esto conseguimos que cuando la cámara en tercera persona colisione con un obstáculo retroceda tanto hacia la izquierda como hacia delante (dependiendo de dónde se encuentre el obstáculo retrocederá más o menos en una dirección u otra).
+
+Otro aspecto a tratar es el del \textbf{movimiento} del personaje (gravedad, control en el aire, etc.): la clase de nuestro personaje principal también hereda de "`ACharacter"' un componente de movimiento. El objetivo aquí es conseguir adaptar el movimiento del personaje para que sea cómodo de manejar en situaciones límite, primando este control sobre el realismo.
+
+Respecto al \textbf{sistema de teletransporte}: la idea general es que el usuario pueda teletransportar al personaje mirando hacia un obstáculo y pulsando el botón adecuado, siempre que se encuentre dentro de un rango. En posteriores iteraciones se añadirá un indicador para saber, en cada momento, si se puede llevar a cabo este teletransporte.
+
+Por último, para conseguir un mayor realismo vamos a aplicar un pequeño truco para que el personaje rote cuando estemos parados, estemos usando ratón o mando para rotar. Este truco consiste en crear un nuevo enlace (en este caso llamado "`RotationTrick"') que se active cada vez que reciba un input de rotación (tanto de ratón como de mando) y a partir de esto se comunique con el \gls{blueprint} de animación para hacer rotar al personaje. Esto se debe hacer así por la naturaleza de Unreal, ya que si intentamos mandar la señal de rotación a la animación individualmente ambos inputs entrarán en conflicto, adulterando el valor enviado al \gls{blueprint} de la animación.
+
+\clearpage
+
 \section{Características a desarrollar}
 \begin{enumerate}
 	\item Creación del personaje.
@@ -68,11 +102,14 @@ Durante la primera iteración se abordará el desarrollo de las características má
 	\begin{itemize}
 		\item Implementación del código de la mecánica.
 	\end{itemize}
-	\item Movimiento de piernas del personaje al girarse.
+	\item Animación de rotación del personaje al girarse.
 	\begin{itemize}
-		\item Implementación del código de la mecánica.
-		\item Asignación de teclas y botones vinculados la mecánica.
+		\item Implementación del código.
 		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Sistema de gestión de adrenalina.
+	\begin{itemize}
+		\item Implementación del código.
 	\end{itemize}
 \end{enumerate}
 
@@ -83,7 +120,7 @@ Durante la primera iteración se abordará el desarrollo de las características má
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 1001: Creación del personaje}
+		{Memorando técnico 1-001: Creación del personaje}
 		\textbf{Asunto}&Creación del personaje\\
 		\textbf{Resumen}&Consistiría en la creación de una capsula con la que interaccionarían lo deferentes actores del entorno al, por ejemplo, colisionar con nuestro personaje (en vez de hacerlo con él directamente, ya que es mucho más costoso de calcular) y que alojaría a un modelo de personaje en su interior, adjunto a la capsula.\\
 		\midrule
@@ -93,13 +130,13 @@ Durante la primera iteración se abordará el desarrollo de las características má
 		\textbf{Cuestiones abiertas}&Como se comentaba, hay que estar al tanto de si tenemos que mover nuestro personaje respecto a la cápsula, algo que no sabremos hasta que estemos interaccionando ya con el entorno.\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 1001: Creación del personaje}
+	\caption{Memorando técnico 1-001: Creación del personaje}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 1002: Creación de la cámara TFP}
+		{Memorando técnico 1-002: Creación de la cámara TFP}
 		\textbf{Asunto}&Creación y anclaje de la cámara "`true first person camera"'\\
 		\textbf{Resumen}&El modo "`true first person camera"' (cámara en primera persona real) implica que tengamos un modelo de personaje completo de personaje con una cámara anexa a la cabeza del modelo, por contraposición a la típica cámara en primera persona que se utiliza normalmente.\\
 		\midrule
@@ -109,13 +146,13 @@ Durante la primera iteración se abordará el desarrollo de las características má
 		\textbf{Cuestiones abiertas}&El valor de "`ProbeSize"' es idóneo, pero con las mecánicas que abordaremos en iteraciones posteriores en las que el personaje debe estar más pegado a obstáculos (por ejemplo cuando esté colgando de una cornisa) el valor actual de dicha variable puede ocasionar que la cámara se introduzca dentro del modelo del personaje.\\
 		\textbf{Alternativas}&La alternativas principales son dos: usar cámara en primera persona sin modelo o usar una cámara en primera persona con un modelo de brazos y manos. La primera, aunque es por mucho la solución más fácil de implementar, queda descartada rápidamente en este género ya que, por ejemplo, debemos saber cuándo el personaje está agarrado a un saliente, cuándo está escalando, etc. La segunda sí podría ser una solución más viable pero tiene el inconveniente de que no generaría una sombra real del personaje y que dichos modelos de personaje, al ser muy específicos, son mucho más complicados de encontrar con una calidad aceptable.\\
 	\end{coolTable}
-	\caption{Memorando técnico 1002: Creación de la cámara TFP}
+	\caption{Memorando técnico 1-002: Creación de la cámara TFP}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 1003: Creación de la cámara TP}
+		{Memorando técnico 1-003: Creación de la cámara TP}
 		\textbf{Asunto}&Creación de cámara en 3ra persona "`al hombro"'\\
 		\textbf{Resumen}&Se persigue la creación de una cámara más alejada al personaje que la anterior y que nos permita ver su cuerpo.\\
 		\midrule
@@ -125,13 +162,13 @@ Durante la primera iteración se abordará el desarrollo de las características má
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&La alternativa es usar sólo un brazo de cámara, pero si optásemos por esa decisión, al usar un solo brazo de cámara que saldría directamente de la cabeza del personaje el personaje estaría demasiado en medio de la pantalla y su cabeza estorbaría para ver correctamente.\\
 	\end{coolTable}
-	\caption{Memorando técnico 1003: Creación de la cámara TP}
+	\caption{Memorando técnico 1-003: Creación de la cámara TP}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 1004: Movimiento del personaje}
+		{Memorando técnico 1-004: Movimiento del personaje}
 		\textbf{Asunto}&Movimiento del personaje.\\
 		\textbf{Resumen}&En función de input proporcionado por el jugador se le añade al personaje movimiento en esa dirección.\\
 		\midrule
@@ -141,13 +178,13 @@ Durante la primera iteración se abordará el desarrollo de las características má
 		\textbf{Cuestiones abiertas}&Debemos tener en cuenta que la solución generada deberá ser modificada en las siguientes iteraciones ya que no queremos que nuestro personaje pueda moverse en todo momento (por ejemplo, no queremos que el personaje se mueva hacia según qué sitios cuando esté agarrado a un saliente).\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-\caption{Memorando técnico 1004: Movimiento del personaje}
+\caption{Memorando técnico 1-004: Movimiento del personaje}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 1005: Rotación de cámara y personaje}
+		{Memorando técnico 1-005: Rotación de cámara y personaje}
 		\textbf{Asunto}&Rotación de cámara y personaje.\\
 		\textbf{Resumen}&Debemos permitir al usuario modificar la rotación de la cámara y, a su vez, alterar la rotación horizontal del personaje para que siempre esté mirando en la dirección de la cámara.\\
 		\midrule
@@ -157,13 +194,13 @@ Durante la primera iteración se abordará el desarrollo de las características má
 		\textbf{Cuestiones abiertas}&Debemos tener en cuenta que la solución generada deberá ser modificada en las siguientes iteraciones ya que no queremos que nuestra cámara pueda moverse con total libertad en según qué circunstancias (por ejemplo, no queremos que se mueva cuando el personaje esté agarrando un saliente, ya que alteraría la posición del personaje).\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 1005: Rotación de cámara y personaje}
+	\caption{Memorando técnico 1-005: Rotación de cámara y personaje}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 1006: Rotación de cámara y personaje (para controladores)}
+		{Memorando técnico 1-006: Rotación de cámara y personaje (para controladores)}
 		\textbf{Asunto}&Señal de rotación proveniente de stick analógico.\\
 		\textbf{Resumen}&Existen dos métodos típicos de movimiento de cámara: el producido al desplazar un ratón y el que se origina al mover un stick analógico de un mando. En el primero no hay problema, puesto que el usuario es capaz de regular en todo momento la entrada que quiere dar dependiendo de la velocidad a la que mueva el ratón, y lo puede hacer prácticamente sin límites (o sin que esto resulte un problema). Al utilizar un stick analógico de un mando eso no es del todo así, puesto que el usuario puede elegir entre A) no mover el stick (input = 0), B) moverlo al máximo (input = 1) o C) moverlo en un estado intermedio (input mayor que 0 y menor que 1), por lo que debemos ponderar esa entrada proporcionada por el usuario, lo que sería equivalente a establecerle una sensibilidad.\\
 		\midrule
@@ -173,13 +210,13 @@ Durante la primera iteración se abordará el desarrollo de las características má
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 1006: Rotación de cámara y personaje (para controladores)}
+	\caption{Memorando técnico 1-006: Rotación de cámara y personaje (para controladores)}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 1007: Sprint}
+		{Memorando técnico 1-007: Sprint}
 		\textbf{Asunto}&Sprint del personaje.\\
 		\textbf{Resumen}&Para implementar esta mecánica cambiaríamos el valor de andar del personaje a un número más elevado, para que se pudiera desplazar más rápido siempre que tuviésemos el botón indicado pulsado.\\
 		\midrule
@@ -189,13 +226,13 @@ Durante la primera iteración se abordará el desarrollo de las características má
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 1007: Sprint}
+	\caption{Memorando técnico 1-007: Sprint}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 1008: Salto}
+		{Memorando técnico 1-008: Salto}
 		\textbf{Asunto}&Salto del personaje.\\
 		\textbf{Resumen}&Una de las mecánicas básicas más fundamentales en el juego será la de salto: el personaje deberá saltar con precisión distintos obstáculos para llegar al final del nivel.\\
 		\midrule
@@ -205,13 +242,13 @@ Durante la primera iteración se abordará el desarrollo de las características má
 		\textbf{Cuestiones abiertas}&Muchas mecánicas futuras habrán uso de las mismas teclas destinadas para el salto, por lo que tendremos que estar atentos con ello.-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 1009: Agachar}
+	\caption{Memorando técnico 1-008: Salto}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 1009: Agachar}
+		{Memorando técnico 1-009: Agachar}
 		\textbf{Asunto}&Mecánica de agachado del personaje.\\
 		\textbf{Resumen}&Para evitar distintos obstáculos el personaje podrá agacharse pulsando el botón indicado.\\
 		\midrule
@@ -221,13 +258,13 @@ Durante la primera iteración se abordará el desarrollo de las características má
 		\textbf{Cuestiones abiertas}&La tecla usada para esta acción se volverá a usar con otras mecánicas, por lo que, de nuevo, tendremos que estar atentos en interacciones posteriores.\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 1009: Agachar}
+	\caption{Memorando técnico 1-009: Agachar}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 1010: Tiempo bala}
+		{Memorando técnico 1-010: Tiempo bala}
 		\textbf{Asunto}&Tiempo bala.\\
 		\textbf{Resumen}&Nuestro personaje, cuando está potenciado (es decir, cuando encuentra un orbe dorado) podrá realizar una serie de acciones entre las que se encuentra el tiempo bala.\\
 		\midrule
@@ -237,13 +274,13 @@ Durante la primera iteración se abordará el desarrollo de las características má
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 0010: Tiempo bala}
+	\caption{Memorando técnico 1-010: Tiempo bala}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 1011: Teletransporte o "`blink"'}
+		{Memorando técnico 1-011: Teletransporte o "`blink"'}
 		\textbf{Asunto}&Teletransporte, "`parpadeo"' o "`blink"'.\\
 		\textbf{Resumen}&Nuestro personaje, cuando está potenciado (de nuevo, cuando encuentra un orbe dorado) podrá realizar un teletransporte dentro del rango que se le permite.\\
 		\midrule
@@ -253,13 +290,13 @@ Durante la primera iteración se abordará el desarrollo de las características má
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&En vez de usar gls{tick} podríamos calcular el punto de impacto cuando el usuario solicite hacer un teletransporte, pero esto no nos permitiría indicarle cuando es posible realizar un teletransporte (por lo tanto, tenemos que estar checkeando el entorno en todo momento).\\
 	\end{coolTable}
-	\caption{Memorando técnico 0011: Teletransporte o "`blink"'}
+	\caption{Memorando técnico 1-011: Teletransporte o "`blink"'}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 1012: Control de límites del mapa}
+		{Memorando técnico 1-012: Control de límites del mapa}
 		\textbf{Asunto}&Caja de colisión para controlar los límites del mapa.\\
 		\textbf{Resumen}&Cuando el personaje abandone los límites del mapa, morirá.\\
 		\midrule
@@ -269,13 +306,13 @@ Durante la primera iteración se abordará el desarrollo de las características má
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 0012: Control de límites del mapa}
+	\caption{Memorando técnico 1-012: Control de límites del mapa}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 1013: Control de máxima distancia de caída}
+		{Memorando técnico 1-013: Control de máxima distancia de caída}
 		\textbf{Asunto}&Caja de colisión para controlar que el personaje no sobreviva si cae desde demasiado alto.\\
 		\textbf{Resumen}&Cuando el personaje caiga a un sitio desde demasiado alto, morirá.\\
 		\midrule
@@ -285,13 +322,13 @@ Durante la primera iteración se abordará el desarrollo de las características má
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 0013: Control de máxima distancia de caída}
+	\caption{Memorando técnico 1-013: Control de máxima distancia de caída}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 1014: Movimiento de piernas del personaje al girarse.}
+		{Memorando técnico 1-014: Animación de rotación del personaje al girarse.}
 		\textbf{Asunto}&Queremos que cuando el personaje se gire no "`flote"' sin animación, sino que actúe de una forma menos artificial.\\
 		\textbf{Resumen}&Cuando el sistema detecte algún input horizontal relacionado con la cámara (ya sea controlador o ratón) avisará al blueprint de animación del personaje que debe reproducir esa animación si se dan las circunstancias adecuadas.\\
 		\midrule
@@ -301,16 +338,32 @@ Durante la primera iteración se abordará el desarrollo de las características má
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 0014: Movimiento de piernas del personaje al girarse.}
+	\caption{Memorando técnico 1-014: Animación de rotación del personaje al girarse.}
 \end{table*}
 
-\textbf{Nota:} Al tratarse de la primera iteración (por tanto, no existían soluciones anteriores que se pudiesen ver afectadas en esta iteración) y teniendo en cuenta que las características a implementar no originan conflictos entre sí, no existen modificaciones que afecten al diseño.
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 1-015: Sistema de gestión de adrenalina.}
+		\textbf{Asunto}&Se desea que cuando el personaje realice alguna habilidad especial se consuma adrenalina y ésta se recarge periódicamente con el tiempo.\\
+		\textbf{Resumen}&Cuando el usuario desee ejecutar algún poder / habilidad especial, primero se comprobará si hay adrenalina suficiente (todos los poderes llevarán asociado un consumo de adrenalina) y, si hay suficiente, se ejecutará el poder y se restará la cantidad de adrenalina asociada a la actual. Si no hay ningún poder activo, se recargará con cada \gls{tick} del juego.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&El consumo de adrenalina se delega a cada habilidad especial, siendo la función relacionada con esta la encargada de comprobar si hay adrenalina suficiente, restar la precisa, etc. y el sistema recargará automáticamente un punto de adrenalina con cada \gls{tick} del juego.\\
+		\textbf{Motivación}&Solución propuesta por simplicidad.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 1-015: Sistema de gestión de adrenalina.}
+\end{table*}
+
+%\textbf{Nota:} Al tratarse de la primera iteración (por tanto, no existían soluciones anteriores que se pudiesen ver afectadas en esta iteración) y teniendo en cuenta que las características a implementar no originan conflictos entre sí, no existen modificaciones que afecten al diseño.%
 
 \clearpage
 
 \section{Implementación}
 
-\begin{asigResponsabilidad}{1004}{Añade movimiento en la dirección del personaje o en la opuesta}
+\begin{asigResponsabilidad}{1-004}{Añade movimiento en la dirección del personaje o en la opuesta}
 {[void] MoveFoward (Value:float)}
 \pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento frontal / trasero del personaje (llamado "`MoveFoward"'), comprueba que el valor de 'Value' sea distinto de 0.}
 \pasoPseudo{1.1. Si es distinto de 0, añade movimiento equivalente al valor de 'Value' en la dirección del vector dirección del actor. Si el valor de 'Value' es positivo el personaje avanzará en la dirección indicada y si es negativo retrocederá.}
@@ -319,7 +372,7 @@ Durante la primera iteración se abordará el desarrollo de las características má
 \pasoCodigo{1.1}{APawn}{[void] AddMovementInput (Direction:FVector, Value:float)}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1004}{Añade movimiento a izquierda o derecha de la dirección del personaje}
+\begin{asigResponsabilidad}{1-004}{Añade movimiento a izquierda o derecha de la dirección del personaje}
 {[void] MoveRight (Value:float)}
 \pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento lateral del personaje (llamado "`MoveRight"'), comprueba que el valor de 'Value' sea distinto de 0.}
 \pasoPseudo{1.1. Si es distinto de 0, añade movimiento equivalente al valor de 'Value' en la dirección del vector derecha del actor. Por tanto, si el valor de 'Value' es positivo el personaje avanzará hacia la derecha y si es negativo hacia la izquierda.}
@@ -328,21 +381,21 @@ Durante la primera iteración se abordará el desarrollo de las características má
 \pasoCodigo{1.1}{APawn}{[void] AddMovementInput (Direction:FVector, Value:float)}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1005}{Añade rotación horizontal a la cámara}
+\begin{asigResponsabilidad}{1-005}{Añade rotación horizontal a la cámara}
 {[void] Turn (Value:float)}
 \pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento horizontal de la cámara (llamado "`Turn"'), se delega en el método "`AddControllerYawInput"' de la clase APawn, puesto que no es necesario definir una función en la clase de nuestro personaje para modificar o controlar alguna faceta del resultado.}
 \cabeceraMetodosBajoNivel
 \pasoCodigo{1}{APawn}{[void] AddControllerYawInput (Value:float)}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1005}{Añade rotación vertical a la cámara}
+\begin{asigResponsabilidad}{1-005}{Añade rotación vertical a la cámara}
 {[void] LookUp (Value:float)}
 \pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento vertical de la cámara (llamado "`LookUp"'), se delega en el método "`AddControllerPitchInput"' de la clase APawn, puesto que no es necesario definir una función en la clase de nuestro personaje para modificar o controlar alguna faceta del resultado.}
 \cabeceraMetodosBajoNivel
 \pasoCodigo{1}{APawn}{[void] AddControllerPitchInput (Value:float)}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1006}{Añade rotación horizontal a la cámara para controladores}
+\begin{asigResponsabilidad}{1-006}{Añade rotación horizontal a la cámara para controladores}
 {[void] TurnAtRate (Rate:float)}
 \pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento horizontal de la cámara proveniente de un mando o similar (llamado "`TurnRate"'), se delega en el método "`AddControllerYawInput"' de la clase APawn, pero esta vez le mandamos la multiplicación del (1) Rate que envía el usuario (porcentaje, entre "`-1.0"' y "`1.0"' que mueve, por ejemplo, el eje del joystick del mando asignado),  (2) de la sensibilidad horizontal (definida como "`BaseTurnRate"') y (3) por el tiempo en el que se renderiza cada frame.}
 \cabeceraMetodosBajoNivel
@@ -350,7 +403,7 @@ Durante la primera iteración se abordará el desarrollo de las características má
 \pasoCodigo{1}{UWorld}{[Float] GetDeltaSeconds ()}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1006}{Añade rotación vertical a la cámara para controladores}
+\begin{asigResponsabilidad}{1-006}{Añade rotación vertical a la cámara para controladores}
 {[void] LookUpAtRate (Rate:float)}
 \pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento vertical de la cámara proveniente de un mando o similar (llamado "`LookUpRate"'), se hace eso del método "`AddControllerPitchInput"' de la clase APawn, pero esta vez le mandamos la multiplicación del (1) Rate que envía el usuario (porcentaje, entre "`-1.0"' y "`1.0"' que mueve, por ejemplo, el eje del joystick del mando asignado),  (2) de la sensibilidad vertical (definida como "`BaseLookUpRate"') y (3) por el tiempo en el que se renderiza cada frame.}
 \cabeceraMetodosBajoNivel
@@ -358,45 +411,45 @@ Durante la primera iteración se abordará el desarrollo de las características má
 \pasoCodigo{1}{UWorld}{[Float] GetDeltaSeconds ()}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1007}{El personaje entra en modo sprint}
+\begin{asigResponsabilidad}{1-007}{El personaje entra en modo sprint}
 {[void] OnSprintPressed ()}
 \pasoPseudo{1. Mientras se hace uso del enlace "`Sprint"' se cambia la velocidad a la que se mueve el personaje ("`MaxWalkSpeed"') al valor de la velocidad de correr (guardada en la constante "`SprintSpeed"').}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1007}{El personaje entra en modo caminar}
+\begin{asigResponsabilidad}{1-007}{El personaje entra en modo caminar}
 {[void] OnSprintReleased ()}
 \pasoPseudo{1. Cuando se deja de hacer uso del enlace "`Sprint"' se cambia la velocidad a la que se mueve el personaje ("`MaxWalkSpeed"') al valor de la velocidad de andar (guardada en la constante "`WalkSpeed"').}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1008}{El personaje salta}
+\begin{asigResponsabilidad}{1-008}{El personaje salta}
 {[void] OnJump ()}
 \pasoPseudo{1. Cuando se hace uso del enlace "`Jump"' se llama a la función "`Jump()"' de la clase "`ACharacter"'}
 \cabeceraMetodosBajoNivel
 \pasoCodigo{1}{ACharacter}{[void] Jump ()}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1008}{El personaje deja de saltar}
+\begin{asigResponsabilidad}{1-008}{El personaje deja de saltar}
 {[void] StopJumping ()}
 \pasoPseudo{1. Cuando se deja de hacer uso del enlace "`Jump"' se llama a la función "`StopJumping()"' de la clase "`ACharacter"'}
 \cabeceraMetodosBajoNivel
 \pasoCodigo{1}{ACharacter}{[void] StopJumping ()}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1009}{El personaje se agacha}
+\begin{asigResponsabilidad}{1-009}{El personaje se agacha}
 {[void] OnCrouchPressed ()}
 \pasoPseudo{1. Cuando se hace uso del enlace "`Crouch"' se llama a la función "`Crouch()"' de la clase "`ACharacter"'}
 \cabeceraMetodosBajoNivel
 \pasoCodigo{1}{ACharacter}{[void] Crouch ()}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1009}{El personaje deja de agacharse}
+\begin{asigResponsabilidad}{1-009}{El personaje deja de agacharse}
 {[void] OnCrouchReleased ()}
 \pasoPseudo{1. Cuando se deja de hacer uso del enlace "`Crouch"' se llama a la función "`UnCrouch()"' de la clase "`ACharacter"'.}
 \cabeceraMetodosBajoNivel
 \pasoCodigo{1}{ACharacter}{[void] UnCrouch ()}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1010}{El personaje entra en tiempo bala o sale de él}
+\begin{asigResponsabilidad}{1-010}{El personaje entra en tiempo bala o sale de él}
 {[void] OnTimeDilationToggle ()}
 \pasoPseudo{1. Cuando se hace uso del enlace "`TimeDilation"' se llama a la función "`TimeDilationToggle()"' de "`AMainCharacter"' y se comprueba si el jugador está potenciado}
 \pasoPseudo{1.1.Si el tiempo bala está activo, procede a llamar a EndTimeDilation().}
@@ -406,7 +459,23 @@ Durante la primera iteración se abordará el desarrollo de las características má
 \pasoCodigo{1.2}{AMainCharacter}{[void] EndTimeDilation ()}{1010}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1011}{El personaje se teletransporta a un lugar cercano}
+\begin{asigResponsabilidad}{1-010}{El personaje entra en tiempo bala}
+{[void] StartTimeDilation ()}
+\pasoPseudo{1. Se reproduce el sonido asignado a la entrada en el tiempo bala en la localización del jugador.}
+\pasoPseudo{2. El tiempo del mundo se ralentiza un 50\%.}
+\pasoPseudo{3. El tiempo para el personaje se ralentiza un 25\%.}
+\pasoPseudo{4. Ajusta el valor de la variable "`bTimeDilationIsActive"' a verdadero.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{1-010}{El personaje entra en tiempo bala}
+{[void] EndTimeDilation ()}
+\pasoPseudo{1. Se reproduce el sonido asignado a la entrada en el tiempo bala en la localización del jugador reproducido al revés.}
+\pasoPseudo{2. El tiempo del mundo vuelve a su estado natural.}
+\pasoPseudo{3. El tiempo para el personaje vuelve a su estado natural.}
+\pasoPseudo{4. Ajusta el valor de la variable "`bTimeDilationIsActive"' a falso.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{1-011}{El personaje se teletransporta a un lugar cercano}
 {[void] OnBlink ()}
 \pasoPseudo{1. Cuando se hace uso del enlace "`Blink"' se llama a la función "`OnBlink()"' de la clase "`AMainCharacter"'.}
 \pasoPseudo{2. Se comprueba si el personaje está potenciado y no está mirando a un punto demasiado lejano (fuera de rango):}
@@ -414,21 +483,21 @@ Durante la primera iteración se abordará el desarrollo de las características má
 \pasoPseudo{2.2. Si no, no ocurre nada.}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1012}{El jugador abandona el área de juego}
-{[void] ActorEndOverlap ()}
+\begin{asigResponsabilidad}{1-012}{El jugador abandona el área de juego}
+{[void] ActorEndOverlap () - Clase "`TriggerBoxSafeZone"'}
 \pasoPseudo{1. Cuando se comprueba que algún actor ha abandonado el área de juego (ha dejado de estar dentro del área de juego):}
 \pasoPseudo{2.1. Si el actor es un jugador, lo mata, pasando a la pantalla de muerte.}
 \pasoPseudo{2.2. Si no es un jugador, no ocurre nada.}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1013}{El jugador abandona el área de juego}
-{[void] ActorBeginOverlap ()}
+\begin{asigResponsabilidad}{1-013}{El jugador cae en un foso profundo}
+{[void] ActorBeginOverlap () - Clase "`TriggerBoxDeath"'}
 \pasoPseudo{1. Cuando se comprueba que algún actor ha impactado en el suelo después de una gran caída):}
 \pasoPseudo{2.1. Si el actor es un jugador, lo mata, pasando a la pantalla de muerte.}
 \pasoPseudo{2.2. Si no es un jugador, no ocurre nada.}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{1014}{Comunica a la animación que el personaje está rotando}
+\begin{asigResponsabilidad}{1-014}{Comunica a la animación que el personaje está rotando}
 {[void] RotationTrick (Value:float)}
 \pasoPseudo{1. Cuando se detecta rotación horizontal de la cámara de cualquier tipo (ya sea proveniente de una fuente que no necesita un "`rateo"', como un ratón, o de una que sí lo necesita, como un mando) se cambia el valor de "`RotationInput"' de la instancia de animación del protagonista.}
 \end{asigResponsabilidad}
@@ -437,10 +506,208 @@ Durante la primera iteración se abordará el desarrollo de las características má
 
 \section{Pruebas}
 
-TODO: Descripción de las pruebas realizadas al software
+Para la realización de todas las pruebas de esta iteración se ha decidido crear un mapa llamado \textbf{"`Test\_BasicMechanics"'} que no será accesible desde el juego (pero sí desde la versión de editor del desarrollador) cuyo objetivo no es otro que testear cada una de las implementaciones de las mecánicas desarrolladas en la iteración.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.6]{figures/test-map-1.png}
+		\caption{Fotograma del mapa de pruebas empleado en la iteración 1}
+\end{figure*}
+
+Este mapa contiene lo necesario para probar las mecánicas que hemos implementado en esta iteración: saltos, lugares en los que tendremos que agacharnos y un área de pruebas donde podremos probar si nuestro personaje se detiene al colisionar correctamente, si las cámaras colisionan correctamente y no traspasan las paredes, si las animaciones del personaje se reproducen correctamente para cada acción, etc.
+
+Como dato importante, con propósitos de testeo y hasta que llegue la iteración en la que implementemos la forma de ganar y perder poderes del personaje, el personaje tendrá poderes en todo momento.
+
+En este mapa se han realizado las siguientes pruebas:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Cámara "`primera persona real"' (1-002)}
+		\begin{enumerate}
+			\item La cámara no se introduce dentro del modelo del personaje.
+			\item La cámara se sitúa a la altura de los ojos del personaje cuando éste está de pie.
+			\item La cámara se sitúa a la altura de los ojos del personaje cuando éste se agacha.
+			\item Cuando el personaje y, por ende, la cámara colisionan con una pared (o similar), ésta última no traspasa la misma.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Cámara "`primera persona real"' (1-002)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Cámara "`tercera persona"' (1-003)}
+		\begin{enumerate}
+			\item La cámara se sitúa atrás y levemente a la derecha del personaje.
+			\item Si nos acercamos a una pared (o similar) de espaldas la cámara se va acercando al personaje pero no llega a adentrarse dentro del modelo del mismo.
+			\item Si nos acercamos a una pared (o similar) por la derecha la cámara se va centrando (respecto al personaje) hasta que se para justo en el centro.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Cámara "`tercera persona"' (1-003)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Movimiento del personaje y sprint (1-004 y 1-007)}
+		\begin{enumerate}
+			\item Probar movimiento hacia delante del personaje (con y sin sprint). Comprobar que ambas animaciones se reproducen correctamente.
+			\item Probar movimiento hacia detrás del personaje (con y sin sprint). Comprobar que ambas animaciones se reproducen correctamente.
+			\item Probar movimiento hacia la izquierda del personaje (con y sin sprint). Comprobar que ambas animaciones se reproducen correctamente.
+			\item Probar movimiento hacia la derecha del personaje (con y sin sprint). Comprobar que ambas animaciones se reproducen correctamente.
+			\item Probar movimiento hacia delante-izquierda del personaje (con y sin sprint) y comprobar que las animaciones se mezclan correctamente en ambos casos.
+			\item Probar movimiento hacia delante-dererecha del personaje (con y sin sprint) y comprobar que las animaciones se mezclan correctamente en ambos casos.
+			\item Probar movimiento hacia detrás-izquierda del personaje (con y sin sprint) y comprobar que las animaciones se mezclan correctamente en ambos casos.
+			\item Probar movimiento hacia detrás-dererecha del personaje (con y sin sprint) y comprobar que las animaciones se mezclan correctamente en ambos casos.
+			\item Repetir para mando o teclado y ratón (según lo que se haya usado previamente).
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Movimiento del personaje y sprint (1-004 y 1-007)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Rotación de cámara y personaje (1-005 y 1-014)}
+		\begin{enumerate}
+			\item Cuando movemos la cámara con el eje X del ratón, se mueve la misma en sentido horizontal y se modifica con ella la rotación del personaje, aplicando una animación si está parado.
+			\item Cuando movemos la cámara con el eje Y del ratón, se mueve la misma en sentido vertical.
+			\item Cuando movemos la cámara usando ambos ejes, se mezclan ambos pasos.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Rotación de cámara y personaje (1-005 y 1-014)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Rotación de cámara y personaje con controlador (1-006 y 1-014)}
+		\begin{enumerate}
+			\item Cuando movemos la cámara con el eje X de la palanca analógica derecha del mando, se mueve la misma en sentido horizontal y se modifica con ella la rotación del personaje, aplicando una animación si está parado.
+			\item Cuando movemos la cámara con el eje Y de la palanca analógica derecha del mando, se mueve la misma en sentido vertical.
+			\item Cuando movemos la cámara usando ambos ejes, se mezclan ambos pasos.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Rotación de cámara y personaje con controlador (1-006 y 1-014)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Salto (1-008)}
+		\begin{enumerate}
+			\item Cuando pulsamos la tecla / botón "`saltar"' el personaje salta, reproduciendo la animación del salto.
+			\item Si, mientras estamos en un salto, dejamos de pulsar "`saltar"', el personaje dejará de ascender en su salto si aún lo está haciendo. Nota: Esto puede ser difícil de apreciar debido a la altura de salto.
+			\item Cuando el personaje toca el suelo, termina la animación de salto y empieza la correspondiente (parado, andando, corriendo, etc).
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Salto (1-008)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Agachar (1-009 y 1-014)}
+		\begin{enumerate}
+			\item Si mantenemos pulsado "`agachar"' el personaje permanecerá agachado, reproduciendo la animación de inicio de agachado y, a continuación, la animación de agachado-parado.
+			\item Si soltamos "`agachar"' el personaje se levantará siempre que pueda hacerlo, reproduciendo la animación de fin de agachado, si no permanecerá agachado hasta que pueda.
+			\item Si nos movemos mientras que estamos agachado, el personaje se moverá en esa dirección y se reproducirá la animación oportuna.
+			\item Si rotamos mientras que estamos agachados, el personaje rotará conforme la dirección de la cámara, reproduciendo además la animación oportuna.
+			\item Si pulsamos y soltamos "`agachar"' rápidamente, el personaje sólo se agachará por un instante.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Agachar (1-009 y 1-014)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Tiempo bala (1-010)}
+		\begin{enumerate}
+			\item Cuando pulsamos la tecla / botón "`tiempo bala"', si hay suficiente adrenalina y tenemos poderes, empieza el tiempo bala y la adrenalina comienza a disminuir.
+			\item Si pulsamos "`tiempo bala"' y no hay suficiente adrenalina o no tenemos poderes, no pasará nada.
+			\item Si pulsamos "`tiempo bala"' estando ya en tiempo bala, se parará dicho tiempo bala y la adrenalina comenzará a recargarse.
+			\item Si agotamos la adrenalina sin salir del tiempo bala, entonces automáticamente se parará el tiempo bala y la adrenalina comenzará a recargarse.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Tiempo bala (1-010)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Teletransporte o "`blink"' (1-011)}
+		\begin{enumerate}
+			\item Cuando pulsamos "`blink"', si hay suficiente adrenalina, tenemos poderes y estamos mirando hacia un punto que esté en rango, se teletransportará nuestro personaje a dicho punto. La rotación de nuestro personaje se adaptará correctamente a su nueva posición.
+			\item Si pulsamos "`blink"' y, durante el hipotético camino que seguiría el personaje al realizar el teletransporte, hay algún obstáculo el personaje se parará en él (evitando, por ejemplo, traspasar paredes con esta técnica).
+			\item En caso contrario, cuando pulsamos "`blink"' no pasará nada.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Teletransporte o "`blink"' (1-011)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Control de límites del mapa (1-012)}
+		\begin{enumerate}
+			\item Si estamos dentro de una caja de colisión de control de límites y la abandonamos, se ejecutará la instrucción de muerte del personaje (en este punto del desarrollo, aparecerá un mensaje de debug).
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Control de límites del mapa (1-012)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Control de máxima distancia de caída (1-013)}
+		\begin{enumerate}
+			\item Si durante el juego, entramos en contacto con esta caja de colisión, se ejecutará la instrucción de muerte del personaje (en este punto del desarrollo, aparecerá un mensaje de debug).
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Control de máxima distancia de caída (1-013)}
+\end{table*}
 
 \clearpage
 
 \section{Despliegue}
+\label{sec:despliegue}
 
-TODO: Breve resumen de cómo se han desplegado los cambios en el sistema de producción.
+Para realizar los despliegues, antes de nada tenemos que tener en cuenta si vamos a desplegar en el propio equipo de desarrollo o en un equipo de producción o pre-producción. El motivo de esto es que debemos configurar el proyecto de una forma u otra según dicha peculiaridad:
+
+\begin{itemize}
+	\item Para desplegar en el propio equipo de desarrollo no tendremos que configurar nada, ya que vendrá preparado por defecto (modo de construcción "`Development"').
+	\item Si queremos desplegar en un entorno de \textbf{pre-producción}, debemos seleccionar la opción "`Shipping"' en la configuración de la build, ya que de otra forma no se preparará al software para funcionar en otros equipos.
+\end{itemize}
+
+Para cambiar esta opción tan sólo tenemos que dirigirnos, dentro del editor de Unreal Engine, a \textbf{"`Edit / Project Settings"'} hacer click, en la parte izquierda de la ventana que se nos mostrará, en \textbf{"`Packaging"'}, dentro de la categoría \textbf{"`Project"'} y seleccionar la opción que se adapte a nuestras necesidades.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=1.2]{figures/build-configuration.png}
+		\caption{Configuración de empaquetamiento. Marcada en rojo la opción por defecto ("`Development"')}
+\end{figure*}
+
+\clearpage
+
+Un punto importante a remarcar es que si falla la exportación, Unreal Engine rara vez nos dará pistas de qué ha ido mal, así que es enormemente aconsejable realizar despliegues constantes (algo que tenemos solucionado siguiendo la metodología que estamos utilizando). Como nota, la mayoría de veces estos errores se deben a que hay algún fallo en algún \gls{blueprint} (o blueprint de nivel), aunque ni esté siendo usado en el proyecto.
+
+Dicho esto, en realidad no se realizan un despliegue sino dos: uno para la versión de 32 bits del producto y otro para la de 64 bits, pero el procedimiento es el mismo, y es tan simple como hacer click, dentro del editor de Unreal Engine, en \textbf{"`File / Package project / Windows / [Versión]"'}.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.9]{figures/package.png}
+		\caption{Ruta para generar una build del proyecto}
+\end{figure*}
+
+\clearpage
+
+Una vez terminado el lento proceso de construcción tendremos disponible nuestra build del proyecto lista para ejecutar en nuestro dispositivo de preproducción.
+
+En este proyecto se ha optado por lo siguiente:
+
+\begin{itemize}
+	\item Realizar builds de nuestro producto en el modo "`Development"' cada vez que se implementase por completo una nueva funcionalidad, para probarla individualmente, aprovechando el proceso de construcción para elaborar la documentación referente a la funcionalidad.
+	\item Realizar una build por iteración en el modo "`Shipping"', trasladar esta versión del producto al equipo de pruebas, y testear todas y cada unas de las funcionalidades que componen la iteración.
+\end{itemize}

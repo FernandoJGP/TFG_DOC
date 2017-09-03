@@ -1,21 +1,23 @@
 %!TEX root =  tfg.tex
 \chapter{Iteración cero}
 
-\begin{quotation}[Novelist]{Ernest Hemingway (1899--1961)}
-The good parts of a book may be only something a writer is lucky enough to overhear or it may be the wreck of his whole damn life -- and one is as good as the other.
-\end{quotation}
-
 \begin{abstract}
-TODO TODO TODO
+Durante este capítulo se documentará la inicialización del proyecto y se recogerán los métodos que se utilizarán durante el resto de iteraciones para realizar tareas comunes a todas ellas.
 \end{abstract}
 
 \section{Inicialización del proyecto}
 
 El motor gráfico sobre el que vamos a trabajar, como se decía al inicio de esta memoria, es gratuito y para obtenerlo solamente tenemos que acceder a su página oficial, \url{https://www.unrealengine.com/}.
 
-Con esto habremos obtenido el "`launcher"' de Epic Games / Unreal Engine por lo que una vez descargado e instalado, queda un paso más: descargar una versión concreta del motor, en nuestro caso elegiremos la versión "`4.16"'.
+Con esto habremos obtenido el "`launcher"' de Epic Games / Unreal Engine por lo que una vez descargado e instalado, queda un paso más: descargar una versión concreta del motor, en nuestro caso elegiremos la versión "`4.15.1"'.
 
 Una vez descargada e instalada la versión deseada del motor, procedemos con el siguiente paso: para la confección del trabajo vamos a crear un nuevo proyecto de Unreal Engine en "`C++"' y sin contenido adicional, es decir, vamos a crear un proyecto limpio en "`C++"'. Para ello, en el Launcher de Unreal Engine, hacemos click en el botón "`Iniciar"' y se nos abrirá una ventana de selección de proyecto. Como queremos crear uno nuevo, hacemos click en la pestaña "`New Project"' o "`Nuevo Proyecto"' y una vez en esa pestaña hacemos click en la pestaña "`C++"', seleccionamos "`Basic Code"' o "`Código básico"' y configuramos el proyecto de la siguiente manera:
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.52]{figures/creacion-proyecto.png}
+		\caption{Ventana del creador de proyectos de Unreal Engine}
+\end{figure*}
 
 \begin{itemize}
 	\item "`Desktop / Console"' (o "`Escritorio / Consola"'): Puesto que nuestro proyecto está destinado a dispositivos sobremesa, y no a móviles o tablets, es la opción que debemos marcar cuando creamos nuestro proyecto.
@@ -23,51 +25,168 @@ Una vez descargada e instalada la versión deseada del motor, procedemos con el s
 	\item "`No starter content"' (sin contenido inicial): Como se detallaba previamente, vamos a crear un proyecto en "`C++"' con el mínimo contenido, para conocer nuestro proyecto el máximo posible, y si en algún momento necesitamos material del contenido inicial lo añadiremos manualmente.
 \end{itemize}
 
-\begin{figure*}[htb]
-	\centering
-		\includegraphics[scale=0.5]{figures/creacion-proyecto.png}
-		\caption{Ventana del creador de proyectos de Unreal Engine}
-\end{figure*}
-
 Una vez configurado, hacemos click en "`Create Project"' (o "`Crear Proyecto"').
 
-Con esto, habremos terminado la creación de nuestro proyecto y tendremos casi lista la base sobre la que empezar a trabajar.
+Con esto, habremos terminado la creación de nuestro proyecto y tendremos lista la base sobre la que empezar a trabajar.
 
-\section{Puesta a punto y primeros pasos}
+\clearpage
 
-Antes de empezar a trabajar tenemos que realizar una serie de modificaciones:
+\section{Directrices generales}
 
-TODO.
+Durante la ejecución del proyecto se seguirán una serie de pautas, métodos y en definitiva trabajos durante las iteraciones que son recurrentes y se realizan de forma paralela a estas iteraciones. Es por ello que esta sección pretende explicarlos y que ese trabajo, difícil de documentar, esté documentado aquí, aliviando la documentación de las posteriores iteraciones.
 
-\section{Directrices generales y reseñas}
+\subsection{Definición de controles}
 
-Durante la ejecución del proyecto se seguirán una serie de pautas, métodos y en definitiva trabajos que no se van a ver reflejados en su totalidad en la documentación de las siguientes iteraciones. Es por ello que eta sección pretende explicarlos y que ese trabajo, difícil de documentar ya que en muchos casos es paralelo al trabajo principal de cada iteración o engloba más de una iteración, esté documentado.
+Respecto a cómo definir los controles de nuestro juego tenemos, principalmente, dos opciones:
 
-\subsection{Uso de animaciones profesionales "`Mixamo"'}
+\begin{itemize}
+	\item Asignar las mecánicas directamente cada una de las teclas, botones, etc. que realizarán la misma.
+	\item Asignar las mecánicas a un "`binding"' (enlace), nombrado igual que la mecánica y definido dentro de las propiedades del proyecto, y que contendrá información de todos los, teclas, botones, etc. que se podrán pulsar para realizar la acción.
+\end{itemize}
 
-"`Mixamo"' es una empresa filial de la conocida "`Abobe"' dedicada al mundo de la animación 3D y que se centraba en generar estas animaciones para su posterior comercialización. Actualmente, todas sus animaciones son de libre uso, por lo que supone una gran oportunidad para un proyecto \glslink{independiente}{indie} como este.
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.75]{figures/bindings.png}
+		\caption{Captura de la ventana del editor de "`bindings"' o enlaces}
+\end{figure*}
 
-Las animaciones son de máxima calidad, tanto es así que se usan en juegos con alto presupuesto o ingresos: el juego más vendido del momento en PC, "`Playerunknown's Battlegrounds"' \cite{ventaspubg}, utiliza varias de las animaciones de "`Mixamo"' y las sigue incorporando junto con nuevas funcionalidades en sus actualizaciones mensuales.
+\clearpage
 
-Sin embargo, hay un gran problema derivado del uso de estas animaciones en concreto: el personaje que se usa en este proyecto utiliza el esqueleto estándar de Unreal Engine, y hace ya muchas versiones del motor gráfico "`Mixamo"' retiró el soporte para personajes que usen el esqueleto "`por defecto"' de Unreal Engine.
+Para el desarrollo de este producto vamos a elegir la segunda opción. La razón de esto es simple: esto nos permitirá cambiar los controles en un futuro o añadir nuevas teclas, botones, joysticks, gatillos, etc. que hagan estas funciones con la comodidad que ello supone.
 
-La manera de solucionar esto es la incorporación de un esqueleto auxiliar, que no se utiliza en el proyecto salvo para este cometido, que nos servirá para realizar un "`retargeting"' a la animación. El proceso, una vez que tenemos listo el esqueleto destino y el esqueleto auxiliar es el siguiente:
+Para acceder al menú de definición de enlaces tenemos que dirigirnos, dentro del editor de Unreal Engine, a \textbf{"`Edit / Project Settings"'} y hacer click, en la parte izquierda de la ventana que se nos mostrará, en \textbf{"`Input"'}, dentro de la categoría \textbf{"`Engine"'}.
+
+\subsection{Adaptación de animaciones no compatibles}
+
+En concreto, se ha decidido la incorporación de animaciones "`Mixamo"' a este proyecto. "`Mixamo"' es una empresa filial de la conocida "`Abobe"' dedicada al mundo de la animación 3D y que se centraba en generar estas animaciones para su posterior comercialización. Actualmente, todas sus animaciones son de libre uso, por lo que supone una gran oportunidad para un proyecto \glslink{independiente}{indie} como este.
+
+\subsubsection{Retargeting}
+
+Sin embargo, hay un gran problema derivado del uso de estas animaciones: el personaje que se usa en este proyecto utiliza el esqueleto estándar de Unreal Engine, y hace ya muchas versiones del motor gráfico que "`Mixamo"' retiró el soporte para personajes que usen el esqueleto "`por defecto"' de Unreal Engine.
+
+La manera de solucionar esto es la incorporación de un esqueleto auxiliar, que no se utiliza en el proyecto salvo para este cometido, que nos servirá para realizar un \gls{retargeting} a la animación. El proceso, una vez que tenemos incorporados al proyecto el esqueleto destino y el esqueleto auxiliar es el siguiente \cite{retargeting}:
 
 \begin{enumerate}
-	\item Se
+	\item Primero accedemos al \gls{asset} del esqueleto al que queremos importar los cambios dentro del editor de Unreal Engine, hacemos click en "`Retarget manager"' en la parte superior de la pantalla y en la opción "`Select Rig"' seleccionamos "`Select Humanoid Rig"'. Estos son todos los cambios que tenemos que hacer en nuestro esqueleto principal.
+	
+	\clearpage
+	
+	\begin{figure*}[htb]
+		\centering
+			\includegraphics[scale=0.7]{figures/destination-skeleton.png}
+			\caption{Captura del esqueleto destino adaptado}
+	\end{figure*}
+	
+	\item Realizamos las mismas acciones que en el primer paso pero esta vez en nuestro esqueleto auxiliar.
+	\item El tercer paso es el más tedioso pero también el más importante: a cada uno de los nodos de este esqueleto auxiliar debemos asignarle un hueso, para que al hacer el proceso de \gls{retargeting} el sistema sepa qué huesos debe intercambiar. Lo hacemos según las indicaciones de la wiki de Unreal Engine (Ver \cite{retargeting}, pasos 8 a 10). Con esto tendremos preparados los esqueletos.
+	
+	\item Importamos la animación que queremos adaptar de un esqueleto a otro, y la importamos respecto al esqueleto auxiliar (ya que es una animación que, todavía, usa los huesos del mismo).
+	\item Hacemos click derecho en la animación que acabamos de importar y clickamos en la opción "`Retarget Anim Assets"' y seguidamente pulsamos "`Duplicate Anim Assets and Retarget"'.
+	
+	\begin{figure*}[htb]
+		\centering
+			\includegraphics[scale=0.7]{figures/origin-skeleton.png}
+			\caption{Captura del esqueleto origen adaptado y con las opciones de retargeting fijadas}
+	\end{figure*}
+	
+	\begin{figure*}[htb]
+		\centering
+			\includegraphics[scale=0.625]{figures/retargeting.png}
+			\caption{Captura del editor de animaciones de Unreal Engine, mostrando el proceso de re-asignación}
+	\end{figure*}
 \end{enumerate}
 
-Hay que repetir todos los pasos del 2 al X para cada una de las animaciones que se quieren incorporar al proyecto. TODO.
+\clearpage
 
-TODO: Añadir al glosario retargeting.
-TODO: Capturas Retargeting.
+Con esto completaríamos el proceso de adaptar la animación de un esqueleto a otro, nótese que tendremos que repetir todos los pasos 4 y 5 para cada una de las animaciones que se quieren incorporar al proyecto.
 
-\subsection{Implementación del sistema de animación del personaje}
+\subsection{Procesado de animaciones carentes de nodo raíz}
 
-Para la ... se utilizará una máquina de estados...
+Igualmente, si utilizamos aplicaciones "`Mixamo"' y necesitamos habilitar la opción "`Enable root motion"', opción que nos permite que la capsula de colisión se desplace junto con la animación (impidiendo que el personaje traspase objetos), nos encontramos otro problema, puesto que las animaciones provenientes de esta fuente no poseen hueso "`root"' (o "`raíz"').
 
-TODO.
+Para solucionar este problema tenemos que recurrir a programas externos a Unreal Engine, en concreto se ha elegido utilizar "`Autodesk Maya"', y la idea es simple: editar el esqueleto auxiliar añadiéndole el hueso que le falta.
 
-\subsection{Control de que el personaje no abandone el mapa}
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.35]{figures/maya.png}
+		\caption{Captura de la aplicación "`Autodesk Maya"', mostrando el hueso "`root"' ya añadido a un esqueleto}
+\end{figure*}
 
-TODO.
+\clearpage
+
+El proceso, esta vez, es el siguiente:
+
+\begin{enumerate}
+	\item Importamos nuestro esqueleto auxiliar.
+	\item Seleccionamos todos los componentes del esqueleto.
+	\item Con dichos componentes seleccionados, añadimos un nuevo hueso con la opción "`Create joints"' y hacemos click en la base del personaje (la posición en la que se debe encontrar el hueso raíz, justo debajo de la pelvis). No necesitamos colocar el hueso a la perfección puesto que eso lo haremos más fácilmente en los pasos siguientes.
+	\item Cambiamos el nombre del nodo / hueso que acabamos de crear de "`joint1"' a "`root"' (en minúsculas), el campo que tenemos que editar está, por defecto, en el panel derecho del programa.
+	\item Ajustamos la opción "`Translate X"', "`Translate Y"' y "`Translate Z"' (podemos hacer esto en el mismo panel del paso anterior, justo debajo), a "`0"' para que, ahora sí, el hueso quede perfectamente colocado en el centro.
+	\item A continuación seleccionamos el hueso de la cadera de la animación, mantenemos pulsado "`shift"' y seleccionamos el nodo raíz que acabamos de crear y, finalmente, seleccionamos la opción "`Connect joint"' para que todos los huesos del esqueleto dependan del nodo raíz.
+	\item Por último, exportamos el esqueleto editado (en formato "`.fbx"' para poder importarlo a Unreal Engine como esqueleto auxiliar).
+\end{enumerate}
+
+Una vez completados estos pasos, cualquier animación que se exporte con el esqueleto modificado generado como base tendrá nodo raíz, solucionando el problema.
+
+\clearpage
+
+\subsection{Sistema de animación del personaje}
+
+Para la animación del personaje se utilizará un \gls{blueprint} de animación, totalmente independiente de la clase de nuestro personaje, que (entre otras cosas) implementará una máquina de estados y que se comunicará con la clase del mismo a través de una interfaz. Estos \glslink{blueprint}{blueprints} de animación se seleccionan dentro de la clase de cada personaje, delegando totalmente la responsabilidad de realizar las animaciones en ellos.
+
+El funcionamiento interno de esta clase es muy parecido al de una máquina de estados convencional: se dispone de un punto de entrada ("`Entry"') que está conectado con la animación inicial (típicamente una animación del personaje de pie y parado) y que a partir de ahí, en base a una serie de parámetros, pasará de un nodo a otro, es decir: de una animación a otra.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.65]{figures/animation-state-machine.png}
+		\caption{Vista de una pequeña parte de la máquina de estados implementada para animar al personaje del proyecto}
+\end{figure*}
+
+Además de esta máquina de estados el \gls{blueprint} se encarga de recoger información tanto de la interfaz de animación (a la que le pasa información la clase del personaje) como del componente de movimiento del personaje para saber si el personaje está quieto o no, en la dirección que se está moviendo, si está agachado, si está agarrado a algún vértice, etc.
+
+\subsubsection{Notificaciones en animaciones}
+
+Las notificaciones de animaciones son una funcionalidad de Unreal Engine que utilizaremos para varias tareas a lo largo del desarrollo del proyecto. Principalmente para controlar cuándo acaba un "`animation montage"' (descritos más adelantes en esta sección) pero también se usarán para que el sonido asociado con las animaciones (por ejemplo, el sonido de un paso, generado cuando el personaje va corriendo y pisa el suelo) encaje perfectamente con las mismas. Concretamente esto último se realiza en dos pasos:
+
+\begin{enumerate}
+	\item En la animación se emplazará una notificación de sonido cada vez que se deba producir el mismo.
+	\item En el \gls{blueprint} de animación de personaje se implementará que cada vez que se reciba esa notificación se reproduzca el sonido pertinente (según la notificación que recibamos) en la localización del personaje.
+\end{enumerate}
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=1]{figures/sound-trigger.png}
+		\caption{Captura de una animación mostrando las notificaciones de sonido}
+\end{figure*}
+
+\clearpage
+
+\subsubsection{Blend spaces}
+
+Un "`blend space"' es un tipo especial de \gls{blueprint} que se utiliza para pasar de una animación a otra, de forma suave, en función de unos parámetros.
+
+Estos "`blend spaces"' pueden ser de una o dos dimensiones (es decir, dependientes de uno o dos parámetros) y también pueden ser nodos de la máquina de estados del \gls{blueprint} de animación, por lo que es una forma también de encapsular animaciones.
+
+Dentro del proyecto se usan en repetidas ocasiones, por ejemplo para cambiar de una animación a otra en función de la dirección y velocidad del personaje.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.58]{figures/blend-space-movimiento.png}
+		\caption{Imagen de ejemplo de "`blend space"' en 2D: en función de la dirección y la velocidad}
+\end{figure*}
+
+En la imagen que se muestra se puede apreciar precisamente el caso citado, cambiar de una animación a otra en función de la dirección y velocidad: los ejes horizontal y vertical representan la dirección (0 sería movimiento hacia el frente, -90 movimiento hacia la izquierda, 90 movimiento hacia la derecha y 180 o -180 movimiento hacia atrás) y la velocidad (0, el mínimo, representaría parado y 800, el máximo, corriendo), respectivamente, y cada punto del mapeado que aparece en la imagen representa una animación distinta (salvo en las columnas de -180 y 180 que estarían duplicadas a un lado y a otro del mapeado, por lo que se comentaba anteriormente).
+
+Cabe destacar que el "`blend space"' creará "`animaciones intermedias"' si, según sus parámetros de entrada, no encuentra una animación que se ajuste perfectamente. Siguiendo con el ejemplo expuesto anteriormente, si el personaje se dirige hacia delante a una velocidad de 400 y teniendo en cuenta que para ese caso tenemos 3 animaciones: una en velocidad 0, representando al personaje parado, otra en velocidad 250, representando al personaje andando hacia delante, y otra en velocidad 800, representando al personaje corriendo hacia delante, entonces la animación resultado será una mezcla (proporcional al parámetro dado) entre la animación de andar y la de correr.
+
+\subsubsection{Animation montages}
+
+Un "`animation montage"' es un tipo especial de \gls{blueprint} de animación, que depende siempre de una animación en concreto, y que puede ser usado con múltiples propósitos.
+
+En el proyecto que nos ocupa son usados, principalmente, para reproducir animaciones una sola vez (es decir, sin bucles) y de forma independiente al estado en el que se encuentra el personaje dentro de la máquina de estados del \gls{blueprint} de animación. En otras palabras, cuando se ejecuta el "`animation montage"' este invalida la animación que debiera reproducirse según la máquina de estados y cuando acaba vuelve a autorizar la animación pertinente de la máquina de estados.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=1]{figures/animation-montage-ejemplo.png}
+		\caption{Ejemplo de "`animation montage"', usado cuando el protagonista escala un saliente}
+\end{figure*}

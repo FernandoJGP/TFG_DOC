@@ -5,15 +5,30 @@
 En la siguiente sección se expone la planificación del proyecto y el informe de tiempos generado durante el transcurso del mismo que, comparado con lo anterior, nos permitirá ver la desviación en cuanto a tiempo del proyecto.
 \end{abstract}
 
-\section{Resumen temporal del proyecto}
+\section{Introducción}
 \label{sec:planificacion}
+
+La planificación es una de las fases más importantes en el desarrollo software: una mala planificación puede abocar al fracaso un proyecto en el que hayamos invertido mucho dinero y recursos.
+
+Las secciones de este capítulo recogen:
+\begin{itemize}
+	\item Una \textbf{tabla resumen de la planificación} del proyecto (\ref{sec:planificacion-resumen}), que nos permitirá obtener de un vistazo aspectos fundamentales sobre la planificación de este proyecto.
+	\item La \textbf{planificación inicial} del proyecto (\ref{sec:planificacion-inicial}), en la cuál se nos muestra la planificación como tal y los criterios y decisiones que nos han llevado a estructurarla de la forma en la que se ha hecho.
+	\item El \textbf{informe de tiempos} (\ref{sec:planificacion-informe}), que contiene los datos de tiempo reales obtenidos durante el transcurso del proyecto, así como las desviaciones y adelantos o retrasos que ha sufrido el proyecto.
+	\item Por último, en la sección \textbf{conclusiones} (\ref{sec:planificacion-conclusiones}) se discute la planificación del proyecto, comparando los datos planificados con los obtenidos tras la finalización del proyecto.
+\end{itemize}
+
+\clearpage
+
+\section{Resumen temporal del proyecto}
+\label{sec:planificacion-resumen}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{ll}{2}
 {Resumen del proyecto}
 	\textbf{Fecha de inicio}&20/02/2017\\
-	\textbf{Fecha de fin}&01/09/2017\\ %Entrega memoria 13-06-2017 o 04-09-2017
+	\textbf{Fecha de fin}&31/08/2017\\ %Entrega memoria 13-06-2017 o 04-09-2017
 	\textbf{Periodicidad de las revisiones (promedio)}&2 semanas\\
 	\textbf{Carga de trabajo semanal (promedio)}&16,31 horas\\
 	\textbf{Horas totales previstas}&310 horas\\ % entre 25-30 horas por crédito
@@ -23,6 +38,7 @@ En la siguiente sección se expone la planificación del proyecto y el informe de 
 \end{table*}
 
 \section{Planificación inicial}
+\label{sec:planificacion-inicial}
 
 Para su planificación, se ha decidido dividir el proyecto en siguientes fases o iteraciones, las cuales se describen a continuación junto con los roles que participan principalmente:
 
@@ -39,9 +55,9 @@ Para su planificación, se ha decidido dividir el proyecto en siguientes fases o 
 		\begin{itemize}
 			\item \textbf{Iteración 1. \textit{Mecánicas básicas y poderes}:} La primera iteración se implementarán las mecánicas más básicas, como saltar, agacharse, correr, etc. y, además, las mecánicas de las que podrá hacer uso el personaje cuando esté potenciado.
 			\item \textbf{Iteración 2. \textit{Mecánicas de escalada}:} En la segunda iteración se implementarán las mecánicas de "`plataformeo"' avanzadas.
-			\item \textbf{Iteración 3. \textit{HUD y menú}:} Durante la tercera iteración se creará el menú principal y el HUD del que dispondrá el usuario.
+			\item \textbf{Iteración 3. \textit{HUD, menús, sistema de muerte y sistema de guardado}:} Durante la tercera iteración se creará el menú principal, el menú de pausa y el HUD del que dispondrá el usuario. Además, se implementará el sistema de muerte y el de guardado.
 			\item \textbf{Iteración 4. \textit{Peligros del entorno}:} La cuarta iteración tratará sobre la implementación los peligros del entorno que deberá esquivar el personaje.
-			\item \textbf{Iteración 5. \textit{Inteligencia artificial y sistema de guardado}:} Durante la quinta iteración se implementará la IA de los enemigos y el sistema de guardado.
+			\item \textbf{Iteración 5. \textit{Enemigos e inteligencia artificial}:} Durante la quinta iteración se crearán los enemigos que aparecen en el videojuego y se implementará la IA de los mismos.
 			\item \textbf{Iteración 6. \textit{Diseño de escenarios}:} En la sexta y última iteración se llevarán a cabo la creación de los escenarios de los que dispondrá, a modo de demostración, el videojuego a entregar. Esto incluye el diseño de un tutorial.
 		\end{itemize}
 	\item \textbf{Fase de cierre del proyecto}: En esta iteración intervienen el \textbf{diseñador}, encargado de elaborar el manual de la aplicación, y el \textbf{jefe de proyecto}, que será quien finalice los últimos apartados de la memoria, haga las últimas modificaciones sobre la misma y posteriormente realice la presentación mediante la cuál se expondrán los resultados del proyecto.
@@ -136,7 +152,7 @@ Recordemos que es un proyecto realizado con una tecnología, que genera un produc
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{ll}{2}
-{Calculo de horas por rol en iteraciones}
+{Cálculo de horas por rol en iteraciones}
 	\textbf{Rol}&\textbf{Horas estimadas}\\
 	\hline
 	\textbf{Jefe de proyecto}&2 horas por semana\\
@@ -162,6 +178,7 @@ Por último, de la tabla de planificación detallada podemos extraer el número tot
 \clearpage
 
 \section{Informe de tiempos del proyecto}
+\label{sec:planificacion-informe}
 
 Durante el desarrollo del proyecto se han obtenido los siguientes resultados respecto a tiempo:
 
@@ -246,11 +263,38 @@ La siguiente tabla muestra, por periodos, el \textbf{retraso acumulado} del proy
 	\hline
 	\textbf{20/02/17 a 20/05/17}&Periodo sin retrasos&-\\
 	\textbf{21/05/17 a 13/08/17}&1 semana de retraso&Mala planificación de la segunda parada. El retraso además se extiende más tiempo del deseado porque ocurre antes de la citada parada.\\
-	\textbf{13/08/17 a Final}&2 semanas de retraso&Esta vez fue por decisión propia: Como aún había suficiente tiempo, se prefirió dotar a los escenarios que en principio iban a tener un acabado de "`prototipos"' de mejoras visuales para que todos los niveles del producto estuviesen a un nivel equiparable.\\
+	\textbf{13/08/17 a Final}&2 semanas de retraso&Decisión tomada durante el desarrollo: Como llegados a esta iteración aún había suficiente margen de tiempo, se prefirió dotar a los escenarios de los niveles ordinarios, que en principio iban a tener un acabado de "`prototipos"', de mejoras visuales para que todos los niveles del producto tuviesen un acabado homogéneo.\\
 	\end{coolTable}
 	\caption{Tabla de retrasos del proyecto}
 \end{table*}
 
 Debemos tener presente que, respecto a la planificación inicial, disponemos de \textbf{2,5 semanas de red de seguridad} y, aunque no sea lo más idóneo, podemos usar éstas a lo largo del proyecto.
 
-TODO: Conclusiones, por ejemplo, el rol de jefe de proyecto durante las iteraciones trabajó más horas de las proyectadas, etc.
+\clearpage
+
+\section{Conclusiones}
+\label{sec:planificacion-conclusiones}
+
+Uno de los datos más importantes que tenemos que analizar es la desviación en cuanto a tiempo total que se ha producido al término del proyecto. En este caso, han sido necesarias \textbf{31,5 horas} más de las planificadas para finalizar el proyecto, lo que supone un 10\% sobre el total de horas planeadas en un principio (que fueron un total de 310). Esto se debe en gran parte a la pequeña re-planificación que se ha efectuado durante la última iteración para añadir "`funcionalidad"' extra, ya que recordemos que se decidió alargar una semana la ésta iteración para mejorar los escenarios de juego que componen el software, aprovechando la red de seguridad de la que disponíamos. Además, teniendo en cuenta que es el primer proyecto con esta tecnología y de este tipo no es una diferencia demasiado significativa o que no fuese esperable en un principio.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.6]{figures/planificadas-vs-extras.png}
+		\caption{Horas planificadas contra extras}
+\end{figure*}
+
+Por otra parte, podemos afirmar que el mayor éxito ha consistido en dividir satisfactoriamente el trabajo entre las diferentes iteraciones, identificando cada tarea (o al menos la inmensa mayoría de ellas) desde el principio, lo que nos ha permitido esquivar de lleno el denominado "`síndrome del noventa por ciento"' \cite{sindrome90}.
+
+\clearpage
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.5]{figures/adelanto-retraso-acumulado.png}
+		\caption{Horas de adelanto o retraso acumuladas}
+\end{figure*}
+
+La amplia "`red de seguridad"' establecida durante la planificación ha permitido realizar este trabajo sin demasiadas prisas, evitando gran parte de estrés (que nunca se proyecta bien en el resultado final), y además, como se comentaba, ha permitido realizar mejoras al producto final que no estaban planificadas en un principio y que, bajo mi punto de vista, han merecido la pena.
+
+Respecto a los roles debemos concluir que los roles que más horas han desempeñado han sido, por este orden: programador, jefe de proyecto y diseñador, como así se había planificado en un principio. Los tres roles trabajaron más horas de las proyectadas, principalmente por el motivo que se ha expresado antes, siendo el jefe de proyecto el que más se ha desviado de sus horas planificadas, seguido del diseñador y del programador, este último con una diferencia mínima.
+
+En definitiva podemos concluir que se ha llevado a cabo una buena planificación: las horas de más empleadas, en su inmensa mayoría, son fruto de la necesidad de querer mejorar este producto lo mayor posible, un software que ha sido tratado con mimo y cariño desde el principio y que espero que ello se note en el resultado final. Prueba de este hecho ha sido evitar el citado anteriormente "`síndrome del 90\%"' \cite{sindrome90} ya que de ser de otra forma debería haberse hecho mucho más notable en un proyecto en el que se han empleado más horas de las planificadas.

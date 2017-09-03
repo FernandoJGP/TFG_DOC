@@ -5,7 +5,35 @@
 A continuación se presenta la estructura organizacional del proyecto, la metodología que se ha elegido seguir para el desarrollo de este software, un breve resumen de la misma y la forma en la que se va a adaptar a nuestro problema específico.
 \end{abstract}
 
+\section{Introducción}
+
+El uso de una metodología es esencial cuando estamos hablando de ingeniería software: ayudan a planear y controlar el proceso de desarrollo del software, así como a gestionar los recursos de los que se disponen.
+
+En cuanto a metodologías existen dos grandes corrientes: la tradicional y la denominada \gls{agil}. Las principales diferencias entre las \glslink{agil}{ágiles} y las tradicionales se recogen en el manifiesto ágil:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lcl}{3}
+{Manifiesto ágil: metodologías ágiles contra tradicionales}
+	\textbf{Individuos e interacciones}&{"`sobre"'}&{Procesos y herramientas}\\
+	\textbf{Software funcionando}&{"`sobre"'}&{Documentación exhaustiva}\\
+	\textbf{Colaboración con el cliente}&{"`sobre"'}&{Negociación contractual}\\
+	\textbf{Respuesta ante el cambio}&{"`sobre"'}&{Seguir un plan}\\
+	\end{coolTable}
+	\caption{Manifiesto ágil}
+\end{table*}
+
+Las secciones que componen este capítulo son, en detalle:
+\begin{itemize}
+	\item La \textbf{estructura organizacional} (\ref{sec:estructuraorganizacional}), en este caso simple, con la que se ha desarrollado este proyecto.
+	\item Una \textbf{presentación de la metodología} que vamos a usar (\ref{sec:presentacionmetodologia}), en la que se describen de forma breve su nacimiento, razón de ser e historia.
+	\item Un \textbf{resumen de la metodología} (\ref{sec:resumenmetodologia}), donde se introduce el concepto de "`Feature-Driven Development"' o "`Desarrollo basado en funcionalidades"', se explica y se identifica los roles que lo conforman.
+	\item La \textbf{adaptación de la metodología} (\ref{sec:adaptacionmetodologia}) y sus roles que se han usado para desarrollar este proyecto.
+	\item Y, por último, \textbf{las conclusiones sobre la metodología} (\ref{sec:conclusionesmetodologia}) en el que se extraerán unas breves conclusiones.
+\end{itemize}
+
 \section{Estructura organizacional del proyecto}
+\label{sec:estructuraorganizacional}
 
 Dado que el proyecto se realiza de forma individual no se podría decir que existe una estructura organizacional interna propiamente dicha, o al menos carecería de sentido establecer una estructura organizacional para una sola persona, puesto que todas las responsabilidades y roles presentes en el proyecto recaerían sobre una única persona, salvando la figura del tutor.
 
@@ -26,12 +54,14 @@ Teniendo en cuenta lo citado, el organigrama resultante y que se usará en la rea
 \section{Metodología de desarrollo}
 
 \subsection{Presentación de la metodología}
+\label{sec:presentacionmetodologia}
 
-Para la realización de este proyecto se hará uso de la metodología "`Feature-Driven Development"' (FDD), metodología denominada "`Desarrollo basado en funcionalidades"' en español.
+Para la realización de este proyecto se hará uso de la metodología "`Feature-Driven Development"' (FDD), metodología denominada "`Desarrollo basado en funcionalidades"' en español \cite{fddintroduction}.
 
-Fue creada por Jeff De Luca y Peter Coad a finales del siglo XX para salvar un importante proyecto que había sido declarado como irrealizable y tiene su razón de ser en la calidad y el monitoreo constante del proyecto \cite{fddhistory, fddintroduction}.
+Fue creada por Jeff De Luca y Peter Coad a finales del siglo XX para salvar un importante proyecto que había sido declarado como irrealizable y tiene su razón de ser en la calidad y el monitoreo constante del proyecto \cite{fddhistory}.
 
 \subsection{Resumen de la metodología}
+\label{sec:resumenmetodologia}
 
 FDD es una metodología englobada en el grupo de las denominadas \glslink{agil}{ágiles}, constituye un proceso iterativo e incremental de desarrollo software y consta de 5 partes \cite{fddblog, fddvsscrum}:
 
@@ -94,3 +124,16 @@ Para finalizar, los \textbf{roles} también necesitan adaptarse al proyecto, ya q
 	\item	\textbf{Diseñador}: Es el responsable del diseño global del sistema y de la elicitación de requisitos tanto a alto nivel como de posteriormente detallarlos. En resumidas cuentas, sería un analista pero esta vez centrado en el mundo del videojuego.
 	\item	\textbf{Programador}: Diseña, programa, prueba y documenta las funcionalidades que se implementan en el sistema.
 \end{itemize}
+
+\clearpage
+
+\section{Conclusiones}
+\label{sec:conclusionesmetodologia}
+
+La principal peculiaridad que nos encontramos en el proyecto es que está compuesto por un solo integrante, lo que tiene algunas ventajas, como se describe en la estructura organizacional (Ver sección \ref{sec:estructuraorganizacional}), pero también ciertos inconvenientes si queremos implantar una metodología en la que intervienen tantos roles, lo que nos obliga a "`simular"' desempeñar más de un rol y, por tanto, a tener siempre en mente a qué rol pertenece la tarea que estamos realizando, lo que supone un inconveniente en campos como el registro de tiempos.
+
+Por otra parte, se ha podido adaptar correctamente la metodología a nuestro caso específico sin mucho esfuerzo: el principal cambio reside en el cambio de realizar el "`modelo global del sistema"' por el "`documento de diseño del videojuego"', que es lo que se hace en el mundo del desarrollo de videojuego por lo que, tras este cambio, encaja a la perfección.
+
+Y, por último, también se ha podido adaptar correctamente los roles, cuyo cambio más drástico ha sido la incorporación del "`diseñador"'.
+
+En definitiva, podemos concluir que es una metodología que, tras su adaptación, concuerda perfectamente con el mundo del desarrollo de videojuegos y por tanto nos será de gran ayuda durante el desarrollo de este software.

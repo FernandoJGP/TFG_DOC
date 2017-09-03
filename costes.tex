@@ -15,14 +15,14 @@ La tabla que se muestra a continuación anticipa los costes a los que tendremos q
 	\centering
 	\begin{coolTable}{ll}{2}
 {Resumen del proyecto}
-	\textbf{Costes de personal}&14.242,46 \euro\\
-	Sueldo neto&9.466,9 \euro\\
-	Impuestos&4.283,63 \euro\\
-	Costes sociales&492,9 \euro\\
+	\textbf{Costes de personal}&10.183,16 \euro\\
+	Sueldo bruto&7.833,2 \euro\\
+	Costes Seg. Social&2.349,96 \euro\\
 	\textbf{Costes materiales}&357,78 \euro\\
 	\textbf{Costes indirectos}&4.127,34 \euro\\
+	\textbf{Costes directos e inmateriales}&66,29 \euro\\
 	\midrule
-	\textbf{TOTAL}&18.727,58 \euro\\
+	\textbf{TOTAL}&14.734,57 \euro\\
 	\end{coolTable}
 	\caption{Tabla resumen de costes}
 \end{table*}
@@ -113,7 +113,7 @@ Para paliar este problema vamos a realizar un pequeño estudio sobre la fluctuaci
 
 \clearpage
 
-Podemos observar que se encuentran relativamente estabilizados, para el propósito que nos ocupa, y que el promedio se sitúa en 1,1008 dólares por cada euro, que se encuentra muy cerca del valor actual.
+Podemos observar que se encuentran relativamente estabilizados, para el propósito que nos ocupa, y que el promedio se sitúa en 1,1008 dólares por cada euro, que se encuentra muy cerca del último valor del registro.
 
 Es por ello usaremos la siguiente equivalencia:
 
@@ -125,19 +125,17 @@ O lo que es lo mismo:
 
 El resultado de aplicar dicha conversión y el coeficiente referente al coste de vida que calculamos previamente es el siguiente:
 
-\textbf{IMPORTANTE: Los datos están desactualizados de aquí en adelante, faltaría multiplicar por 0.55 aquí y todos los cambios derivados de ello, pero me esperaré a cambiarlos hasta que la sección esté validada.}
-
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{llr}{3}
 {Salarios medios brutos (adaptados) según la encuesta salarial de "`Gamasutra"'}
 	\textbf{Categoría}&\textbf{Categoría "`Gamasutra"'}&\textbf{Salario medio anual}\\
 	\hline
-	\multirow{2}{*}{\textbf{Jefe de proyecto}}&{"`Business and management"'}&\multirow{2}{*}{91.414,8 \euro}\\
+	\multirow{2}{*}{\textbf{Jefe de proyecto}}&{"`Business and management"'}&\multirow{2}{*}{50.278,1 \euro}\\
 	&{(\textit{Negocios y gestión})}&\\
-	\multirow{2}{*}{\textbf{Diseñador}}&{"`Game designers"'}&\multirow{2}{*}{66.477,6 \euro}\\
+	\multirow{2}{*}{\textbf{Diseñador}}&{"`Game designers"'}&\multirow{2}{*}{36.562,7 \euro}\\
 	&{(\textit{Diseñadores de juego})}&\\
-	\multirow{2}{*}{\textbf{Programador}}&{"`Programmers and engineers"'}&\multirow{2}{*}{83.925,9 \euro}\\
+	\multirow{2}{*}{\textbf{Programador}}&{"`Programmers and engineers"'}&\multirow{2}{*}{46.159,2 \euro}\\
 	&{(\textit{Programadores e ingenieros})}&\\
 	\end{coolTable}
 	\caption{Salarios medios brutos (adaptados) según la encuesta salarial de "`Gamasutra"' (2014) \cite{gamasutra2014salarysurvey}}
@@ -157,9 +155,9 @@ La jornada máxima anual del sector TIC está fijada en 1.800 horas en nuestro paí
 {Tabla salarial (sueldos brutos) del proyecto por hora}
 	\textbf{Categoría}&\textbf{Salario bruto por hora}\\
 	\hline
-	\textbf{Jefe de proyecto}&50,78 \euro\\
-	\textbf{Diseñador}&36,93 \euro\\
-	\textbf{Programador}&46,62 \euro\\
+	\textbf{Jefe de proyecto}&27,93 \euro\\
+	\textbf{Diseñador}&20,31 \euro\\
+	\textbf{Programador}&25,64 \euro\\
 	\end{coolTable}
 	\caption{Tabla salarial (sueldos brutos) del proyecto por hora}
 \end{table*}
@@ -182,87 +180,44 @@ Por tanto, aplicando la primera fórmula a cada uno de los roles y la segunda fór
 {Costes sueldos brutos}
 	\textbf{Rol}&\textbf{Total de horas}&\textbf{Sueldo bruto por hora}&\textbf{Sueldo bruto}\\
 	\hline
-	\textbf{Jefe de proyecto}&94 horas&50,78 \euro&4.773,32 \euro\\
-	\textbf{Costes materiales}&62 horas&36,93 \euro&2.289,66 \euro\\
-	\textbf{Costes indirectos}&154 horas&46,62 \euro&7.179,48 \euro\\
+	\textbf{Jefe de proyecto}&94 horas&27,93 \euro&2.625,42 \euro\\
+	\textbf{Diseñador}&62 horas&20,31 \euro&1.259,22 \euro\\
+	\textbf{Programador}&154 horas&25,64 \euro&3.948,56 \euro\\
 	\midrule
-	\textbf{TOTAL}&&&\textbf{14.242,46 \euro}\\
+	\textbf{TOTAL}&&&\textbf{7.833,2 \euro}\\
 	\end{coolTable}
 	\caption{Tabla costes sueldos brutos}
 \end{table*}
 
-Por tanto, el coste del proyecto en cuanto a sueldos brutos asciende a \textbf{14.242,46 \euro}.
+Por tanto, el coste del proyecto en cuanto a sueldos brutos asciende a \textbf{7.833,2 \euro}.
 
 \clearpage
 
-Dentro de los costes de personal debemos diferenciar entre el \textbf{sueldo neto del trabajador}, los \textbf{impuestos} y los \textbf{costes sociales}.
+Además de esto, debemos calcular el coste que supone cada trabajador en cuanto a \textbf{costes sociales}. Estos gastos se sitúan alrededor de un \textbf{30\%}:
 
-A continuación (diferenciando el sueldo neto, los impuestos y los costes sociales dentro de cada uno), se muestra una tabla resumen por rol:
+\[Costes_{Sociales} = TotalSueldosBrutos * 0.30\]
 
-\begin{table*}[h!]
-	\centering
-	\begin{coolTable}{lrrr}{4}
-{Costes sueldo rol "`jefe de proyecto"'}
-	\textbf{Concepto}&\textbf{Anual}&\textbf{Hora (Anual / 1800)}&\textbf{Proyecto (Hora * 94)}\\
-	\hline
-	\textbf{Sueldo neto}&59.760,7 \euro&33,2 \euro&3.120,8 \euro\\
-	\textbf{Impuestos}&28.795,7 \euro&16,0 \euro&1.504,0 \euro\\
-	\textbf{Costes sociales}&2.858,4 \euro&1,59 \euro&149,46 \euro\\
-	\midrule
-	\textbf{Sueldo bruto}&91.414,8 \euro&50,78 \euro&4.773,32 \euro\\
-	\end{coolTable}
-	\caption{Tablas costes sueldo rol "`jefe de proyecto"'}
-\end{table*}
+Aplicándolo, obtenemos que el coste social asciende a \textbf{2.349,96 \euro}.
+
+\vspace{10mm}
+\midrule
+\vspace{10mm}
+
+En este punto ya tenemos todo lo necesario para calcular los costes de personal, tan sólo tenemos que sumar los costes de sueldo bruto con los sociales, por lo que concluimos:
 
 \begin{table*}[h!]
 	\centering
-	\begin{coolTable}{lrrr}{4}
-{Costes sueldo rol "`diseñador"'}
-	\textbf{Concepto}&\textbf{Anual}&\textbf{Hora (Anual / 1800)}&\textbf{Proyecto (Hora * 62)}\\
-	\hline
-	\textbf{Sueldo neto}&46.049,2 \euro&25,58 \euro&1.585,96 \euro\\
-	\textbf{Impuestos}&17.570,0 \euro&9,76 \euro&605,15 \euro\\
-	\textbf{Costes sociales}&2.858,4 \euro&1,59 \euro&98,58 \euro\\
+	\begin{coolTable}{ll}{2}
+{Costes de personal}
+	Sueldo bruto&7.833,2 \euro\\
+	Costes Seg. Social&2.349,96 \euro\\
 	\midrule
-	\textbf{Sueldo bruto}&66.477,6 \euro&36,93 \euro&2.289,66 \euro\\
+	\textbf{Costes de personal (TOTAL)}&\textbf{10.183,16 \euro}\\
 	\end{coolTable}
-	\caption{Tablas costes sueldo rol "`diseñador"'}
+	\caption{Tabla de costes de personal}
 \end{table*}
 
-\begin{table*}[h!]
-	\centering
-	\begin{coolTable}{lrrr}{4}
-{Costes sueldo rol "`programador"'}
-	\textbf{Concepto}&\textbf{Anual}&\textbf{Hora (Anual / 1800)}&\textbf{Proyecto (Hora * 154)}\\
-	\hline
-	\textbf{Sueldo neto}&55.646,3 \euro&30,91 \euro&4.760,14 \euro\\
-	\textbf{Impuestos}&25.421,2 \euro&14,12 \euro&2.174,48 \euro\\
-	\textbf{Costes sociales}&2.858,4 \euro&1,59 \euro&244,86 \euro\\
-	\midrule
-	\textbf{Sueldo bruto}&83.925,9 \euro&46,62 \euro&7.179,48 \euro\\
-	\end{coolTable}
-	\caption{Tablas costes sueldo rol "`programador"'}
-\end{table*}
-
-Como podemos comprobar, si sumamos el sueldo neto, los impuestos y los costes sociales obtenemos el sueldo bruto (salvando el margen de error proveniente del uso de dos decimales).
-
-Si sumamos los sueldos netos, impuestos y costes sociales de cada uno de los roles, obtenemos los referentes al proyecto:
-
-\[Costes_{SueldosNetos} = \sum_{i=1}^{n^o empleados}SueldoNeto_{i}\]
-
-\[Costes_{Impuestos} = \sum_{i=1}^{n^o empleados}Impuesto_{i}\]
-
-\[Costes_{CostesSociales} = \sum_{i=1}^{n^o empleados}CosteSocial_{i}\]
-
-Por lo que concluimos:
-
-\begin{itemize}
-	\item \textbf{Costes sueldo neto del proyecto:} 9.466,9 \euro
-	\item \textbf{Costes impuestos del proyecto:} 4.283,63 \euro
-	\item \textbf{Costes sociales del proyecto:} 492,9 \euro
-\end{itemize}
-
-\textbf{TODO: Añadir gráfica del porcentaje de costes de personal que representan el sueldo neto, impuestos y sociales del proyecto.}
+Con esto finalizamos la sección de costes de personal, quedando fijado el presupuesto para ellos en \textbf{10.183,16 \euro}.
 
 \clearpage
 
@@ -390,3 +345,118 @@ Por consiguiente, el coste indirecto total del proyecto sería el coste indirecto
 \[CosteMaterial_{Proyecto} = CosteAmortizado * MesesProyecto\]
 
 Por último, teniendo presente el número de meses del proyecto, en el caso que nos ocupa \textbf{6 meses}, el coste indirecto total del proyecto asciende a \textbf{4.127,34 \euro}.
+
+\clearpage
+
+\section{Costes directos e inmateriales}
+
+Esta sección recoge la parte de los costes referente principalmente a los \glspl{asset}, elementos de diferente índole y que se han incorporado en el juego. Todos estos elementos tienen algo en común: el proyecto sólo se ha aprovechado de ellos de forma meramente estética.
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{5.5cm}p{5cm}r}{2}
+{Costes directos e inmateriales}
+	\textbf{Referencia}&\textbf{Nombre asset}&\textbf{Coste}\\
+	\hline
+	\textbf{Modelo y texturas del personaje}&GR Male Hero 01&22,24 \euro*\\
+	\textbf{Modelo y texturas torreta}&Turret Kit&27,80 \euro\\
+	\textbf{Modelo y texturas enemigo "`vigilante"'}&Modular Characters Blueprint&7,56 \euro\\
+	\textbf{Rayo disparo "`vigilante"'}&Beams for FPS&8,69 \euro\\
+	\textbf{Animaciones personaje (I)}&Animation Starter Pack&Gratuito\\
+	\textbf{Animaciones personaje (II)}&Mixamo Animation Pack&Gratuito\\
+	\textbf{Efectos de partículas variados}&Infinity Blade: Effects&Gratuito\\
+	\textbf{Assets variados para escenarios (I)}&Epic Zen Garden&Gratuito\\
+	\textbf{Assets variados para escenarios (II)}&Infinity Blade: Grass Lands&Gratuito\\
+	\textbf{Assets variados para escenarios (III)}&Open World Demo Collection&Gratuito\\
+	\textbf{Follaje de escenarios}&Advanced Cinematic Grass Blueprint&Gratuito\\
+	\midrule
+	\textbf{TOTAL}&&\textbf{66,29 \euro}\\
+	\end{coolTable}
+	\caption{Tabla de costes directos e inmateriales}
+\end{table*}
+
+Además de estos, se han usado otros \glspl{asset} (modelados, música, efectos de sonido) gratuitos y de libre uso. Se puede encontrar más información acerca de esto en el documento de diseño (Ver anexo \ref{sec:gdd}).
+
+\section{Conclusiones}
+
+Lo primero que tenemos que remarcar es que, si bien es cierto que el presupuesto es totalmente válido para la fase de desarrollo, cuando se obtengan ganancias aparecerán los costes de licencia que han quedado marcados con un asterisco en la sección "`Costes indirectos"'. Como se explica esto es debido a la política de royalties de Epic Games, que se quedarán con un porcentaje del beneficio obtenido a partir de una determinada cantidad de beneficios, como se explica en dicha sección.
+
+También hay que insistir en que, como se ha comentado previamente, no hay estudios sobre los salarios en el sector del videojuego en nuestro entorno, y es por ello que hemos tenido que recurrir a adaptar los de otros países, intentando tener en cuenta la mayor parte de las variables.
+
+Remarcados estos destalles, más importante aún es realizar un estudio del sobrecoste, es por ello que emplearemos una subsección específica para esta labor.
+
+\subsection{Desviación de costes}
+
+El éxito de un presupuesto está muy subordinado a la correcta planificación que se haya hecho del proyecto. Es por esto que, a continuación, en esta sección vamos a comparar los resultados presupuestados con los reales.
+
+\subsubsection{Costes de personal}
+
+Para ello, vamos a recuperar la "`tabla de desviación de tiempo por rol"' del capítulo planificación por mera comodidad:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lrrr}{4}
+{Desviación de tiempo por rol}
+	\textbf{Rol}&\textbf{Horas planeadas}&\textbf{Horas reales}&\textbf{Desviación final}\\
+	\hline
+	\textbf{Jefe de proyecto}&94 horas&107 horas&\textbf{+13} horas\\
+	\textbf{Diseñador}&62 horas&73,2 horas&\textbf{+11,2} horas\\
+	\textbf{Programador}&154 horas&161,3 horas&\textbf{+7,3} horas\\
+	\end{coolTable}
+	\caption{Tabla de desviación de tiempo por rol}
+\end{table*}
+
+Lo que nos interesa aquí son las horas extra que ha desempañado cada rol (columna "`Desviación final"').
+
+\clearpage
+
+Con estos datos, vamos a proceder a calcular la cuantía por rol y, de paso, la total:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{llll}{4}
+{Costes sueldos brutos}
+	\textbf{Rol}&\textbf{Total de horas (extra)}&\textbf{Sueldo bruto por hora}&\textbf{Sueldo bruto (extra)}\\
+	\hline
+	\textbf{Jefe de proyecto}&13 horas&27,93 \euro&363,09 \euro\\
+	\textbf{Diseñador}&11,2 horas&20,31 \euro&227,47 \euro\\
+	\textbf{Programador}&7,3 horas&25,64 \euro&187,17 \euro\\
+	\midrule
+	\textbf{TOTAL}&&&\textbf{777,73 \euro}\\
+	\end{coolTable}
+	\caption{Tabla costes sueldos brutos (tiempo extra)}
+\end{table*}
+
+El sobrecoste de personal en cuanto a sueldos brutos asciende a \textbf{777,73 \euro}, ahora, al igual que hicimos en la fase de planificación, vamos a calcular el coste social.
+
+Para ello, calculamos el 30\% de este sueldo bruto, lo que sería un total de \textbf{233,32 \euro}.
+
+Sumando estas dos cantidades, podemos concluir que el sobrecoste de personal asciende a \textbf{1.011,05 \euro}.
+
+\subsubsection{Costes materiales}
+
+Los costes materiales presupuestados para el proyecto ascienden a \textbf{59,63 \euro} al mes.
+
+Como nos hemos desviado dos semanas, podemos asumir que el sobrecoste en cuanto a materiales es, aproximadamente, la mitad de esa cantidad. Por tanto, el sobrecoste de material asciende a \textbf{29,81 \euro}.
+
+\subsubsection{Costes indirectos}
+
+En cuanto a costes indirectos, como se vio en el presupuesto suponían \textbf{687,89 \euro} al mes.
+
+Siguiendo el mismo procedimiento que con los costes materiales, y recordando que nos hemos desviado dos semanas, el sobrecoste de costes indirectos será la mitad. Por tanto, suponen \textbf{343,95 \euro} más de los planificados.
+
+\subsubsection{Costes directos e inmateriales}
+
+Respecto a los costes directos e inmateriales no hace falta hacer ningún cálculo: el sobrecoste aquí es de \textbf{0 euros} ya sólo supusieron un desembolso único.
+
+\subsubsection{Sobrecoste total}
+
+Realizados los cálculos en las anteriores subsecciones ya sólo tenemos que sumar todos ellos para obtener el sobrecoste total. Por tanto, podemos concluir que el sobrecoste del proyecto, respecto al planificado, asciende a \textbf{1.384,81 \euro}.
+
+Teniendo en cuenta que el valor presupuestado fue \textbf{14.734,57 \euro}, el sobrecoste supone un 10,64\% del total, ascendiendo el coste real del proyecto a \textbf{16.119,38 \euro}.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.45]{figures/sobrecostes.png}
+		\caption{Diferencia entre el valor presupuestado y el real}
+\end{figure*}

@@ -1,20 +1,139 @@
 %!TEX root =  tfg.tex
 \chapter{Cuarta iteración}
 
-\begin{quotation}[Novelist]{Ernest Hemingway (1899--1961)}
-The good parts of a book may be only something a writer is lucky enough to overhear or it may be the wreck of his whole damn life -- and one is as good as the other.
-\end{quotation}
-
 \begin{abstract}
-TODO TODO TODO
+Una vez superado el ecuador de la iteraciones, nos centraremos en los peligros que el usuario tendrá que sortear mientras avanza en el juego y, principalmente, en las mecánicas de los puzles que tendrá que resolver.
 \end{abstract}
+
+\section{Introducción}
+
+Lo primero que tenemos que mencionar es que las mecánicas de esta iteración se implementan principalmente mediante glspl{blueprint}. Esto es por dos razones fundamentales:
+\begin{enumerate}
+	\item La primera es que iteración tiene un alto componente "`visual"', en el sentido de que tendremos que manejar modelos constantemente: colocarlos, 
+	\item Y la segunda es que las mecánicas que se implementan en esta iteración no suponen un coste computacional importante como para mermar el rendimiento del proyecto.
+\end{enumerate}
+
+\subsection{Sistema de puzles}
+
+La iteración girará mayoritariamente sobre la implementación las mecánicas de puzles. La idea general respecto a esto es los \glspl{asset} que forman parte de estas mecánicas que se dividen en dos grandes categorías:
+
+\begin{enumerate}
+	\item Los denominados \textbf{"`Powerables"'}: objetos capaces de dar poder o dejar de darlo.
+	\item Y los denominados \textbf{"`Activatables"'}: Objetos capaces de dar activarse o desactivarse.
+\end{enumerate}
+
+De esta manera, los objetos capaces de dar poder ("`powerables"') pueden dar o no poder a los objetos capaces de activarse o desactivarse ("`activatables"'), cosa que harán en función de si el otro objeto le da poder o no.
+
+Todos estos objetos funcionan con un sistema de herencias, los objetos capaces de dar poder heredan de la clase "`powerable"' ("`abstracta"') y, por otro lado, los capaces de activarse o desactivarse heredan a su vez de la clase "`activatable"' ("`abstracta"' también").
+
+\textbf{Nota}: Se entrecomilla abstracta por una sencilla razón, y es que no se pueden hacer glspl{blueprint} abstractos, pero a efectos prácticos lo son.
+
+\clearpage
+
+\subsubsection{Powerables}
+
+Son, como se decía, los objetos capaces de enviar señales de activado o desactivado a los "`activatables"'.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=1]{figures/herencia-powerables.png}
+		\caption{Representación de la herencia de los "`powerables"'}
+\end{figure*}
+
+Como se aprecia en la representación de la figura, los "`powerables"' heredan de la clase principal una serie de atributos, que luego implementan cada una de las clases hijas a su manera.
+
+\begin{itemize}
+	\item \textbf{bIsActivated - Booleano}: Representa si el "`powerable"' está mandando poder o no.
+	\item \textbf{bIsBusy - Booleano}: Se usa a modo de candado, para bloquear cuando está en proceso de cambio de estado.
+	\item \textbf{Activatables - Array de activatables}: Contiene todos los "`activatables"' que se activarán o desactivaran en función de este "`powerable"'.
+	\item \textbf{OtherPowerablesNeeded - Array de powerables}: En determinadas ocasiones queremos que no se active directamente un "`activatable"', sino que necesite de más de un "`powerable"' para activarse. Este array contiene los elementos que son necesarios que estén activados para que se mande la señal de activación a un "`activatable"'.
+\end{itemize}
+
+\clearpage
+
+\subsubsection{Activatables}
+
+Por el contrario son, como se decía también previamente, los objetos capaces de activarse o desactivarse, dependientes de un "`powerable"'.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=1]{figures/herencia-activatables.png}
+		\caption{Representación de la herencia de los "`activatables"'}
+\end{figure*}
+
+Como también se aprecia esta vez en la representación de la figura, los "`activatables"' heredan de la clase principal (entre otras cosas) la variable "`bIsEnable"' y, esta vez, dos funciones "`Enable()"' y "`Disable()"':
+
+\begin{itemize}
+	\item \textbf{bIsEnable - Booleano}: Representa si el "`activatable"' está activado o no (dependiendo de la clase de "`activatable"' que sea, esto generará un comportamiento u otro).
+	\item \textbf{Función "`Enable()"'}: Activa el "`activatable"' (el comportamiento dependerá del tipo del mismo).
+	\item \textbf{Función "`Disable()"'}: Desactiva el "`activatable"' (el comportamiento, también, dependerá del tipo del mismo).
+\end{itemize}
+
+\clearpage
+
+\subsubsection{Pickables}
+
+Los "`pickables"' son objetos que podemos recoger del suelo y que tienen forma de estatuillas. Nos sirven para resolver puzles, normalmente por razones asociadas a su peso, ya que hereda también de una clase padre que vuelve a ser "`abstracta"' (recordemos, virtualmente) y cada una de las hijas se diferencian en que tienen un material asignado y un peso:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lr}{2}
+{Tabla de pesos de las estatuillas "`pickables"'}
+	\textbf{Material de la estatuilla}&\textbf{Peso}\\
+	\midrule
+	\textbf{Cristal}&{0,5 Kg}\\
+	\textbf{Madera}&{1 Kg}\\
+	\textbf{Arcilla}&{1,5 Kg}\\
+	\textbf{Piedra}&{2 Kg}\\
+	\textbf{Metal}&{3,5 Kg}\\
+	\end{coolTable}
+	\caption{Tabla de pesos de las estatuillas "`pickables"'}
+\end{table*}
+
+Estas estatuillas se pueden colocar sobre placas de presión (con bordes o no), sumando peso a la misma y activándolas si se cumplen los requisitos y, además, influyen en puzles de físicas.
+
+\subsubsection{Otros elementos de puzles}
+
+Además, se implementarán:
+
+\begin{enumerate}
+	\item \textbf{Un expositor para los "`pickables"'}: No son más que un pequeño expositor con un actor del tipo "`pickable"' a elegir.
+	\item \textbf{Rampa y cilindro}: Usan físicas y a su vez se usan para puzles de físicas. Consiste de un cilindro en cuya parte superior se sitúa una tabla, sobre la que podremos subirnos para alcanzar lugares más elevados (con cuidado, porque bajará). Sobre la tabla también podremos colocar "`pickables"' para que hagan de contrapeso y poder llegar a lugares más elevados.
+	\item \textbf{Display digital}: Están vinculados con una placa de presión. Muestran el peso actual y el peso objetivo necesario para activar la placa de presión.
+\end{enumerate}
+
+\subsection{Peligros a implementar}
+
+Se implementarán:
+
+\begin{enumerate}
+	\item \textbf{Láseres} (*): Serán capaces de moverse al sitio asignado (y retroceder) en un intervalo de tiempo determinado y con un delay entre ida y venida también determinado.
+	\item \textbf{Bloques movibles}: Al igual que los láseres, se mueven a un sitio asignado y vuelven si así se les indica. También se les indica la velocidad y el delay entre ida y venida.
+	\item \textbf{Bloques movibles con pinchos (modulables)}: Heredan de los bloques movibles y son modulables en el sentido de que podemos, activando variables booleanas, activar los pinchos de un lado y otro, siendo mortal el contacto con el bloque sólo por el lado en el que tenga los pinchos activados.
+\end{enumerate}
+
+(*) De los peligros que pueden matar al personaje, los láseres no tienen la tag "`deadly"', que mataría automáticamente el personaje. Esto es porque queremos que el personaje pueda traspasar sin morir estos láseres si utiliza un teletransporte a través de ellos, por lo que no se aplica esta etiqueta y, en su lugar, cuando el personaje contacta con el láser se comprueba que esté haciendo un teletransporte y, sino lo está, se activa directamente la secuencia de muerte.
+
+El resto de peligros vendrán en forma de enemigos, que se implementarán durante la siguiente iteración.
+
+\clearpage
 
 \section{Características a desarrollar}
 
+\clearpage
+
 \section{Diseño}
+
+\clearpage
 
 \section{Implementación}
 
+\clearpage
+
 \section{Pruebas}
 
+\clearpage
+
 \section{Despliegue}
+
+Los cambios se han desplegado en el sistema de producción de manera similar al resto de iteraciones (Ver sección \ref{sec:despliegue}).

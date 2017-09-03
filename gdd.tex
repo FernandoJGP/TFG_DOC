@@ -15,27 +15,67 @@ La visión de conjunto describe de manera global videojuego, su género, la forma 
 
 Este apartado se describe en la sección "`Motivación"', donde mediante frases cortas se describen los elementos de los que consta el videojuego cuyo desarrollo está ligado a este proyecto (Ver sección \ref{sec:motivacion}).
 
+Dada las características de este proyecto es algo que vamos a ver en numerables ocasiones a lo largo de este documento de diseño, ya que mucha de las secciones del documento de diseño y de la memoria del trabajo, por la naturaleza de los mismos, se solapan.
+
+\subsection{Historia}
+
+En "`The last ronin"' la historia no es importante, es un título centrado plenamente en la jugabilidad.
+
+No obstante, en el universo del juego encarnamos a un ronin, un samurai sin dueño, que ha obtenido la habilidad de teletransportarse entre templos antiguos y decide explorarlos en busca de sus misterios. Para teletransportarse necesitará encontrar un cristal rojo de teletransportación pero no todo será tan fácil, tendrá que ir superando los obstáculos y trampas mortales que lo separan de él en cada uno de los templos milenarios.
+
+Por el camino, nuestro héroe podrá incluso ganar más poderes consiguiendo los orbes dorados, que le permiten desarrollar habilidades tales como la teletransportación a lugares cercanos y ralentizar el tiempo, lo que algunas veces le será esencial para superar los peligros que le acechan, como láseres, torretas y, sobre todo, los vigilantes del templo: seres de naturaleza extraña que han permanecido por siglos en los tiempos y los custodian, no dudando en eliminar a cualquier intruso.
+
+\clearpage
+
+\subsection{Iconografía}
+
+Se ha generado la siguiente iconografía:
+\begin{itemize}
+	\item \textbf{Logo del juego}:
+	
+	\begin{figure*}[htb]
+		\centering
+			\includegraphics[scale=0.5]{figures/game-splash-3.png}
+			\caption{Logo del juego}
+	\end{figure*}
+	
+	\item \textbf{Icono}:
+	
+	\begin{figure*}[htb]
+		\centering
+			\includegraphics[scale=1]{figures/game-icon.png}
+			\caption{Logo del juego}
+	\end{figure*}
+	
+\end{itemize}
+
+\clearpage
+
 \subsection{Plataformas de destino}
 Las plataformas de destino son aquellas para las cuales se está desarrollando el software o se tiene previsto su desarrollo.
 
-A pesar de que nuestro motor gráfico permite la exportación de nuestro producto a diversas plataformas tales como PlayStation 4, Xbox One, Nintendo Switch, Linux o Mac (entre otras), la única plataforma de destino en la que nos centraremos durante la realización del proyecto será Microsoft Windows.
+A pesar de que nuestro motor gráfico permite la exportación de nuestro producto a diversas plataformas tales como PlayStation 4, Xbox One, Nintendo Switch, Linux o Mac (entre otras), la única plataforma de destino en la que nos centraremos durante la realización del proyecto será Microsoft Windows (versiones de 32 y 64 bits).
 
 \subsection{Requisitos mínimos objetivo}
 Los requisitos mínimos hacen alusión a las características que, como mínimo, deberá tener un equipo para hacer funcionar el videojuego.
 
 El proyecto que nos ocupa no someterá a ninguno de los componentes a una carga alta de trabajo: el poligonaje de los modelos no será alto, las texturas usadas no serán de gran resolución, por norma general no se hará un uso avanzado de la iluminación (por ejemplo, uso excesivo de sombras dinámicas), etc. Asimismo, el motor gráfico usado se caracteriza por no hacer un uso agresivo de los recursos disponibles.
 
-Los requisitos mínimos, o en este caso los requisitos mínimos objetivo, coinciden con los dispositivos descritos en la sección "`Diseño arquitectónico"' (Ver sección \ref{sec:arquitectura}). Los requisitos mínimos como tal no podrán ser calculados hasta la finalización del proyecto.
+Los requisitos mínimos, o en este caso los requisitos mínimos objetivo, coinciden con los dispositivos descritos en la sección "`Diseño arquitectónico"' (Ver sección \ref{sec:arquitectura}) y cabe destacar que gracias a la escalabilidad que dota el producto de las opciones gráficas, configurables en el menú ajustes, hará que el software sea jugable en una amplia gama de dispositivos.
 
 \subsection{Estilo gráfico}
-El estilo gráfico del producto se podría enmarcar como realista: tanto el personaje como el escenario que se usará como tutorial se clasificarían en este estilo. Sin embargo, debemos tener presente que los niveles prototipo que se pretenden utilizar para recrear la forma en la que se jugaría el juego se desmarcarían de este estilo, ya que usarían formas y texturas mucho más básicas al tratarse de niveles prototipo.
+El estilo gráfico como tal del producto se podría enmarcar como realista: tanto el personaje como el escenario que se usará como tutorial se clasificarían en este estilo. Sin embargo, este estilo realista está combinado con un estilo fantástico por parte del entorno: islas voladoras, templos abandonados, etc.
 
-Dentro de este estilo realista, se podría clasificar el universo donde tiene lugar el juego como fantástico.
+Es decir, dentro de este estilo realista, se podría clasificar el universo donde tiene lugar el juego como fantástico.
 
 \subsection{Estilo sonoro}
-La música del juego... TODO.
+Hay dos músicas en el juego:
+\begin{itemize}
+	\item La primera es la del menú principal: El tema se titula "`Pray for Japan"' y se eligió esta música puesto que nuestro personaje tiene la apariencia de un ninja.
+	\item Y la restante es la que suena de fondo mientras jugamos al juego. En esta ocasión se llama "`Puzzle game"' y se eligió porque casi pasa inadvertida a la hora de jugar, y eso lo que se pretende, para que el jugador esté atento a las trampas y puzles del juego.
+\end{itemize}
 
-Los efectos de sonido (utilizados cuando el personaje anda, salta, cae, etc.) se podrían clasificar como realistas.
+Los efectos de sonido (utilizados cuando el personaje anda, salta, cae, etc.) también se podrían clasificar como realistas.
 
 Respecto a las voces y diálogos el producto carecerá de los mismos.
 
@@ -43,30 +83,27 @@ Respecto a las voces y diálogos el producto carecerá de los mismos.
 
 \subsection{Menú principal}
 
-\subsection{Comienzo del juego e introducción}
-
-\subsection{In-game HUDs y menús}
+Sección coincidente (Ver sección \ref{sec:menu-principal}).
 
 \section{Interfaz de usuario}
 
 \subsection{Menús}
 
-Coincide con la sección "`Manual"' del cuerpo del documento.
-%TODO
+El único menú que podrá consultar el jugador cuando esté en el juego será el menú de pausa. Sección coincidente (Ver sección \ref{sec:menu-pausa}).
 
 \subsection{In-game HUD}
 
-El HUD se compone de los siguientes elementos:
-
+Sección coincidente (Ver sección \ref{sec:hud}).
 
 \subsection{In-game Options}
-TODO.
+
+Sección coincidente (Ver sección \ref{sec:ajustes}).
 
 \subsection{Pantalla de fin de juego}
 Cuando el personaje entre en un estado de fin de juego, la pantalla pasará a negro y se mostrará el mensaje de final de juego sobre la misma hasta que el jugador presione la tecla o botón indicado para reiniciar el nivel desde el último punto de control.
 
 \subsection{Pantalla de selección de nivel}
-TODO.
+Si bien no existe pantalla de selección de nivel, el usuario de la aplicación podrá cargar su punto de guardado desde el menú principal o el menú de pausa.
 
 \subsubsection{Tipos de nivel}
 El producto consta de dos tipos de nivel, muy diferenciados:
@@ -74,17 +111,18 @@ El producto consta de dos tipos de nivel, muy diferenciados:
 	\item Nivel menú: Utilizado para mostrar el menú del juego.
 	\item Nivel tipo tutorial: Enseñará al jugador a usar las distintas mecánicas del juego.
 	\item Nivel tipo regular: Se recrea un escenario real de juego.
+	\item Nivel de transición: Muestra un mensaje, cinemática, etc. al jugador, pero no le deja jugar en él.
 \end{itemize}
 
 \subsubsection{Lista completa de niveles}
-La etapa de desarrollo que tendrá lugar durante el desarrollo de este proyecto generará 3 niveles en total:
+La etapa de desarrollo que tendrá lugar durante el desarrollo de este proyecto generará 5 niveles en total:
 \begin{itemize}
 	\item Nivel tutorial.
-	\item Nivel prototipo 1.
-	\item Nivel prototipo 2.
+	\item Nivel de juego 1 y nivel de juego 2.
+	\item Niveles de inicio y fin (tipo transición): Introduce el juego o le da las gracias al jugador por jugar el título y le muestra un botón para volver al menú principal, respectivamente.
 \end{itemize}
 
-El nivel del tutorial tendrá un nivel de acabado representativo del acabado final del producto (por tanto estará correctamente iluminado, texturizado, decorado, etc.), mientras que el resto de niveles serían niveles de ejemplo y tendrán un acabado más simple.
+\clearpage
 
 \section{Gameplay}
 
@@ -94,8 +132,12 @@ Las mecánicas son el conjunto de acciones que puede realizar el jugador y las re
 	\item \textbf{Mecánicas de bajo perfil}: En este proyecto, nos referimos a mecánicas de bajo perfil cuando hablamos de mecánicas dependientes del jugador y que podrá usar en cualquier momento.
 	\item \textbf{Mecánicas de alto perfil}: Se denominan así al conjunto de mecánicas que el jugador podrá utilizar cuando disponga de poderes específicos.
 	\item \textbf{Mecánicas de escalada}: El conjunto de mecánicas relacionadas con la escalada. Son mecánicas dependientes del jugador y que se pueden llevar a cabo en cualquier momento, por lo que podrían englobarse en las mecánicas de bajo perfil pero se categorizan por separado debido a la importancia que tienen dentro del proyecto y al número de las mismas.
+	\item \textbf{Mecánicas de puzles y de delimitación de puzzles}: Son las mecánicas relacionadas con la resolución de puzles.
+	\item \textbf{Mecánicas de enemigos}: Describe el comportamiento básico de los enemigos.
 	\item \textbf{Mecánicas del entorno o universo}: Son mecánicas que tienen relación con cómo se relaciona el personaje con el entorno.
 \end{itemize}
+
+\clearpage
 
 \subsubsection{Mecánicas de bajo perfil}
 \begin{enumerate}
@@ -107,7 +149,7 @@ Las mecánicas son el conjunto de acciones que puede realizar el jugador y las re
 		\item El personaje podrá saltar, ganando altura hasta una altura máxima, mientras el jugador mantiene pulsada la tecla de salto.
 		\item Si la altura máxima de salto se ha alcanzado o el jugador cesa en su acción de presionar la tecla de salto el personaje dejará de ganar altura en el salto y comenzará a caer.
 	\end{itemize}
-	\item \textbf{Agachado}:
+	\item \textbf{Agachar}:
 	\begin{itemize}
 		\item Mientras que el jugador mantenga pulsada la tecla vinculada a la acción de agacharse el personaje se agachará, cambiando la posición de la cámara y reduciendo su caja de colisión, permitiéndole acceder a zonas por las que no podría pasar erguido o bien esquivar peligros.
 		\item Cuando el jugador deje de presionar dicha tecla el personaje volverá a estar de pie.
@@ -118,6 +160,8 @@ Las mecánicas son el conjunto de acciones que puede realizar el jugador y las re
 		\item Cuando el jugador deje de presionar la tecla relacionada el personaje volverá a su velocidad habitual.
 	\end{itemize}
 \end{enumerate}
+
+\clearpage
 
 \subsubsection{Mecánicas de alto perfil}
 \begin{enumerate}
@@ -141,13 +185,49 @@ Las mecánicas son el conjunto de acciones que puede realizar el jugador y las re
 	\item \textbf{Salto reverso desde un saliente}: Cuando el personaje esté agarrado a un saliente podrá impulsarse desde el mismo y realizar un salto en la dirección opuesta a la del saliente.
 \end{enumerate}
 
+\subsubsection{Mecánicas del puzles}
+\begin{enumerate}
+	\item El jugador podrá abrir puertas doradas si tiene poderes en ese momento.
+	\item El jugador podrá abrir puertas de madera si encuentra una palanca, botón, placa de presión, etc. para activarla.
+	\item El jugador podrá recoger y soltar objetos específicos.
+	\item El jugador podrá interaccionar con placas de presión subiéndose encima de ellas o dejando algún objeto con peso encima.
+	\item El jugador podrá interaccionar con elementos movibles pudiéndoles colocar peso encima para modificar su comportamiento.
+\end{enumerate}
+
+\subsubsection{Mecánicas de delimitación de puzles}
+\begin{enumerate}
+	\item El jugador no podrá pasar por una barrera mágica con un elemento de un puzle de una sala a otra. Si se produce esto, se le quitará al jugador el objeto en cuestión y el juego lo devolverá a su posición original.
+	\item El jugador no podrá lanzar por una barrera mágica un elemento de un puzle de una sala a otra. Si se produce esto, el objeto en cuestión desaparecerá y el juego lo devolverá a su posición original.
+\end{enumerate}
+
+\clearpage
+
+\subsubsection{Mecánicas enemigos}
+\begin{enumerate}
+	\item \textbf{Torretas} (de cualquier tipo):
+		\begin{enumerate}
+			\item Si no detectan ningún peligro (mediante el canal visual) las torretas estarán en modo de espera: se limitarán a elegir una posición dentro del rango especificado para rotar a ellas, dando la sensación de que están escaneando el entorno en buscar de nuestro personaje.
+			\item Si detectan a nuestro jugador rápidamente se girarán hacia él y empezarán a dispararle, hasta que lo pierdan de vista. Si esto último pasa volverán al estado anterior.
+		\end{enumerate}
+	\item \textbf{Vigilantes} (robots humanoides):
+		\begin{enumerate}
+			\item Se moverán por el escenario de punto de control fijado en punto de control fijado. Estos puntos de control están enumerados y si hay más de un punto de control con el mismo número se moverán al más cercano.
+			\item Si oyen al personaje, se girarán para intentar encontrarlo.
+			\item Si el personaje se encuentra dentro del cono de visión del vigilante intentará atraparlo y dispararle un rayo, pero tendremos la opción de despistarlo.
+		\end{enumerate}
+\end{enumerate}
+
+Remarcar que los "`vigilantes"' o "`los vigilantes del templo"' son totalmente ciegos fuera de su cono de visión, pero pueden oírnos y girarse, teniendo más posibilidades de encontrarnos de esta forma.
+
+\clearpage
+
 \subsubsection{Mecánicas del entorno}
 \begin{enumerate}
-	\item Si el personaje entra en contacto con algún peligro del escenario (como balas, láseres, etc.) morirá instantáneamente.
+	\item Si el personaje entra en contacto con algún peligro del escenario (como balas, láseres, pinchos, etc.) morirá instantáneamente.
 	\item El personaje, al caer...
 	\begin{itemize}
 		\item ... Si la altura de caída es lo suficientemente pequeña, no pasará nada.
-		\item ... Si la altura de caída es lo suficientemente grande, no podrá moverse por unas décimas de segundo.
+		\item ... Si la altura de caída es lo suficientemente grande, morirá instantáneamente.
 		\item ... Si cae al vacío morirá instantáneamente.
 	\end{itemize}
 	\item El personaje morirá instantáneamente al abandonar el área de juego.
@@ -160,7 +240,9 @@ Esta sección coincide con la homónima del cuerpo del documento (Ver sección \ref
 Aunque el jugador sólo perciba uno, en realidad se establecerán dos modos de juego: el primero se utilizará para navegar por los menús y el segundo será la forma de jugar al juego en sí.
 
 \subsection{Ganando el juego}
-La única forma de ganar el juego es completando la fase, es decir, cuando el personaje entre en contacto con la caja de colisión deseada al final de cada nivel.
+La única forma de ganar el juego es completando el nivel, es decir, cuando el personaje entre en contacto con la caja de colisión deseada al final de cada nivel.
+
+\clearpage
 
 \subsection{Logros / Trofeos}
 Los logros son medallas otorgadas al jugador al realizar un avance específico dentro del juego y que dan una idea del progreso dentro del mismo.
@@ -224,8 +306,6 @@ El jugador los obtendrá al hacer progresos en lo que se podría denominar "`la hi
 	\caption{Logro historia - Capítulo II}
 \end{table*}
 
-[...]
-
 \clearpage
 
 \subsubsection{Pruebas de tiempo}
@@ -258,8 +338,6 @@ Son aquellos otorgados al jugador al superar un escenario por debajo de un deter
 	\end{coolTable}
 	\caption{Logro prueba de tiempo - Capítulo II}
 \end{table*}
-
-[...]
 
 \clearpage
 
@@ -406,45 +484,134 @@ Verifica que el jugador ha completado el resto de logros.
 
 \section{Assets}
 
-Para la elaboración del producto se usan gran cantidad de assets y de variada clasificación, la inmensa mayoría procedente de proyectos de libre uso de Unreal Engine creados por Epic Games (como por ejemplo assets usados en demos técnicas o los pertenecientes a packs de assets liberados).
+Para la elaboración del producto se usan gran cantidad de \glspl{asset} y de variada clasificación, la inmensa mayoría procedente de proyectos de libre uso de Unreal Engine creados por Epic Games (como por ejemplo \glspl{asset} usados en demos técnicas o los pertenecientes a packs de \glspl{asset} liberados).
 
-Teniendo en cuenta esto, esta sección no pretende elaborar una lista detallada de todos los assets que se han usado en la creación del videojuego, sino los assets que se salgan de esa norma: assets de uso gratuito no pertenecientes a Epic Games o assets sin licencia de uso gratuito (de los cuales se disponga de sus derechos de uso, ya sea mediante su adquisición o por el permiso explícito de su creador, o bien assets realizados por el equipo del proyecto).
+Teniendo en cuenta esto, esta sección no pretende elaborar una lista detallada de todos los \glspl{asset} que se han usado en la creación del videojuego (que también, pero sin entrar en detalles \glspl{asset} por \glspl{asset}), sino los \glspl{asset} que se salgan de esa norma: \glspl{asset} de uso gratuito no pertenecientes a Epic Games o \glspl{asset} sin licencia de uso gratuito (de los cuales se disponga de sus derechos de uso, ya sea mediante su adquisición o por el permiso explícito de su creador, o bien \glspl{asset} realizados por el equipo del proyecto).
 
-En cada uno de los casos se explicará el uso específico que se ha hecho de cada asset, es decir, cómo ha repercutido al proyecto.
+En cada uno de los casos se explicará el uso específico que se ha hecho de cada \gls{asset}, es decir, cómo ha repercutido al proyecto.
 
 \subsection{Personajes}
 
-Tratándose de un juego de un solo jugador (y sin selector de personajes ni ningún otro método de intercambio de personajes jugables) sólo se usa un asset, que es el siguiente:
+Tratándose de un juego de un solo jugador (y sin selector de personajes ni ningún otro método de intercambio de personajes jugables) sólo se usa un \gls{asset}, que es el siguiente:
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{llll}{4}
 {Assets de personajes}
 	\textbf{ID}&\textbf{Personaje}&\textbf{Procedencia}&\textbf{Beneficios aportados}\\
+	\midrule
 	{\textbf{\#1}}&{Protagonista}&{Adquisición}&{Estrictamente estéticos}\\
 	&\multicolumn{3}{p{14cm}}{\hline \raggedright \textbf{Notas:} Cambio meramente estético respecto al maniquí por defecto de Unreal Engine. Se compone de un \gls{modelado} y textura (ya que usa el mismo esqueleto que el maniquí por defecto).}\\
 	\end{coolTable}
 	\caption{Assets de personajes}
 \end{table*}
 
+\clearpage
+
 \subsection{Enemigos}
 
-TODO
+La versión entregable de "`The last ronin"' cuesta con 2 enemigos al uso:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{llll}{4}
+{Assets de enemigos}
+	\textbf{ID}&\textbf{Personaje}&\textbf{Procedencia}&\textbf{Beneficios aportados}\\
+	\midrule
+	{\textbf{\#1}}&{Torreta}&{Adquisición}&{Estrictamente estéticos}\\
+	&\multicolumn{3}{p{14cm}}{\hline \raggedright \textbf{Notas:} Modelo de torreta usada en el juego. Sus beneficios aportados son estéticos, puesto que aunque supuestamente traía algún tipo de funcionalidad implementada, e incluso un sistema para diferenciar entre "`bandos"' aparentemente no funcionaba (quizá por la versión del motor) más que dar vueltas sobre sí sin parar. Igualmente no se pensaba utilizar ningún código que pudiese traer consigo.}\\
+	\midrule
+	{\textbf{\#2}}&{Vigilante}&{Adquisición}&{Estrictamente estéticos}\\
+	&\multicolumn{3}{p{14cm}}{\hline \raggedright \textbf{Notas:} A pesar de ser modulable no se ha hecho uso de esta funcionalidad, al contrario, sólo ha traído contratiempos puesto que su animación ha sido mucho más complicada de llevar a cabo al tener el esqueleto dividido por piezas.}\\
+	\end{coolTable}
+	\caption{Assets de enemigos}
+\end{table*}
+
+No obstante, si ampliamos el espectro de lo que consideramos enemigos, podríamos incluir:
+
+\begin{itemize}
+	\item Láseres.
+	\item Paredes que nos pueden aplastar.
+	\item Trampas con pinchos.
+	\item Trampas con pinchos a que se activan / desactivan con el tiempo.
+	\item Trampas que empujan al vacío.
+	\item etc.
+\end{itemize}
+
+\clearpage
 
 \subsection{Animaciones}
 
-Las animaciones usadas en el proyecto tienen cuatro orígenes principalmente: animaciones extraídas del pack de animaciones gratuito de Epic Games (disponible para su descarga desde el Marketplace de Unreal Engine), animaciones de la plantilla por defecto de tercera persona de Unreal Engine 4 (al crear esta plantilla, se generan estas animaciones), animaciones propiedad de Mixamo (cuyo uso es gratuito desde hace unos años) y animaciones realizadas específicamente para el proyecto generalmente a partir de un \gls{frame} de una animación.
+Las animaciones usadas en el proyecto tienen cinco orígenes principalmente: animaciones extraídas del pack de animaciones gratuito de Epic Games (disponible para su descarga desde el marketplace de Unreal Engine), animaciones de la plantilla por defecto de tercera persona de Unreal Engine 4 (al crear esta plantilla, se generan estas animaciones), animaciones propiedad de Mixamo (cuyo uso es gratuito desde hace unos años), animaciones del tutorial de escalada que se menciona en la iteración 2 y animaciones realizadas específicamente para el proyecto generalmente a partir de un \gls{frame} de una animación.
 
 Una buena parte de las animaciones usadas, sea de la fuente que sea, ha tenido que ser modificada de alguna u otra forma para su uso en el proyecto pero, más específicamente, las animaciones de Mixamo tienen añadido un trabajo extra: dichas animaciones no están creadas a partir de un esqueleto compatible con Unreal Engine 4, por tanto ha sido necesario realizar un \textbf{\gls{retargeting}} en cada una de ellas para adaptarlo al esqueleto que del personaje del que se hace uso (que sí usa un esqueleto compatible con el esqueleto por defecto de Unreal Engine 4).
 
-\subsection{Equipo y mejoras}
+\subsection{Mejoras de personaje / equipo / habilidades}
 
-TODO: Poderes
+Durante su aventura nuestro personaje podrá encontrar los denominados "`orbes dorados"' que le dotarán de poder pudiendo realizar dos habilidades especiales: "`blink"' (o teletransporte) y pasar a tiempo bala, como ya se ha explicado en la sección de mecánicas.
 
-\subsection{Entorno}
+No obstante, no debemos olvidarnos que también existen las "`barreras mágicas"' que le extraen al personaje sus poderes al pasar por ella así como resetear todos los puzles de la zona.
 
-TODO
+\clearpage
 
-\subsection{Audio}
+\subsection{Assets de escenarios}
 
-TODO
+Las fuentes principales de los \glsps{asset} de escenarios son las siguientes:
+
+\begin{itemize}
+	\item \textbf{"`Epic Zen Garden"'}: Empleado sobre todo en el tutorial (islas flotantes, cielo, etc).
+	\item \textbf{"`Infinity Blade: Grass Lands"'}: Es de donde provienen la mayoría de \glspl{asset} de los escenarios: columnas, escaleras, estatuas, etc.
+	\item \textbf{"`Open World Demo Collection"'}: Este último usado en mucha menor medida, tan solo con los árboles empleados en el tutorial.
+\end{itemize}
+
+\subsection{Assets variados}
+
+Además de los descritos en las anteriores secciones, se han usado los siguientes packs:
+\begin{itemize}
+	\item \textbf{"`Advanced Cinematic Grass Blueprint"'}: Usado para recrear el follaje del escenario.
+	\item \textbf{"`Infinity Blade: Effects"'}: Empleado para los efectos de partículas.
+	\item \textbf{"`Beams for FPS"'}: Empleado únicamente para recrear el láser que nos lanzará el enemigo "`vigilante del templo"' si nos alcanza.
+\end{itemize}
+
+Y, además, se han usado assets para:
+\begin{itemize}
+	\item Katana usada en los coleccionables.
+	\item Estatuillas (los objetos que podemos recoger con nuestro personaje).
+	\item Palancas usadas para activar puertas o cualquier objeto activable.
+	\item Los pequeños mini cristales que rotan en los puntos de guardado.
+	\item Cristal de teletransportación.
+\end{itemize}
+
+\clearpage
+
+\section{Cámaras disponibles}
+
+Las cámaras disponibles son las siguientes:
+
+\begin{enumerate}
+	\item Se persigue que el producto sea amigable con la tecnología de realidad virtual, por ello se apuesta por la cámara en primera persona real (es decir, que use un modelo de personaje completo) como cámara por defecto.
+	\item Igualmente, se permite al usuario cambiar de cámara, pulsando el botón de cambio de cámara, y pasar a un modo en tercera persona, donde entre otras cosas, se pueden disfrutar de las animaciones del personaje mucho mejor.
+\end{enumerate}
+
+\section{Sistema de guardado}
+
+El software guardará nuestros progresos cada vez que avancemos: ya sea llegando a un punto de control o completando un nivel.
+
+Los archivos de guardado se guardan en la siguiente ruta:
+
+\textbf{"`C:/Users/[Usuario]/AppData/Local/TFG/Saved/SaveGames"'}.
+
+En esta ruta encontraremos 3 archivos diferentes, que son los que se describen a continuación:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{lp{12cm}}{2}
+{Archivos de guardado}
+	\textbf{Nombre archivo}&\textbf{Descripción}\\
+	\midrule
+	\textbf{Achievements}&{Guarda el progreso en los desafíos del juego. No se resetea al iniciar una nueva partida.}\\
+	\textbf{Save}&{Es el principal archivo de guardado. Contiene el progreso como tal, y más específicamente el mapa a cargar, la posición y rotación del personaje y distintas variables que el sistema necesita para realizar la carga del juego.}\\
+	\textbf{Settings}&{Guarda las preferencias del usuario: idioma, resolución, si está a pantalla completa o no, opciones gráficas, etc.}\\
+	\end{coolTable}
+	\caption{Tabla descripción de archivos de guardado}
+\end{table*}

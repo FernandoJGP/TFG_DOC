@@ -5,6 +5,85 @@
 Durante esta iteración nos centraremos en el sistema de escalada, uno de los ejes principales del proyecto, e implementaremos acciones como agarrar salientes, saltar de uno a otro o carreras por las paredes.
 \end{abstract}
 
+\section{Introducción}
+
+En primer término, vamos a intentar centrarnos en la parte más importante del sistema de escalada: la base del mismo. Como se verá más adelante esta base es la misma, con algunas pequeñas modificaciones y añadidos, del tutorial seguido para realizar parte de esta iteración.
+
+La base del sistema de escalada nos ofrece información en tiempo real del escenario y que usarán cada una de las funciones de escalada que se implementen para funcionar, por tanto, es el germen del que emanan todas ellas.
+
+Para obtener información del escenario, lo que hacemos es trazar líneas por determinados canales desde el personaje o alguna de sus partes, con una determinada longitud, y comprobar si impactan con algún elemento del escenario y con cuál.
+
+Esto se hace en cada \gls{tick} del juego, por lo que está implementado totalmente en "`C++"' para optimizar su funcionamiento pero, además, por el mismo motivo se hace sólo cuando un componente adherido al personaje, denominado "`climb surface detector"', encuentra alguna superficie escalable.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.75]{figures/climb-detector-preview.png}
+		\caption{Imagen en la que podemos apreciar la esfera detectora de superficie escalable}
+\end{figure*}
+
+\clearpage
+
+Para comprobar si una superficie es escalable o no utilizaremos "`canales"', en concreto un \textbf{canal especial}, distinto a los creados por defecto en Unreal Engine, de forma que podamos detectar las superficies que queremos e ignorar el resto.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.85]{figures/channels.png}
+		\caption{Configuración de canales del proyecto}
+\end{figure*}
+
+La idea general es que las superficies escalables:
+
+\begin{enumerate}
+	\item Generen un evento de solapamiento sobre el detector de superficie escalable, para activar el sistema. Por tanto, es muy importante activar la opción "`Generate overlap events"' en la superficie escalable, puesto que en caso contrario nunca funcionará el sistema.
+	\item Bloqueen la traza que se realice por el canal destinado a la detección de superficies escalables, para que así se genere un impacto sobre ellas y se pueda detectar satisfactoriamente (dicho canal ignorará todo lo demás).
+\end{enumerate}
+
+Además de esto, y como ya se intuye, las trazas destinadas a detectar superficies escalables se tienen que generar en el canal "`LedgeTracer"'.
+
+Ahora vamos a ver las comprobaciones que se realizan respecto a este sistema de escalada. Nótese que el canal "`especial"' hace referencia al sistema de canales que hemos creado.
+
+El sistema traza en todo momento, mientras que estemos cayendo y no estemos agarrados a nada (o bien estemos realizando una escalada en pared):
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.5cm} p{6cm} p{2cm} p{2.5cm}}{2}
+		{Trazadores de la base del sistema de escalada 1/2}
+		\textbf{Nombre}&\textbf{Descripción}&\textbf{Tipo}&\textbf{Canal}\\
+		\midrule
+		Trazador de pared&Intenta buscar si tenemos una pared adecuada enfrente&Esfera&Especial\\
+		\midrule
+		Trazador de techo&Intenta saber si hemos chocado con un techo al correr por la pared&Esfera&Visibilidad\\
+		\midrule
+		Trazador de altura izquierdo&Trata de saber si el personaje podría emplazar la mano ahí una vez agarrado&Esfera&Especial\\
+		\midrule
+		Trazador de altura derecho&Igual que el anterior, pero referido a la otra mano&Esfera&Especial\\
+		\midrule
+		Trazador de suelo&Trata de conocer si estamos demasiado cerca del suelo para escalar&Esfera&Visibilidad\\
+	\end{coolTable}
+	\caption{Trazadores de la base del sistema de escalada 1/2}
+\end{table*}
+
+\clearpage
+
+Y cuando el personaje está agarrado algún saliente, se trazan:
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.5cm} p{6cm} p{2cm} p{2.5cm}}{2}
+		{Trazadores de la base del sistema de escalada 2/2}
+		\textbf{Nombre}&\textbf{Descripción}&\textbf{Tipo}&\textbf{Canal}\\
+		\midrule
+		Trazador pie izquierdo&Intenta buscar si nuestro personaje puede emplazar el pie izquierdo&Esfera&Visibilidad\\
+		\midrule
+		Trazador pie derecho&Intenta buscar si nuestro personaje puede emplazar el pie derecho&Esfera&Visibilidad\\
+	\end{coolTable}
+	\caption{Trazadores de la base del sistema de escalada 2/2}
+\end{table*}
+
+Además de estos, hay varios trazadores más que se implementan dentro de las propias funciones de escalada.
+
+\clearpage
+
 \section{Características a desarrollar}
 
 \begin{enumerate}
@@ -86,60 +165,26 @@ No obstante, estando basada buena parte de esta iteración del proyecto en dichas
 
 \section{Diseño}
 
-Antes de empezar la fase de diseño, vamos a intentar centrarnos en la parte más importante del sistema de escalada: la base.
-
-La base del sistema de escalada nos ofrece información en tiempo real del escenario y que usarán cada una de las funciones de escalada que se implementen para funcionar, por tanto, es el germen del que emanan todas ellas.
-
-Para obtener información del escenario, lo que hacemos es trazar líneas por determinados canales desde el personaje o alguna de sus partes, con una determinada longitud, y ver si impactan con algún elemento del escenario y con cuál.
-
-Esto se hace en cada \gls{tick} del juego, por lo que está implementado totalmente en "`C++"' para optimizar su funcionamiento.
-
-El sistema traza en todo momento, mientras que estemos cayendo y no estemos agarrados a nada (o bien estemos realizando una escalada en pared):
-
 \begin{table*}[h!]
 	\centering
-	\begin{coolTable}{p{2.5cm} p{6cm} p{2cm} p{2.5cm}}{2}
-		{Trazadores de la base del sistema de escalada 1/2}
-		\textbf{Nombre}&\textbf{Descripción}&\textbf{Tipo}&\textbf{Canal}\\
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 2-001: Base del sistema de escalada}
+		\textbf{Asunto}&Base del sistema de escalada\\
+		\textbf{Resumen}&Se requiere obtener información del entorno para usarla en las posteriores funcionalidades del sistema de escalada a implementar.\\
 		\midrule
-		Trazador de pared&Intenta buscar si tenemos una pared adecuada enfrente&Esfera&Especial\\
-		\midrule
-		Trazador de techo&Intenta saber si hemos chocado con un techo al correr por la pared&Esfera&Visibilidad\\
-		\midrule
-		Trazador de altura izquierdo&Trata de saber si el personaje podría emplazar la mano ahí una vez agarrado&Esfera&Especial\\
-		\midrule
-		Trazador de altura derecho&Igual que el anterior, pero referido a la otra mano&Esfera&Especial\\
-		\midrule
-		Trazador de suelo&Trata de conocer si estamos demasiado cerca del suelo para escalar&Esfera&Visibilidad\\
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&La capsula de colisión del jugador se envolverá con una esfera de colisión, que siempre que tenga una superficie de escalada cerca empezará a funcionar: se trazarán líneas o esferas desde el personaje hacia diferentes puntos (o viceversa), siguiendo los canales de trazo que sean necesarios, para con esto detectar obstáculos, objetos escalables, etc.\\
+		\textbf{Motivación}&Si queremos obtener información en tiempo real del entorno, es la única solución que nos sirve.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Trazadores de la base del sistema de escalada 1/2}
+	\caption{Memorando técnico 2-001: Base del sistema de escalada}
 \end{table*}
-
-\clearpage
-
-Y cuando el personaje está agarrado algún saliente, se trazan:
-
-\begin{table*}[h!]
-	\centering
-	\begin{coolTable}{p{2.5cm} p{6cm} p{2cm} p{2.5cm}}{2}
-		{Trazadores de la base del sistema de escalada 2/2}
-		\textbf{Nombre}&\textbf{Descripción}&\textbf{Tipo}&\textbf{Canal}\\
-		\midrule
-		Trazador pie izquierdo&Intenta buscar si nuestro personaje puede emplazar el pie izquierdo&Esfera&Visibilidad\\
-		\midrule
-		Trazador pie derecho&Intenta buscar si nuestro personaje puede emplazar el pie derecho&Esfera&Visibilidad\\
-	\end{coolTable}
-	\caption{Trazadores de la base del sistema de escalada 2/2}
-\end{table*}
-
-Además de estos, hay varios trazadores más que se implementan dentro de las propias funciones de escalada.
-
-\clearpage
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 2002: Agarrar un saliente}
+		{Memorando técnico 2-002: Agarrar un saliente}
 		\textbf{Asunto}&Agarrar un saliente\\
 		\textbf{Resumen}&Se requiere que nuestro personaje se agarre a determinados salientes, previamente indicados dichos salientes.\\
 		\midrule
@@ -149,13 +194,13 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 2002: Agarrar un saliente}
+	\caption{Memorando técnico 2-002: Agarrar un saliente}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 2003: Agarrar un saliente pequeño para escalarlo}
+		{Memorando técnico 2-003: Agarrar un saliente pequeño para escalarlo}
 		\textbf{Asunto}&Agarrar un pequeño saliente y escalarlo\\
 		\textbf{Resumen}&Se requiere que nuestro personaje cuando nuestro personaje se agarre con suficiente holgura a un objeto escalable, lo escale sin más, sin tener que caer y soportarse sobre sus manos.\\
 		\midrule
@@ -165,13 +210,13 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 2003: Agarrar un saliente pequeño para escalarlo}
+	\caption{Memorando técnico 2-003: Agarrar un saliente pequeño para escalarlo}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 2004: Escalar un saliente al que estemos agarrados}
+		{Memorando técnico 2-004: Escalar un saliente al que estemos agarrados}
 		\textbf{Asunto}&Escalar un saliente al que estemos agarrados\\
 		\textbf{Resumen}&Se requiere que nuestro personaje, estando agarrado de un saliente, puede saltarlo y subir al piso superior si puede.\\
 		\midrule
@@ -181,13 +226,13 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 2004: Escalar un saliente al que estemos agarrados}
+	\caption{Memorando técnico 2-004: Escalar un saliente al que estemos agarrados}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 2005: Soltar un saliente}
+		{Memorando técnico 2-005: Soltar un saliente}
 		\textbf{Asunto}&Soltar un saliente\\
 		\textbf{Resumen}&Se quiere que un personaje que esté agarrado a un saliente pueda soltarse.\\
 		\midrule
@@ -197,13 +242,13 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 2005: Soltar un saliente}
+	\caption{Memorando técnico 2-005: Soltar un saliente}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 2006: Movernos por un saliente}
+		{Memorando técnico 2-006: Movernos por un saliente}
 		\textbf{Asunto}&Movernos por un saliente\\
 		\textbf{Resumen}&Se requiere que nuestro personaje pueda moverse libremente por los salientes si no hay nada que lo impida.\\
 		\midrule
@@ -213,13 +258,13 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 2006: Movernos por un saliente}
+	\caption{Memorando técnico 2-006: Movernos por un saliente}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 2007: Saltar desde saliente lateralmente}
+		{Memorando técnico 2-007: Saltar desde saliente lateralmente}
 		\textbf{Asunto}&Saltar desde saliente lateralmente\\
 		\textbf{Resumen}&Se requiere que nuestro personaje pueda saltar lateralmente cuando llegue a un extremo del saliente para agarrarse a otros.\\
 		\midrule
@@ -229,13 +274,13 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 2007: Saltar desde saliente lateralmente}
+	\caption{Memorando técnico 2-007: Saltar desde saliente lateralmente}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 2008: Mirar hacia atrás desde saliente}
+		{Memorando técnico 2-008: Mirar hacia atrás desde saliente}
 		\textbf{Asunto}&Mirar hacia atrás desde saliente\\
 		\textbf{Resumen}&Se requiere que nuestro personaje pueda volverse y mirar hacia atrás desde un saliente.\\
 		\midrule
@@ -245,13 +290,13 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 2008: Mirar hacia atrás desde saliente}
+	\caption{Memorando técnico 2-008: Mirar hacia atrás desde saliente}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 2009: Saltar desde saliente mirando hacia atrás}
+		{Memorando técnico 2-009: Saltar desde saliente mirando hacia atrás}
 		\textbf{Asunto}&Saltar desde saliente hacia atrás\\
 		\textbf{Resumen}&Se requiere que nuestro personaje pueda realizar un salto hacia atrás del saliente, si nada lo impide, para caer en un determinado lugar o agarrarse a otros salientes.\\
 		\midrule
@@ -261,13 +306,13 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 2009: Saltar desde saliente mirando hacia atrás}
+	\caption{Memorando técnico 2-009: Saltar desde saliente mirando hacia atrás}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 2010: Escalada en pared}
+		{Memorando técnico 2-010: Escalada en pared}
 		\textbf{Asunto}&Escalada en pared\\
 		\textbf{Resumen}&Se requiere que el personaje pueda escalar zonas propicias para la escalada.\\
 		\midrule
@@ -277,13 +322,13 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 2010: Escalada en pared}
+	\caption{Memorando técnico 2-010: Escalada en pared}
 \end{table*}
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
-		{Memorando técnico 2011: Giro y salto durante escalada en pared}
+		{Memorando técnico 2-011: Giro y salto durante escalada en pared}
 		\textbf{Asunto}&Giro y salto durante escalada en pared\\
 		\textbf{Resumen}&Se quiere que el personaje pueda patear la pared impulsándose mientras está realizando una escalada por pared.\\
 		\midrule
@@ -293,14 +338,56 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
-	\caption{Memorando técnico 2011: Giro y salto durante escalada en pared}
+	\caption{Memorando técnico 2-011: Giro y salto durante escalada en pared}
 \end{table*}
+
+\clearpage
+
+\subsection{Modificaciones}
+
+Respecto a la iteración anterior, debemos de hacer dos pequeñas modificaciones:
+
+\begin{enumerate}
+	\item La acción de "`salto"' cambia respecto a la iteración anterior, puesto que ahora el personaje saltará o no dependiendo de si puede hacer una carrera en pared: Si se puede realizar una carrera en pared se le dará prioridad a ésta y si no, el personaje simplemente saltará, como se hacía hasta ahora.
+	\item Igualmente, la acción de "`agachar"' ahora no sólo se usa para agachar al personaje, sino que en caso de encontrarse en un saliente, al ejecutarse esta acción se soltará de él (en caso contrario, seguirá agachándose).
+\end{enumerate}
 
 \clearpage
 
 \section{Implementación}
 
-\begin{asigResponsabilidad}{2002}{Agarrar un saliente}
+\begin{asigResponsabilidad}{2-001}{Base del sistema de escalada (PRIMERA PARTE)}
+{[void] DoTrace ()}
+\pasoPseudo{0. Este algoritmo se ejecutará si la esfera de colisión del personaje tiene dentro de ella algún actor escalable.}
+\pasoPseudo{1. Comprueba que, o bien, el personaje esté "`cayendo"' y no esté agarrando un saliente, o bien esté realizando una escalada en pared:}
+\pasoPseudo{2. Se traza una esfera desde el pecho del personaje hacia delante del mismo, buscando una pared escalable.}
+\pasoPseudo{2.1. Si hay impacto con una superficie escalable:}
+\pasoPseudo{2.1.1. Si el jugador presiona "`saltar"' podrá comenzar una escalada por pared.}
+\pasoPseudo{2.2. Si no hay impacto con una superficie escalable:}
+\pasoPseudo{2.2.1. No ocurre nada.}
+\pasoPseudo{3. Se traza una esfera desde arriba hacia abajo un poco a la derecha y delante del personaje para buscar si el personaje podría poner su mano derecha en la pared escalable que encuentre y otra traza de igual manera, pero esta vez buscando el hipotético punto de apoyo de la mano izquierda.}
+\pasoPseudo{3.1. Si ambas líneas consiguen impactar:}
+\pasoPseudo{3.1.1. Según la diferencia de altura entre el saliente encontrado y la cadera del personaje, éste procederá a quedarse enganchado sin más o a hacer una escalada automática con las rodillas.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{2-001}{Base del sistema de escalada (SEGUNDA PARTE)}
+{[void] DoTrace ()}
+\pasoPseudo{4. Si el personaje está agarrado:}
+\pasoPseudo{4.1. Se traza una esfera desde el hipotético punto de apoyo del pie del personaje mientras agarra hacia delante para buscar si el personaje podría poner su pie derecho ahí y otra traza de igual manera, pero esta vez buscando el hipotético punto de apoyo del pie izquierdo.}
+\pasoPseudo{4.1.1. Si al menos uno de las dos esferas impacta:}
+\pasoPseudo{4.1.1.1. Cambia el valor de "`bCanBraceHang"' de la clase a verdadero.}
+\pasoPseudo{4.1.1.2. Cambia el valor de "`bCanBraceHang"' del \gls{blueprint} encargado de animar al personaje a verdadero.}
+\pasoPseudo{4.1.1.3. Aplica las restricciones de cámara oportunas.}
+\pasoPseudo{4.1.2. Si no impacta ninguna esfera:}
+\pasoPseudo{4.1.2.1. Cambia el valor de "`bCanBraceHang"' de la clase a falso.}
+\pasoPseudo{4.1.2.2. Cambia el valor de "`bCanBraceHang"' del \gls{blueprint} encargado de animar al personaje a falso.}
+\pasoPseudo{4.1.2.3. Aplica las restricciones de cámara oportunas.}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{4.1.1.3.}{AMainCharacter}{[void] RestrictView (YawMin:float, YawMax:float, PitchMin:float)}{N/A}
+\pasoCodigo{4.1.2.3.}{AMainCharacter}{[void] RestrictView (YawMin:float, YawMax:float, PitchMin:float)}{N/A}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{2-002}{Agarrar un saliente}
 {[void] GrabLedge ()}
 \pasoPseudo{1. Comprueba la variable "`bIsClimbingLedge"':}
 \pasoPseudo{1.1. Si es verdadero no hace nada.}
@@ -319,7 +406,7 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 \pasoCodigo{1.2.10.}{AMainCharacter}{[void] RestrictView (YawMin:float, YawMax:float, PitchMin:float)}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{2003}{Agarrar un saliente pequeño para escalarlo}
+\begin{asigResponsabilidad}{2-003}{Agarrar un saliente pequeño para escalarlo}
 {[void] KneeClimbLedge ()}
 \pasoPseudo{1. Comprueba la variable "`bIsClimbingLedge"':}
 \pasoPseudo{1.1. Si es verdadero no hace nada.}
@@ -335,7 +422,7 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 \pasoCodigo{1.2.7.}{AMainCharacter}{[void] RestrictView (YawMin:float, YawMax:float, PitchMin:float)}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{2004}{Escalar un saliente al que estemos agarrados (Inicio)}
+\begin{asigResponsabilidad}{2-004}{Escalar un saliente al que estemos agarrados (Inicio)}
 {[void] ClimbLedge ()}
 \pasoPseudo{1. Comprueba la variable "`bIsClimbingLedge"':}
 \pasoPseudo{1.1. Si es verdadera no hace nada.}
@@ -352,7 +439,7 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 \pasoCodigo{1.2.7.}{AMainCharacter}{[void] RestrictView (YawMin:float, YawMax:float, PitchMin:float)}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{2004}{Escalar un saliente al que estemos agarrados (Final)}
+\begin{asigResponsabilidad}{2-004}{Escalar un saliente al que estemos agarrados (Final)}
 {[void] CompleteClimb ()}
 \pasoPseudo{1. Cambia el modo de movimiento del personaje a "`caminando"'.}
 \pasoPseudo{2. Cambia el valor de "`bIsClimbingLedge"' de la clase a falso.}
@@ -367,7 +454,7 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 \pasoCodigo{7.}{AMainCharacter}{[void] ResetRestrictView ()}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{2005}{Soltar un saliente}
+\begin{asigResponsabilidad}{2-005}{Soltar un saliente}
 {[void] LeaveLedge ()}
 \pasoPseudo{1. Cambia el modo de movimiento del personaje a "`caminando"'.}
 \pasoPseudo{2. Cambia el valor de "`bIsHanging"' del \gls{blueprint} encargado de animar al personaje a falso.}
@@ -387,7 +474,7 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 \pasoCodigo{12.}{AMainCharacter}{[void] ResetRestrictView ()}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{2006}{Movernos por un saliente (PRIMERA PARTE)}
+\begin{asigResponsabilidad}{2-006}{Movernos por un saliente (PRIMERA PARTE)}
 {[void] GrabLedgeMove ()}
 \pasoPseudo{1. Comprobamos si el usuario intenta moverse lateralmente o está mirando hacia atrás:}
 \pasoPseudo{1.1. Si es verdadero:}
@@ -397,7 +484,7 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 \pasoPseudo{1.2. Si por el contrario no se cumple:}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{2006}{Movernos por un saliente (SEGUNDA PARTE PARTE)}
+\begin{asigResponsabilidad}{2-006}{Movernos por un saliente (SEGUNDA PARTE PARTE)}
 {[void] GrabLedgeMove ()}
 \pasoPseudo{1.2.1. Si el usuario intenta moverse hacia la izquierda:}
 \pasoPseudo{1.2.1.1. Trazamos una esfera un poco más a la izquierda de donde nos encontramos, buscando la pared, para ver si aún hay superficie a la que moverse:}
@@ -423,7 +510,7 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 \pasoPseudo{1.2.1.1.2.2.1.3. Cambia el valor de "`bIsGrabbingLookingSide"' de la clase a verdadero.}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{2006}{Movernos por un saliente (TERCERA PARTE)}
+\begin{asigResponsabilidad}{2-006}{Movernos por un saliente (TERCERA PARTE)}
 {[void] GrabLedgeMove ()}
 \pasoPseudo{1.2.2. Si el usuario intenta moverse hacia la izquierda:}
 \pasoPseudo{1.2.2.1. Trazamos una esfera un poco más a la izquierda de donde nos encontramos, para ver si aún hay superficie a la que moverse:}
@@ -449,7 +536,7 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 \pasoPseudo{1.2.2.1.2.2.1.3. Cambia el valor de "`bIsGrabbingLookingSide"' de la clase a verdadero.}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{2007}{Saltar desde saliente lateralmente}
+\begin{asigResponsabilidad}{2-007}{Saltar desde saliente lateralmente}
 {[void] JumpGrabbingSide ()}
 \pasoPseudo{1. Usamos el método "`LeaveLedge()"' para abandonar el saliente primero.}
 \pasoPseudo{2. Comprobamos el valor del input del movimiento izquierda-derecha:}
@@ -463,7 +550,7 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 \pasoCodigo{2.2.1.}{ACharacter}{[void] LaunchCharacter (LaunchVelocity:FVector, bXYOverride:bool, bZOverride:bool)}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{2008}{Mirar hacia atrás desde saliente}
+\begin{asigResponsabilidad}{2-008}{Mirar hacia atrás desde saliente}
 {[void] GrabLedgeRear ()}
 \pasoPseudo{1. Comprobamos el valor de la variable "`bIsGrabbingLookingRear"':}
 \pasoPseudo{1.1. Si es verdadera no hacemos nada.}
@@ -477,7 +564,7 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 \pasoCodigo{1.2.5.}{AMainCharacter}{[void] RestrictView (YawMin:float, YawMax:float, PitchMin:float)}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{2009}{Saltar desde saliente mirando hacia atrás}
+\begin{asigResponsabilidad}{2-009}{Saltar desde saliente mirando hacia atrás}
 {[void] JumpGrabbingRear ()}
 \pasoPseudo{1. Usamos el método "`LeaveLedge()"' para abandonar el saliente primero.}
 \pasoPseudo{2. Usamos el método "`LaunchCharacter"' de la clase "`ACharacter"' para lanzar al jugador en la dirección del vector normal de la pared a la que nos agarramos (y un poco hacia arriba)}
@@ -486,7 +573,7 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 \pasoCodigo{2.}{ACharacter}{[void] LaunchCharacter (LaunchVelocity:FVector, bXYOverride:bool, bZOverride:bool)}{N/A}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{2010}{Escalada en pared}
+\begin{asigResponsabilidad}{2-010}{Escalada en pared}
 {[void] JumpOrWallRunning ()}
 \pasoPseudo{1. Comprobamos el valor de la variable "`bIsWallRunning"':}
 \pasoPseudo{1.1. Si es verdadera:}
@@ -515,7 +602,7 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 \pasoPseudo{1.2.1.2.2.2.1. Saltamos mediante la función "`Jump()"'.}
 \end{asigResponsabilidad}
 
-\begin{asigResponsabilidad}{2010}{Giro y salto durante escalada en pared}
+\begin{asigResponsabilidad}{2-010}{Giro y salto durante escalada en pared}
 {[void] WallRunningRearJump ()}
 \pasoPseudo{1. Comprobamos que "`bIsWallRunning"' sea verdadero y "`bIsClimbingLedge"' falso:}
 \pasoPseudo{1.1. Si ocurre:}
@@ -533,6 +620,156 @@ Además de estos, hay varios trazadores más que se implementan dentro de las prop
 
 \section{Pruebas}
 
+Esta vez, para la realización de las pruebas de esta iteración se ha decidido crear un mapa llamado \textbf{"`Test\_ClimbMechanics"'} que, de nuevo, no será accesible desde el juego (pero sí desde la versión de editor del desarrollador) cuyo único objetivo es testear cada una de las implementaciones de las mecánicas desarrolladas en la iteración.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.6]{figures/test-map-2.png}
+		\caption{Fotograma del mapa de pruebas empleado en la iteración 2}
+\end{figure*}
+
+El mapa contiene distintos salientes de distintas alturas suficiente para llevar a cabo las pruebas de escalada.
+
+\clearpage
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Agarrar un saliente (2-002)}
+		\begin{enumerate}
+			\item El personaje se debe quedar agarrado a un saliente si está en el aire y alineado con la pared del mismo.
+			\item El personaje se debe quedar agarrado a un saliente si durante una carrera por pared, al finalizar la misma, el saliente queda por encima de la cintura del personaje (y aún en rango y cumple los requisitos del test anterior).
+			\item En cualquier caso, al quedarse agarrado a un saliente, se cambiará a la animación de agarre de saliente y se alineará el saliente con las manos del personaje.
+			\item El personaje no debe agarrarse a un saliente no está alineado con la pared del mismo.
+			\item Cuando agarremos un saliente, se nos debe restringir la cámara para que, si la movemos, no veamos el interior del modelo de nuestro personaje.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Agarrar un saliente (2-002)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Auto-escalar un saliente (2-003)}
+		\begin{enumerate}
+			\item El personaje debe escalar un saliente si durante una carrera por pared, al finalizar la misma, el saliente queda por debajo de la cintura del personaje, hay superficie donde colocar al personaje después escalar el saliente y el personaje está alineado con la pared del saliente.
+			\item Cuando el personaje escale, debe reproducir la animación de auto-escalada.
+			\item En cualquier otro caso, no debe hacer nada.
+			\item Mientras estemos escalando el saliente se deberá restringir la cámara, impidiendo que veamos el modelo de nuestro personaje si giramos la misma.
+			\item Al escalar el saliente se nos deberá de eliminar cualquier restricción de cámara que tuviésemos.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Auto-escalar un saliente (2-003)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Escalar un saliente al que estemos agarrados (2-004)}
+		\begin{enumerate}
+			\item Si estamos agarrados a un saliente y hay espacio para colocar al personaje cuando éste escale, al pulsar el botón "`saltar"' el personaje debe escalar el saliente, reproduciendo la animación de escalada de saliente.
+			\item Si, por el contrario, no hay espacio, no debe hacer nada.
+			\item Mientras estemos escalando el saliente se deberá restringir la cámara, impidiendo que veamos el modelo de nuestro personaje si giramos la misma.
+			\item Al escalar el saliente se nos deberá de eliminar cualquier restricción de cámara que tuviésemos.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Escalar un saliente al que estemos agarrados (2-004)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Soltar un saliente (2-005)}
+		\begin{enumerate}
+			\item Si estamos agarrados a un saliente y pulsamos "`agachar"', el personaje debe soltarse y dejarse caer del mismo.
+			\item Al abandonar el saliente, debe abandonarse la animación de agarrar saliente (y reproducir la que proceda, típicamente la de caída).
+			\item Al abandonar el saliente también debemos abandonar cualquier restricción de cámara que tuviésemos.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Soltar un saliente (2-005)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Movernos por un saliente (2-006)}
+		\begin{enumerate}
+			\item Cuando estamos agarrados a un saliente, si hay espacio para agarrarse a la izquierda y pulsamos el botón de movimiento "`izquierda"', el personaje debe moverse hacia ese lado, reproduciendo la animación de moverse por el saliente hacia la izquierda.
+			\item Cuando estamos agarrados a un saliente, si hay espacio para agarrarse a la derecha y pulsamos el botón de movimiento "`derecha"', el personaje debe moverse hacia ese lado, reproduciendo la animación de moverse por el saliente hacia la derecha.
+			\item Cuando nos estamos moviendo por un saliente hacia la izquierda, se acaba el espacio para agarrarse por la izquierda y hay algún obstáculo que nos impediría saltar por ese lado, el personaje debe detener su movimiento y parar su animación.
+			\item Cuando nos estamos moviendo por un saliente hacia la derecha, se acaba el espacio para agarrarse por la derecha y hay algún obstáculo que nos impediría saltar por ese lado, el personaje debe detener su movimiento y parar su animación.
+			\item Cuando nos estamos moviendo por un saliente hacia la izquierda y se acaba el espacio para agarrarse por ese lado pero no hay algún obstáculo que nos impida saltar, el personaje debe detener su movimiento pero también soltarse de su mano izquierda, indicando que puede saltar.
+			\item Cuando nos estamos moviendo por un saliente hacia la derecha y se acaba el espacio para agarrarse por ese lado pero no hay algún obstáculo que nos impida saltar, el personaje debe detener su movimiento pero también soltarse de su mano derecha, indicando que puede saltar.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Movernos por un saliente (2-006)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Saltar desde saliente lateralmente (2-007)}
+		\begin{enumerate}
+			\item Cuando nuestro personaje está en posición de saltar hacia la izquierda (mirar prueba anterior) y pulsamos el botón "`saltar"', nuestro personaje debe hacer un salto hacia ese lado.
+			\item Cuando nuestro personaje está en posición de saltar hacia la derecha (mirar, de nuevo, prueba anterior) y pulsamos el botón "`saltar"', nuestro personaje debe hacer un salto hacia ese lado.
+			\item Si pulsamos el botón de "`agachar"', el personaje debe soltarse igualmente del saliente.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Saltar desde saliente lateralmente (2-007)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Mirar hacia atrás desde saliente (2-008)}
+		\begin{enumerate}
+			\item Cuando nuestro personaje está agarrado a un saliente y mantenemos pulsado el botón de movimiento "`atrás"', debe reproducirse una animación y permitirnos mirar hacia atrás.
+			\item Mientras que estamos mirando hacia atrás, nuestra cámara se debe restringir, impidiendo que ésta se meta dentro del modelo de personaje.
+			\item Si pulsamos el botón de "`agachar"', el personaje debe soltarse igualmente del saliente.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Mirar hacia atrás desde saliente (2-008)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Saltar desde saliente mirando hacia atrás (2-009)}
+		\begin{enumerate}
+			\item Cuando pulsemos el botón "`saltar"' estando agarrados y mirando hacia atrás, nuestro personaje debe soltarse del saliente, abandonado la animación de estar agarrado mirando atrás.
+			\item En el mismo momento de saltar, se nos deben eliminar cualquier restricción de cámara que acarreásemos.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Saltar desde saliente mirando hacia atrás (2-009)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Escalada en pared (2-010)}
+		\begin{enumerate}
+			\item Cuando pulsemos el botón "`saltar"' estando cerca de una superficie escalable y alineados con ella el personaje debe pegarse a la pared y empezar a escalarla, reproduciéndose la animación de escalada por pared.
+			\item Mientras estemos escalando por la pared se deberá restringir la cámara, impidiendo que veamos el modelo de nuestro personaje si giramos la misma.
+			\item Al terminar la escalada por pared se nos deberá de eliminar cualquier restricción de cámara que tuviésemos, siempre que no entremos realizando otra acción (es decir, por ejemplo, hayamos agarrado un saliente).
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Escalada en pared (2-010)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Giro y salto durante escalada en pared (2-011)}
+		\begin{enumerate}
+			\item Cuando pulsemos el botón "`saltar"' estando realizando una escalada en pared, la cámara y nuestro personaje deben rotarse e impulsarse en dirección contraria a la pared.
+			\item En el mismo momento de saltar, se nos deben eliminar cualquier restricción de cámara que acarreásemos.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Giro y salto durante escalada en pared (2-011)}
+\end{table*}
+
 \clearpage
 
 \section{Despliegue}
+
+Los cambios se han desplegado en el sistema de producción de manera similar al resto de iteraciones (Ver sección \ref{sec:despliegue}).

@@ -1,20 +1,477 @@
 %!TEX root =  tfg.tex
 \chapter{Tercera iteración}
 
-\begin{quotation}[Novelist]{Ernest Hemingway (1899--1961)}
-The good parts of a book may be only something a writer is lucky enough to overhear or it may be the wreck of his whole damn life -- and one is as good as the other.
-\end{quotation}
-
 \begin{abstract}
-TODO TODO TODO
+La tercera iteración se centra principalmente en la realización del menú principal (y su mapa asociado), de ajustes y de pausa, la creación del HUD del usuario y la implementación del sistema de muerte y de guardado.
 \end{abstract}
+
+\section{Resumen}
+
+La principal característica a implementar será el sistema de guardado y carga del juego. Los datos que queremos guardar se separan en tres archivos diferentes, como recoge el documento de diseño:
+
+\begin{enumerate}
+	\item \textbf{Archivo "`Save"'}: A grandes rasgos guarda el mapa y la localización y rotación del personaje. Se actualizan al pasar un mapa o alcanzar un punto de control. Se borran completamente al iniciar un nuevo juego.
+	\item \textbf{Archivo "`Achievements"'}: Guarda los logros que hemos conseguido en el juego. Se actualizan cada vez que se consigue un avance en un logro (aunque no se llegue a conseguir ninguno como tal). No se resetean al comenzar una nueva partida.
+	\item \textbf{Archivo "`Settings"'}: Almacena la configuración del usuario (resolución, opciones gráficas, etc.). Se actualizan cada vez que el usuario cambia un ajuste en el menú. De igual manera que los anteriores no se resetean al comenzar una nueva partida.
+\end{enumerate}
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.75]{figures/checkpoint.png}
+		\caption{Captura de un "`checkpoint"' (o punto de control) usado en el juego}
+\end{figure*}
+
+\clearpage
+
+Otra gran característica implementar es el sistema de muerte, en el que se tratará de buscar, como siempre, la solución más simple posible y se detallará más en la fase de diseño: no tendremos que guardar ningún tipo de vida máxima / restante del personaje puesto que lo que se producirá al interaccionar con algún objeto que dañe (aspecto que exploraremos en más profundidad en la siguiente iteración, puesto que ahora sólo podríamos morir abandonando el escenario o colisionando con alguna caja de colisión colocada en un foso o similar) al jugador será una muerte instantánea. Esto no se hace por simplicidad, aunque obviamente es más simple, sino que es una decisión de diseño, ya que el juego se basa en la repetición.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.75]{figures/red-crystal.png}
+		\caption{Imagen de un cristal de teletransportación rojo, usado para avanzar al siguiente nivel}
+\end{figure*}
+
+Para la elaboración del HUD del usuario se implementará una interfaz que hará de puente entre la clase del personaje principal y el HUD en sí, enviando información del primero al segundo.
+
+Dado que el HUD es un trabajo que no encajaría demasiado en el esquema que estamos siguiendo para la iteraciones, podemos ver más sobre él en su subsección del manual (Ver sección \ref{sec:hud}).
+
+\clearpage
 
 \section{Características a desarrollar}
 
+\begin{enumerate}
+	\item Sistema de guardado / carga.
+		\begin{itemize}
+			\item Implementación en código.
+		\end{itemize}
+	\item Sistema de muerte.
+		\begin{itemize}
+			\item Implementación del código de la mecánica.
+			\item Recreación de la muerte del personaje cambiando su estado a "`ragdoll"' o "`muñeco de trapo"'.
+		\end{itemize}
+	\item Creación del HUD del usuario, con los siguientes elementos:
+		\begin{itemize}
+			\item Punto de referencia.
+			\item Indicador de "`blink"'.
+			\item Indicador de adrenalina restante.
+			\item Brújula, que le permita conocer al jugador el punto al que debe dirigirse para acabar el nivel.
+			\item Mensaje de muerte, que aparezca sólo cuando el usuario esté muerto.
+			\item Caja de tutorial, que serán usadas para mostrarles mensajes al jugador hasta que pulse el botón "`acción"'.
+			\item Recuadro de logro, que aparecerá en pantalla cuando el jugador obtenga uno.
+			\item Recuadro de juego guardado, que aparecerá al guardar juego.
+		\end{itemize}
+	\item Creación de un menú principal:
+		\begin{itemize}
+				\item Creación del mapa del menú principal.
+				\item Opción: Nuevo juego, que nos permita empezar una partida desde cero.
+				\item Opción: Cargar juego, que nos permita continuar nuestro progreso.
+				\item Opción: Ajustes, que nos permita realizar cambios en la configuración.
+				\item Opción: Salir del juego.
+			\end{itemize}
+	\item Creación de un menú de pausa:
+		\begin{itemize}
+				\item Opción: Nuevo juego, que nos permita empezar una partida desde cero.
+				\item Opción: Cargar juego, que nos permita continuar nuestro progreso.
+				\item Opción: Ajustes, que nos permita realizar cambios en la configuración.
+				\item Opción: Cerrar el menú.
+				\item Opción: Volver al menú principal.
+				\item Opción: Salir del juego.
+			\end{itemize}
+	\item Creación de un menú de ajustes, que nos de las siguientes opciones:
+		\begin{itemize}
+				\item Opción: Seleccionar idioma (inglés o español).
+				\item Opción: Seleccionar relación de aspecto de la resolución.
+				\item Opción: Seleccionar resolución.
+				\item Opción: Seleccionar entre modo pantalla completa y modo ventana.
+				\item Opción: Seleccionar diversos ajustes gráficos.
+				\item Opción: Cerrar el menú.
+			\end{itemize}
+\end{enumerate}
+
+\clearpage
+
 \section{Diseño}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 3-001: Sistema de guardado / carga}
+		\textbf{Asunto}&Sistema de guardado / carga\\
+		\textbf{Resumen}&Se requiere que el usuario pueda guardar sus progresos en el juego y guardarlos.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando el personaje controlado por el usuario entre en contacto con un punto de control o pase al siguiente nivel, se actualizará el archivo de guardado. Para cargar la partida sólo tendrá que seleccionar la opción "`Cargar partida"' en el menú principal o de pausa.\\
+		\textbf{Motivación}&Es la solución más fácil para el fin que estamos buscando.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 3-001: Sistema de guardado / carga}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 3-002: Sistema de muerte}
+		\textbf{Asunto}&Sistema de muerte\\
+		\textbf{Resumen}&Consistiría en la realización de un sistema que detectase la muerte del personaje y ejecutase la secuencia de muerte.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando nuestro personaje entre en contacto con algún actor que tenga la etiqueta "`deadly"' se lanzará la escena de muerte y se le quitará el control al usuario.\\
+		\textbf{Motivación}&Es la alternativa más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&Alternativas hay muchas, pero de las exploradas ésta es la más simple.\\
+	\end{coolTable}
+	\caption{Memorando técnico 3-002: Sistema de muerte}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 3-003: Opción menú - Nuevo juego}
+		\textbf{Asunto}&Opción menú - Nuevo juego\\
+		\textbf{Resumen}&Cuando se pulse esta opción debe iniciarse un nuevo juego.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se borra la partida anterior, si la hay, y se inicia un nuevo juego.\\
+		\textbf{Motivación}&Es la alternativa más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 3-003: Opción menú - Nuevo juego}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 3-004: Opción menú - Cargar juego}
+		\textbf{Asunto}&Opción menú - Cargar juego\\
+		\textbf{Resumen}&Cuando se pulse esta opción se debe continuar desde el último mapa o punto de control.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se busca en el archivo de guardado principal y se carga el mapa almacenado y se coloca al personaje en la localización y rotación también almacenada.\\
+		\textbf{Motivación}&Es la alternativa más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 3-004: Opción menú - Cargar juego}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 3-005: Opción menú - Ajustes}
+		\textbf{Asunto}&Opción menú - Ajustes\\
+		\textbf{Resumen}&Se desea que se acceda al menú de ajustes tanto desde menú principal como desde el de pausa.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se oculta el menú principal / de pausa y se muestra el menú de ajustes.\\
+		\textbf{Motivación}&Es la alternativa más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 3-005: Opción menú - Ajustes}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 3-006: Opción menú - Salir}
+		\textbf{Asunto}&Opción menú - Salir\\
+		\textbf{Resumen}&Se desea que el menú principal / de pausa contenga una opción para cerrar el juego.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Al pulsar la opción cerramos el juego.\\
+		\textbf{Motivación}&Es la alternativa más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 3-006: Opción menú - Salir}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 3-007: Opción menú pausa - Cerrar menú}
+		\textbf{Asunto}&Opción menú pausa - Cerrar menú\\
+		\textbf{Resumen}&Se requiere que si estamos en el menú de pausa, podamos cerrarlo.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Al pulsar la opción cerramos el menú de pausa.\\
+		\textbf{Motivación}&Es la alternativa más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 3-007: Opción menú - Cerrar menú}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 3-008: Opción menú pausa - Volver al menú principal}
+		\textbf{Asunto}&Opción menú pausa - Volver al menú principal\\
+		\textbf{Resumen}&Se requiere que si estamos en el menú de pausa, podamos volver al menú principal.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Al pulsar la opción volvemos al menú principal.\\
+		\textbf{Motivación}&Es la alternativa más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 3-008: Opción menú pausa - Volver al menú principal}
+\end{table*}
+
+\clearpage
 
 \section{Implementación}
 
+\begin{asigResponsabilidad}{3-001}{Sistema de guardado (al tocar un punto de control)}
+{[void] ActorBeginOverlap () - Clase RespawnPoint}
+\pasoPseudo{1. Comprueba si existe un archivo de guardado:}
+\pasoPseudo{1.1. Si existe:}
+\pasoPseudo{1.1.1. Carga el archivo de guardado.}
+\pasoPseudo{1.2. Si no existe:}
+\pasoPseudo{1.2.1. Crea un nuevo archivo de guardado.}
+\pasoPseudo{2. Crea un objeto "`SaveReference"' y asigna el nuevo archivo de guardado creado o el cargado, para trabajar más cómodamente.}
+\pasoPseudo{3. Obtiene el nivel actual, actualiza el "`SaveReference"' con el valor.}
+\pasoPseudo{4. Obtiene la posición del punto de control, actualiza el "`SaveReference"' con el valor.}
+\pasoPseudo{5. Obtiene la rotación del punto de control, actualiza el "`SaveReference"' con el valor.}
+\pasoPseudo{6. Fija el valor de "`bFromStart"' del "`SaveReference"' a falso.}
+\pasoPseudo{7. Obtiene si el personaje tiene poderes, actualiza el "`SaveReference"' con el valor.}
+\pasoPseudo{8. Guarda el objeto "`SaveReference"' en el slot (espacio de guardado) "`Save"', por lo que sustituye al archivo "`Save"' anterior.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{3-001}{Sistema de guardado (al pasar de nivel)}
+{[void] ActorBeginOverlap () - Clase CrystalLevelEndPoint}
+\pasoPseudo{0. Si el usuario pulsa el botón de acción mirándolo:}
+\pasoPseudo{1. Comprueba si existe un archivo de guardado:}
+\pasoPseudo{1.1. Si existe:}
+\pasoPseudo{1.1.1. Carga el archivo de guardado.}
+\pasoPseudo{1.2. Si no existe:}
+\pasoPseudo{1.2.1. Crea un nuevo archivo de guardado.}
+\pasoPseudo{2. Crea un objeto "`SaveReference"' y asigna el nuevo archivo de guardado creado o el cargado, para trabajar más cómodamente.}
+\pasoPseudo{3. Obtiene el nivel actual, actualiza el "`SaveReference"' con el valor.}
+\pasoPseudo{4. Fija el valor del vector "`Location"' a (0.0, 0.0, 0.0).}
+\pasoPseudo{5. Fija el valor del vector "`Rotation"' a (0.0, 0.0, 0.0).}
+\pasoPseudo{6. Fija el valor de "`bFromStart"' del "`SaveReference"' a verdadero.}
+\pasoPseudo{7. Fija el valor de "`bIsPowered"' del "`SaveReference"' a falso.}
+\pasoPseudo{8. Guarda el objeto "`SaveReference"' en el slot (espacio de guardado) "`Save"', por lo que sustituye al archivo "`Save"' anterior.}
+\pasoPseudo{9. Carga el nivel indicado en la variable del CrystalLevelEndPoint.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{3-001}{Sistema de carga}
+{[void] OnBeginPlay ()}
+\pasoPseudo{1. Intenta acceder a los datos del archivo de guardado "`Save"':}
+\pasoPseudo{1.1. Si hay archivos guardados:}
+\pasoPseudo{1.1.1. Se comprueba si en el archivo de guardado se especifica que se debe iniciar el nivel desde el principio y el nivel almacenado en el archivo:}
+\pasoPseudo{1.1.1.1. Si "`RespawnFromStart"' es falsa y el nivel almacenado en el save es el nivel en el que nos encontramos:}
+\pasoPseudo{1.1.1.1.1. Se coloca el personaje en la localización y rotación indicada en el archivo de guardado.}
+\pasoPseudo{1.1.1.2. En caso contrario:}
+\pasoPseudo{1.1.1.2.1. No pasa nada (el jugador saldría desde el punto inicial del mapa).}
+\pasoPseudo{1.2. Si no hay archivos guardados:}
+\pasoPseudo{1.2.1. No pasa nada (el jugador saldría desde el punto inicial del mapa).}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{3-002}{Sistema de muerte (1/2)}
+{[void] OnDeath ()}
+\pasoPseudo{1. Se comprueba si el personaje está muerto ("`bIsDead"'):}
+\pasoPseudo{1.1. Si el personaje no está muerto:}
+\pasoPseudo{1.1.1. Se fija la variable "`bIsDead"' a verdadero.}
+\pasoPseudo{1.1.2. Se fuerza la parada del tiempo bala.}
+\pasoPseudo{1.1.3. Se desactiva el control para el usuario.}
+\pasoPseudo{1.1.4. Se cambia el modo de colisión del modelo de nuestro personaje a "`ragdoll"' (muñeco de trapo).}
+\pasoPseudo{1.1.5. Se marca simular físicas como verdadero en el modelo de nuestro personaje.}
+\pasoPseudo{1.1.6. Se desactiva la cámara de primera persona.}
+\pasoPseudo{1.1.7. Se desactiva la cámara de tercera persona.}
+\pasoPseudo{1.1.8. Se activa la cámara de muerte.}
+\pasoPseudo{1.1.9. Se tiñe la pantalla de rojo y se destiñe en 2,5 segundos, progresivamente.}
+\pasoPseudo{1.1.10. Se reproduce el sonido de muerte del personaje.}
+\pasoPseudo{1.1.11. Se fija una cuenta atrás de 3 segundos.}
+\pasoPseudo{1.1.12. Cuando la cuenta atrás termina se llama a la función OnDeathEnd().}
+\pasoPseudo{1.2. Si el personaje está muerto:}
+\pasoPseudo{1.2.1. No ocurre nada.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{3-002}{Sistema de muerte (2/2)}
+{[void] OnDeathEnd ()}
+\pasoPseudo{1. Intenta acceder a los datos del archivo de guardado "`Save"':}
+\pasoPseudo{1.1. Si el archivo existe:}
+\pasoPseudo{1.1.1. Carga el nivel indicado en el archivo de guardado.}
+\pasoPseudo{1.2. Si no existe:}
+\pasoPseudo{1.2.1. Carga el nivel del tutorial.}
+\pasoPseudo{2. Desactiva la simulación de físicas en el modelo de personaje.}
+\pasoPseudo{3. Cambia la variable "`bIsDead"' a falso.}
+\pasoPseudo{4. Desactiva la cámara de muerte.}
+\pasoPseudo{5. Activa la cámara en primera persona.}
+\pasoPseudo{6. Desactiva la cámara en tercera persona.}
+\pasoPseudo{7. Se le vuelve a dar control al usuario.}
+\pasoPseudo{8. Se cambia el perfil de colisión del modelo del personaje a "`CharacterMesh"' (perfil que tenía antes de morir).}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{3-003}{Opción menú - Nuevo juego}
+{[void] OnClicked (Button\_NewGame)}
+\pasoPseudo{1. Reproduce un sonido de click.}
+\pasoPseudo{2. Comprueba si existe el archivo de guardado "`Save"':}
+\pasoPseudo{2.1. Si existe:}
+\pasoPseudo{2.1.1. A efectos prácticos, el sistema borra la partida.}
+\pasoPseudo{2.2. Si no existe:}
+\pasoPseudo{2.2.1. No hace nada.}
+\pasoPseudo{3. El sistema abre el nivel "`Introduction"'.}
+\pasoPseudo{4. Elimina el HUD del menú principal del viewport.}
+\pasoPseudo{5. Fija el modo de input a "`Game Only"'.}
+\pasoPseudo{6. Deja de mostrar el cursor.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{3-004}{Opción menú - Cargar juego}
+{[void] OnClicked (Button\_LoadGame)}
+\pasoPseudo{1. Reproduce un sonido de click.}
+\pasoPseudo{2. Comprueba si existe el archivo de guardado "`Save"':}
+\pasoPseudo{2.1. Si existe:}
+\pasoPseudo{2.1.1. Carga el mapa almacenado en el archivo de guardado.}
+\pasoPseudo{2.1.2. Elimina el HUD del menú principal del viewport.}
+\pasoPseudo{2.1.4. Fija el modo de input a "`Game Only"'.}
+\pasoPseudo{2.1.5. Deja de mostrar el cursor.}
+\pasoPseudo{2.1. Si no existe:}
+\pasoPseudo{2.2. No hace nada.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{3-005}{Opción menú - Ajustes}
+{[void] OnClicked (Button\_Settings)}
+\pasoPseudo{1. Reproduce un sonido de click.}
+\pasoPseudo{2. Oculta, con una animación, el panel principal del menú principal / de pausa.}
+\pasoPseudo{3. Muestra, igualmente con una animación, el panel principal secundario del menú principal / de pausa, que es el que contiene los ajustes.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{3-006}{Opción menú - Salir}
+{[void] OnClicked (Button\_Exit)}
+\pasoPseudo{1. Reproduce un sonido de click.}
+\pasoPseudo{2. Cierra el juego.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{3-007}{Opción menú pausa - Cerrar menú}
+{[void] OnClicked (Button\_Close)}
+\pasoPseudo{1. Reproduce un sonido de click.}
+\pasoPseudo{2. Llama a la función OnPause().}
+\cabeceraMetodosBajoNivel
+\pasoCodigo{1}{AMainCharacter}{[void] OnPause ()}{2.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{3-008}{Opción menú pausa - Volver al menú principal}
+{[void] OnClicked (Button\_ReturnMainMenu)}
+\pasoPseudo{1. Reproduce un sonido de click.}
+\pasoPseudo{2. Abre el nivel "`MainMenu"'.}
+\end{asigResponsabilidad}
+
+\clearpage
+
 \section{Pruebas}
 
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Sistema de guardado / carga (3-001)}
+		\begin{enumerate}
+			\item Cuando pisamos una superficie de punto de control, el juego se debe guardar instantáneamente.
+			\item Cuando saltamos de un nivel a otro mediante un cristal de teletransportación rojo, el juego se debe guardar instantáneamente.
+			\item Cuando cargamos el juego, deben cargarse correctamente todos los datos guardados: mapa, localización del personaje, rotación, etc.
+			\item En caso de no tener aún un punto de control en el mapa, al cargar se colocará al personaje al principio del mismo.
+			\item El personaje, aunque acabe un nivel con poderes, no puede aparecer en otro con ellos.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Sistema de guardado / carga (3-001)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Sistema de muerte (3-002)}
+		\begin{enumerate}
+			\item Cuando nuestro personaje entre en contacto con algún peligro que le haga daño, debe morir instantáneamente.
+			\item Cuando nuestro personaje muere, se deben activar las físicas de "`muñeco de trapo"' y dejarse caer colisionando con los objetos con los que impacte.
+			\item Cuando nuestro personaje muere se desactivará totalmente el control por parte del usuario.
+			\item Cuando nuestro personaje muere, pasados 3 segundos, el juego debe cargar automáticamente el último punto de control o, en caso de no tener aún un punto de control en el mapa, el mapa desde el principio.
+			\item Cuando nuestro personaje reaparece, se le devolverá el control sobre el mismo al usuario.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Sistema de muerte (3-002)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Opción menú - Nuevo juego (3-003)}
+		\begin{enumerate}
+			\item Al pulsar el botón, se reproducirá un sonido de click.
+			\item Cuando pulsamos en el botón de nuevo juego, si no tenemos partidas guardadas simplemente empezará el juego desde el primer mapa.
+			\item Cuando pulsamos en el botón de nuevo juego, si tenemos partidas guardadas las borrará y empezará el juego desde el primer mapa.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Opción menú - Nuevo juego (3-003)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Opción menú - Cargar juego (3-004)}
+		\begin{enumerate}
+			\item Al pulsar el botón, se reproducirá un sonido de click.
+			\item Si no tenemos partidas guardadas, el botón estará desactivado.
+			\item Cuando pulsamos en el botón de cargar juego, si tenemos partidas guardadas se nos emplazará en el último punto de control alcanzado o al inicio del mapa en cuestión si no tenemos puntos de control en el mismo.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Opción menú - Cargar juego (3-004)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Opción menú - Ajustes (3-005)}
+		\begin{enumerate}
+			\item Al pulsar el botón, se reproducirá un sonido de click.
+			\item Cuando pulsemos en el botón "`Ajustes"', se ocultará el panel principal del menú principal / de pausa. Se reproducirá una animación.
+			\item Justo después, se mostrará el panel de ajustes en sí. Igualmente se reproducirá una animación.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Opción menú - Ajustes (3-005)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Opción menú - Salir (3-006)}
+		\begin{enumerate}
+			\item Al pulsar el botón, se reproducirá un sonido de click.
+			\item Se cerrará el juego.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Opción menú - Salir (3-006)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Opción menú pausa - Cerrar menú (3-007)}
+		\begin{enumerate}
+			\item Al pulsar el botón, se reproducirá un sonido de click.
+			\item Se cerrará el menú de pausa.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Opción menú pausa - Cerrar menú (3-007)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Opción menú pausa - Volver al menú principal (3-008)}
+		\begin{enumerate}
+			\item Al pulsar el botón, se reproducirá un sonido de click.
+			\item Se cargará el mapa del menú principal.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Opción menú pausa - Volver al menú principal (3-008)}
+\end{table*}
+
+\clearpage
+
 \section{Despliegue}
+
+Los cambios se han desplegado en el sistema de producción de manera similar al resto de iteraciones (Ver sección \ref{sec:despliegue}).
