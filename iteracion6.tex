@@ -5,15 +5,207 @@
 La última iteración del proyecto se centra en el diseño y creación de los distintos niveles que componen el juego así como la creación de secuencias de cámara, efectos y otros aspectos similares relacionados con los escenarios del juego.
 \end{abstract}
 
+\section{Introducción}
+
+Aunque también se realizarán las secuencias (una de ellas servirá de introducción del juego) y la implementación de las cajas de tutorial esta iteración versa principalmente sobre el diseño y elaboración de niveles (y todo lo relacionado con ello).
+
+Es por esta razón que será una iteración bastante distinta al resto, puesto que es en la que más nos alejamos de desarrollar software al uso y nos centramos más en cuestiones un tanto artísticas.
+
+\subsection{Mapa tutorial}
+
+Para la elaboración del mapa del tutorial se hicieron uso principalmente de los \glspl{asset} de "`Zen Garden"' e "`Infinity Blade: Glass Lands"'.
+
+El mapa consta de un jardín flotante exterior (puesto que el mapa se ubica en una isla flotante) y 4 amplias salas en su interior (algunas con subdivisiones) en las que se le muestra al jugador toda la información que necesita sobre las distintas mecánicas, a excepción de un apunte sobre los vigilantes que se hace en el siguiente mapa.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.6]{figures/mapa-tutorial.png}
+		\caption{Captura del mapa "`Tutorial"'}
+\end{figure*}
+
+\clearpage
+
+\subsection{Mapa level 1}
+
+Consta de 12 salas y representa un escenario real de juego. Como se apuntaba anteriormente, en este mapa se le presenta al jugador el enemigo "`vigilante"' mediante un tutorial.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.6]{figures/mapa-level1.png}
+		\caption{Captura del mapa "`Level1"'}
+\end{figure*}
+
+\clearpage
+
+\subsection{Mapa level 2}
+
+Este último mapa consta de 17 salas y es el mayor desafío que se le presenta al jugador.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.6]{figures/mapa-level2.png}
+		\caption{Captura del mapa "`Level2"'}
+\end{figure*}
+
+Al completarlo, se manda al jugador a la pantalla de "`ending"', permitiéndole volver al menú principal.
+
+\clearpage
+
 \section{Características a desarrollar}
+
+\begin{enumerate}
+	\item Mecánica: Caja de tutorial.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+	\end{itemize}
+	\item Mecánica: Multi-caja de tutorial.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+	\end{itemize}
+	\item Mapa: Introduction.
+	\begin{itemize}
+		\item Realización del HUD usado para el mapa.
+		\item Realización de los scripts del mapa.
+	\end{itemize}
+	\item Mapa: Ending.
+	\begin{itemize}
+		\item Realización del HUD usado para el mapa.
+		\item Realización de los scripts del mapa.
+	\end{itemize}
+	\item Mapa: Tutorial.
+	\begin{itemize}
+		\item Realización de la estrucctura básica del mapa.
+		\item Decoración: follaje, columnas, escaleras, etc.
+		\item Realización de puzles.
+		\item Iluminado del mapa.
+	\end{itemize}
+	\item Mapa: Level1.
+	\begin{itemize}
+		\item Realización de la estrucctura básica del mapa.
+		\item Decoración: follaje, columnas, escaleras, etc.
+		\item Realización de puzles.
+		\item Iluminado del mapa.
+		\item Colocación de enemigos y tareas asociadas (puntos de ruta, nav meshes, ...).
+	\end{itemize}
+	\item Mapa: Level2.
+	\begin{itemize}
+		\item Realización de la estrucctura básica del mapa.
+		\item Decoración: follaje, columnas, escaleras, etc.
+		\item Realización de puzles.
+		\item Iluminado del mapa.
+		\item Colocación de enemigos y tareas asociadas (puntos de ruta, nav meshes, ...).
+	\end{itemize}
+	\item Secuencia de inicio del juego.
+	\item Fade from black: Secuencia usada al iniciar un nivel.
+	\item Fade to white: Secuencia usada al tocar un cristal de teletransportación.
+\end{enumerate}
+
+\clearpage
 
 \section{Diseño}
 
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 6-001: Mecánica: Caja de tutorial}
+		\textbf{Asunto}&Mecánica: Caja de tutorial\\
+		\textbf{Resumen}&Se requiere informar al jugador, sin que haya peligro, de aspectos que debe conocer del juego.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando el personaje entre en contacto con el área deseada para mostrar el tutorial, se pausará el juego y en el HUD del jugador se mostrará la información oportuna. Para volver al juego deberá pulsar el botón "`acción"'.\\
+		\textbf{Motivación}&Solución simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 6-001: Mecánica: Caja de tutorial}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 6-002: Mecánica: Multi-caja de tutorial}
+		\textbf{Asunto}&Mecánica: Multi-caja de tutorial\\
+		\textbf{Resumen}&Se requiere informar al jugador, sin que haya peligro, de aspectos que debe conocer del juego pero que requieren de muchas líneas de texto.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando el personaje entre en contacto con el área deseada para mostrar el tutorial, se pausará el juego y en el HUD del jugador se mostrará parte de la información (troceada previamente en un array). Para avanzar en el tutorial el jugador deberá pulsar el botón "`acción"'. Cuando ya no queden más tutoriales que mostrar se ocultará la caja de tutorial y se reanudará el juego.\\
+		\textbf{Motivación}&Solución simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 6-002: Mecánica: Multi-caja de tutorial}
+\end{table*}
+
+\clearpage
+
 \section{Implementación}
+
+\begin{asigResponsabilidad}{6-001}{Mecánica: Caja de tutorial}
+{[void] ActorBeginOverlap () - Clase TutorialTriggerBox}
+\pasoPseudo{1. Cuando se detecta que un actor entra en la caja de colisión se comprueba si es el personaje principal:}
+\pasoPseudo{1.1. Si es el personaje principal:}
+\pasoPseudo{1.1.1. Se recupera el mensaje que se tiene que mostrar en el idioma en el que está configurado el juego.}
+\pasoPseudo{1.1.2. Se pausa el juego.}
+\pasoPseudo{1.1.3. Cuando el jugador pulse el botón "`acción"':}
+\pasoPseudo{1.1.3.1. El cuadro de texto del tutorial desaparece.}
+\pasoPseudo{1.1.3.2. El juego se reanuda.}
+\pasoPseudo{1.1.3.3. Se destruye la caja de tutorial del nivel (volverá a aparecer si se carga la partida).}
+\pasoPseudo{1.2. Si \textbf{no} es el personaje principal:}
+\pasoPseudo{1.2.1. No ocurre nada.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{6-002}{Mecánica: Multi-caja de tutorial}
+{[void] ActorBeginOverlap () - Clase MultiTutorialTriggerBox}
+\pasoPseudo{1. Cuando se detecta que un actor entra en la caja de colisión se comprueba si es el personaje principal:}
+\pasoPseudo{1.1. Si es el personaje principal:}
+\pasoPseudo{1.1.1. Se recupera el mensaje que se tiene que mostrar en el idioma en el que está configurado el juego.}
+\pasoPseudo{1.1.2. Se pausa el juego.}
+\pasoPseudo{1.1.3. Cuando el jugador pulse el botón "`acción"':}
+\pasoPseudo{1.1.3.1. Se comprueban si hay más mensajes para mostrar en ese idioma:}
+\pasoPseudo{1.1.3.1.1. Si hay más mensajes que mostrar:}
+\pasoPseudo{1.1.3.1.1.1. Se vuelve al paso 1.1.1., esta vez con el mensaje nuevo.}
+\pasoPseudo{1.1.3.1.2. Si no hay más mensajes que mostrar:}
+\pasoPseudo{1.1.3.1.2.1. El cuadro de texto del tutorial desaparece.}
+\pasoPseudo{1.1.3.1.2.2. El juego se reanuda.}
+\pasoPseudo{1.1.3.1.2.3. Se destruye la multi-caja de tutorial del nivel (volverá a aparecer si se carga la partida).}
+\pasoPseudo{1.2. Si \textbf{no} es el personaje principal:}
+\pasoPseudo{1.2.1. No ocurre nada.}
+\end{asigResponsabilidad}
+
+\clearpage
 
 \section{Pruebas}
 
-Poco podemos hablar sobre este aspecto en esta iteración, puesto que más que software se han generado \glspl{asset}.
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Mecánica: Caja de tutorial (6-001)}
+		\begin{enumerate}
+			\item Comprobamos que al entrar en colisión con la caja, se pausa el juego y se muestra el texto.
+			\item Comprobamos que con el mensaje de tutorial en pantalla no podemos movernos.
+			\item Comprobamos que si pulsamos el botón de "`acción"' se elimina del HUD la caja y texto del tutorial y el juego se reanuda.
+			\item Comprobamos que si intentamos volver al punto donde se nos mostró el tutorial antes, no ocurre nada.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Mecánica: Caja de tutorial (6-001)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Mecánica: Multi-caja de tutorial (6-002)}
+		\begin{enumerate}
+			\item Comprobamos que al entrar en colisión con la caja, se pausa el juego y se muestra el texto.
+			\item Comprobamos que con el mensaje de tutorial en pantalla no podemos movernos.
+			\item Comprobamos que si pulsamos el botón de "`acción"' se introduce nuevo texto en la caja de texto (indeterminadas veces).
+			\item Comprobamos que si pulsamos el botón de "`acción"' en la última frase prevista para mostrar se elimina del HUD la caja y texto del tutorial y el juego se reanuda.
+			\item Comprobamos que si intentamos volver al punto donde se nos mostró el tutorial antes, no ocurre nada.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Mecánica: Multi-caja de tutorial (6-002)}
+\end{table*}
+
+\clearpage
 
 Por tanto el testeo en esta iteración ha estado mucho más alejado del mundo de la ingeniería software y más cercano al artesanal: la prueba una y otra vez de que los distintos escenarios, mecánicas implementadas en los mismos, enemigos, etc. funcionan correctamente y no hay fallos.
 

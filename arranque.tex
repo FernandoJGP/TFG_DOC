@@ -9,6 +9,9 @@ Durante este capítulo de la memoria se presentará la lista de características qu
 La lista de características está confeccionada a partir del documento de diseño, incorporado como anexo a este documento (Ver apéndice \ref{sec:gdd}), por tanto, para encontrar una descripción más detallada tendremos que remitirnos a dicho anexo.
 
 \begin{enumerate}
+	\item Creación del personaje.
+	\item Creación de una cámara "`True first person camera"'.
+	\item Creación de una cámara en tercera persona.
 	\item Mecánica: Movimiento del personaje.
 	\begin{itemize}
 		\item Implementación del código de la mecánica.
@@ -20,6 +23,11 @@ La lista de características está confeccionada a partir del documento de diseño,
 		\item Implementación del código de la mecánica.
 		\item Asignación de teclas y botones vinculados la mecánica.
 		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Rotación del personaje vinculada a un rate.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
 	\end{itemize}
 	\item Mecánica: Sprint.
 	\begin{itemize}
@@ -33,7 +41,7 @@ La lista de características está confeccionada a partir del documento de diseño,
 		\item Asignación de teclas y botones vinculados la mecánica.
 		\item Desarrollo de la animación del personaje relacionada con la mecánica.
 	\end{itemize}
-	\item Mecánica: Agachado.
+	\item Mecánica: Agachar.
 	\begin{itemize}
 		\item Implementación del código de la mecánica.
 		\item Asignación de teclas y botones vinculados la mecánica.
@@ -46,7 +54,7 @@ La lista de características está confeccionada a partir del documento de diseño,
 		\item Desarrollo de la animación del personaje relacionada con la mecánica.
 		\item Gestión de adrenalina relacionada con la mecánica.
 	\end{itemize}
-	\item Mecánica: Parpadeo (o "`Blink"').
+	\item Mecánica: Teletransporte (o "`Blink"').
 	\begin{itemize}
 		\item Implementación del código de la mecánica.
 		\item Asignación de teclas y botones vinculados la mecánica.
@@ -54,29 +62,272 @@ La lista de características está confeccionada a partir del documento de diseño,
 		\item Gestión de adrenalina relacionada con la mecánica.
 		\item Implementación del código del indicador de blink disponible.
 	\end{itemize}
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
-	\item .
+	\item Control de límites del mapa (en otras palabras, que el usuario no pueda abandonar el mapa y si lo hace, muera).
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+	\end{itemize}
+	\item Control de máxima distancia de caída (en otras palabras, que el usuario al caer en una superficie situada en un foso, muera).
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+	\end{itemize}
+	\item Animación de rotación del personaje al girarse.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Sistema de gestión de adrenalina.
+	\begin{itemize}
+		\item Implementación del código.
+	\end{itemize}
+	\item Base del sistema de escalada (*).
+	\begin{itemize}
+		\item Implementación del código de la base del sistema de escalada.
+	\end{itemize}
+	\item Mecánica: Agarrar un saliente (*).
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+		\item Mecánica: Agarrar un saliente pequeño y escalarlo (*).
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Escalar un saliente al que estemos agarrados (*).
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Asignación de teclas y botones vinculados la mecánica.
+	\end{itemize}
+	\item Mecánica: Soltar un saliente (*).
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Movernos por un saliente.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Saltar desde saliente lateralmente.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Mirar hacia atrás desde saliente.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Saltar desde saliente mirando hacia atrás
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Escalada en pared (*).
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Mecánica: Giro y salto durante escalada en pared.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Desarrollo de la animación del personaje relacionada con la mecánica.
+	\end{itemize}
+	\item Sistema de guardado / carga.
+	\begin{itemize}
+		\item Implementación en código.
+	\end{itemize}
+	\item Sistema de muerte.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+		\item Recreación de la muerte del personaje cambiando su estado a "`ragdoll"' o "`muñeco de trapo"'.
+	\end{itemize}
+	\item Creación del HUD del usuario, con los siguientes elementos:
+	\begin{itemize}
+		\item Punto de referencia.
+		\item Indicador de "`blink"'.
+		\item Indicador de adrenalina restante.
+		\item Brújula, que le permita conocer al jugador el punto al que debe dirigirse para acabar el nivel.
+		\item Mensaje de muerte, que aparezca sólo cuando el usuario esté muerto.
+		\item Caja de tutorial, que serán usadas para mostrarles mensajes al jugador hasta que pulse el botón "`acción"'.
+		\item Recuadro de logro, que aparecerá en pantalla cuando el jugador obtenga uno.
+		\item Recuadro de juego guardado, que aparecerá al guardar juego.
+	\end{itemize}
+	\item Creación de un menú principal:
+	\begin{itemize}
+			\item Creación del mapa del menú principal.
+			\item Opción: Nuevo juego, que nos permita empezar una partida desde cero.
+			\item Opción: Cargar juego, que nos permita continuar nuestro progreso.
+			\item Opción: Ajustes, que nos permita realizar cambios en la configuración.
+			\item Opción: Salir del juego.
+		\end{itemize}
+	\item Creación de un menú de pausa:
+	\begin{itemize}
+			\item Opción: Nuevo juego, que nos permita empezar una partida desde cero.
+			\item Opción: Cargar juego, que nos permita continuar nuestro progreso.
+			\item Opción: Ajustes, que nos permita realizar cambios en la configuración.
+			\item Opción: Cerrar el menú.
+			\item Opción: Volver al menú principal.
+			\item Opción: Salir del juego.
+		\end{itemize}
+	\item Creación de un menú de ajustes, que nos de las siguientes opciones:
+	\begin{itemize}
+			\item Opción: Seleccionar idioma (inglés o español).
+			\item Opción: Seleccionar relación de aspecto de la resolución.
+			\item Opción: Seleccionar resolución.
+			\item Opción: Seleccionar entre modo pantalla completa y modo ventana.
+			\item Opción: Seleccionar diversos ajustes gráficos.
+			\item Opción: Cerrar el menú.
+		\end{itemize}
+	\item Mecánica de puzle: Botón.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Palanca.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Placa de presión.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Palanca de presión con bordes.
+	\begin{itemize}
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Puerta activable.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Puerta auto-activable por poder.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Ascensor.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Recoger "`pickables"'.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Soltar "`pickables"'.
+	\begin{itemize}
+		\item Implementación del código.
+	\end{itemize}
+	\item Mecánica de puzle: Orbe dorado.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Barrera mágica.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Expositor de "`pickables"'.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Rampa y cilindro (puzle de físicas).
+	\begin{itemize}
+		\item Implementación del código / configuración.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Display digital.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Peligros y obstáculos: Láser movible.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Peligros y obstáculos: Bloque movible.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Peligros y obstáculos: Bloque movible con pinchos.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Coleccionables.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Inteligencia artificial: Torretas.
+	\begin{itemize}
+		\item Creación del árbol de comportamiento.
+		\item Creación de las comprobaciones del árbol.
+		\item Creación de la tarea de Patrulla.
+		\item Creación de la tarea de Ataque.
+		\item Creación del proyectil a disparar (y sus cualidades).
+	\end{itemize}
+	\item Inteligencia artificial: Vigilantes.
+	\begin{itemize}
+		\item Creación del árbol de comportamiento (*).
+		\item Creación de las comprobaciones del árbol (*).
+		\item Creación de la tarea de Patrulla (*).
+		\item Creación de la tarea de Alerta por sonido.
+		\item Creación de la tarea de Seguimiento (*).
+		\item Creación de la tarea de Ataque.
+	\end{itemize}
+	\item Mecánica: Caja de tutorial.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+	\end{itemize}
+	\item Mecánica: Multi-caja de tutorial.
+	\begin{itemize}
+		\item Implementación del código de la mecánica.
+	\end{itemize}
+	\item Mapa: Introduction.
+	\begin{itemize}
+		\item Realización del HUD usado para el mapa.
+		\item Realización de los scripts del mapa.
+	\end{itemize}
+	\item Mapa: Ending.
+	\begin{itemize}
+		\item Realización del HUD usado para el mapa.
+		\item Realización de los scripts del mapa.
+	\end{itemize}
+	\item Mapa: Tutorial.
+	\begin{itemize}
+		\item Realización de la estrucctura básica del mapa.
+		\item Decoración: follaje, columnas, escaleras, etc.
+		\item Realización de puzles.
+		\item Iluminado del mapa.
+	\end{itemize}
+	\item Mapa: Level1.
+	\begin{itemize}
+		\item Realización de la estrucctura básica del mapa.
+		\item Decoración: follaje, columnas, escaleras, etc.
+		\item Realización de puzles.
+		\item Iluminado del mapa.
+		\item Colocación de enemigos y tareas asociadas (puntos de ruta, nav meshes, ...).
+	\end{itemize}
+	\item Mapa: Level2.
+	\begin{itemize}
+		\item Realización de la estrucctura básica del mapa.
+		\item Decoración: follaje, columnas, escaleras, etc.
+		\item Realización de puzles.
+		\item Iluminado del mapa.
+		\item Colocación de enemigos y tareas asociadas (puntos de ruta, nav meshes, ...).
+	\end{itemize}
+	\item Secuencia de inicio del juego.
+	\item Fade from black: Secuencia usada al iniciar un nivel.
+	\item Fade to white: Secuencia usada al tocar un cristal de teletransportación.
 \end{enumerate}
 
 \clearpage

@@ -317,7 +317,7 @@ No obstante, estando basada buena parte de esta iteración del proyecto en dichas
 		\textbf{Resumen}&Se requiere que el personaje pueda escalar zonas propicias para la escalada.\\
 		\midrule
 		\textbf{Factores causantes}&-\\
-		\textbf{Solución}&Cuando el personaje esté en frente y mirando una superficie escalabre (no importa si está quieto, en movimiento, saltando o cayendo) si el usuario pulsa el botón de "`salto"' lo suficientemente cerca se iniciará la escalada.\\
+		\textbf{Solución}&Cuando el personaje esté en frente y mirando una superficie escalable (no importa si está quieto, en movimiento, saltando o cayendo) si el usuario pulsa el botón de "`salto"' lo suficientemente cerca se iniciará la escalada.\\
 		\textbf{Motivación}&Es la solución más simple.\\
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
@@ -345,11 +345,13 @@ No obstante, estando basada buena parte de esta iteración del proyecto en dichas
 
 \subsection{Modificaciones}
 
-Respecto a la iteración anterior, debemos de hacer dos pequeñas modificaciones:
+Respecto a la iteración anterior, debemos de hacer unas pequeñas modificaciones:
 
 \begin{enumerate}
 	\item La acción de "`salto"' cambia respecto a la iteración anterior, puesto que ahora el personaje saltará o no dependiendo de si puede hacer una carrera en pared: Si se puede realizar una carrera en pared se le dará prioridad a ésta y si no, el personaje simplemente saltará, como se hacía hasta ahora.
 	\item Igualmente, la acción de "`agachar"' ahora no sólo se usa para agachar al personaje, sino que en caso de encontrarse en un saliente, al ejecutarse esta acción se soltará de él (en caso contrario, seguirá agachándose).
+	\item Cuando estamos agarrados a un saliente, todos los intentos de ir hacia delante o atrás, pulsando los botones de movimiento relacionados, serán ignorados en ese sentido (sí, por ejemplo, podremos usar el botón de movimiento "`atrás"' cuando estemos agarrados a un saliente para girarnos, pero no nos moveremos).
+	\item De la misma forma, no podremos movernos, en ningún sentido, cuando estemos escalando un saliente.
 \end{enumerate}
 
 \clearpage

@@ -2,16 +2,483 @@
 \chapter{Quinta iteración}
 
 \begin{abstract}
-TODO TODO TODO
+La quinta iteración tratará sobre la inteligencia artificial del videojuego: diseñaremos e implementaremos los enemigos que dispondrán de este tipo de inteligencia: las torretas y los "`vigilantes"'.
 \end{abstract}
+
+\section{Introducción}
+
+La quinta iteración se centra de lleno en la inteligencia artificial del juego, siendo la iteración donde debemos crear y asignarles inteligencia a los personajes que disfrutarán de ella en el juego.
+
+Estos personajes son tres en total, aunque dos comparten la misma inteligencia artificial:
+\begin{enumerate}
+	\item Torreta de suelo.
+	\item Torreta de techo.
+	\item Vigilantes.
+\end{enumerate}
+
+Como se puede suponer, los dos enemigos que comparten la misma inteligencia son las "`torretas de suelo"' y las "`torretas de techo"'.
+
+La inteligencia artificial en Unreal Engine se implementa en \glsps{blueprint}, mediante árboles de decisión.
+
+Estos árboles se componen de un nodo de entrada ("`root"') que va conectado a un nodo que se encargará de realizar las comprobaciones para pasar de un nodo a otro. Este nodo se ejecuta una vez cada intervalo de tiempo que se le indique.
+
+A partir de este nodo de comprobación emanan otros nodos, en la mayoría de los casos nodos de tarea, que normalmente están dentro de selectores (para ejecutar una parte del árbol en función de si se cumple una determinada condición) o secuencias (usado ejecutar distintos nodos en orden).
+
+También tenemos que tener presente que podemos indicar que una parte del árbol se pueda auto-abortar: Por ejemplo, si estamos buscando al enemigo y lo hemos visto, que abandone inmediatamente la tarea de patrulla e inicie la de persecución.
+
+\clearpage
+
+\subsection{Torretas}
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.78]{figures/torretas.png}
+		\caption{Fotograma los dos modelos de torreta usados en el juego}
+\end{figure*}
+
+Las torretas son enemigos estáticos que intentarán disparar un proyectil (bala) a nuestro personaje cuando lo detecten. La única, pero letal, forma para detectar al enemigo de la que disponen las torretas es mediante sensores, que a efectos prácticos es un campo de visión de 360 grados, por lo que aunque la torreta no nos esté mirando en ese momento nos detectará si no hay ningún obstáculo entre el personaje y ella.
+
+La torreta tiene dos estados básicos:
+\begin{enumerate}
+	\item \textbf{Patrulla} (o "`idle"' en el código del juego): Selecciona una nueva rotación aleatoria (en función a unos parámetros, para que no se descuadre el modelo) y rota desde la rotación actual a la nueva, de forma suave, dando la sensación de que está escaneando el entorno en busca de enemigos.
+	\item \textbf{Ataque} (o "`attack"' en el código): Se pasa a esta tarea cuando la torreta detecta al enemigo. En este caso la torreta gira rápidamente y empieza a disparar al protagonista (con un intervalo entre bala y bala de un segundo).
+\end{enumerate}
+
+\clearpage
+
+En la siguiente figura se puede apreciar, a grandes rasgos, el árbol de comportamiento de las torretas:
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.56]{figures/torreta-tree.png}
+		\caption{Imagen del árbol de comportamiento de las torretas}
+\end{figure*}
+
+Este árbol es mucho más simple que el de los vigilantes. Como podemos ver, cada estado consta de dos nodos: uno de ellos es uno de los ya explicados ("`idle"' y "`attack"') y el restante que los acompaña se encarga de tareas menores: reproducir sonido de alerta / reposo o cambiar el color del láser en función del estado en el que se encuentre actualmente la torreta.
+
+\clearpage
+
+\subsection{Vigilantes}
+
+Los vigilantes difieren mucho de las torretas:
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.7]{figures/vigilante.png}
+		\caption{Captura de los vigilantes, enemigos humanoides usados en el juego}
+\end{figure*}
+
+\begin{itemize}
+	\item Patrullan el escenario, de un punto prefijado a otro.
+	\item La única forma que tienen de realmente detectar nuestra presencia e iniciar un ataque es que nos vean directamente.
+	\item Sin embargo, son totalmente ciegos fuera de su cono de visión.
+	\item Pueden escucharnos si emitimos ruido, lo que provocará que miren durante unos instantes a la ubicación del ruido.
+	\item Y si nos ven, empezarán a perseguirnos hasta que nos alcancen y nos disparen (o abandonemos el área definida donde se pueden mover, se explica más adelante).
+	\item Si pierden al jugador de vista, volverán a su protocolo habitual.
+	\item En todo momento evitarán obstáculos del escenario.
+\end{itemize}
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.66]{figures/vigilante-tree.png}
+		\caption{Fotograma del árbol de comportamiento de los vigilantes}
+\end{figure*}
+
+Este área definida de la que hablamos se llama \textbf{"`Nav Mesh Bounds Volume"'} y debe colocarse en el escenario en el que coloquemos a nuestro vigilante puesto que sin ella, nuestro vigilante no se moverá nunca. Este "`Nav Mesh Bounds Volume"' es el encarcado de escanear el escenario y producir las superficies y caminos que puede seguir un actor con inteligencia artificial en él.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.58]{figures/nav-mesh.png}
+		\caption{Fotograma en el que se aprecia el trabajo de un "`Nav Mesh Bounds Volume"'}
+\end{figure*}
+
+\clearpage
+
+Además de esto, dentro del citado "`Nav Mesh Bounds Volume"' se colocarán "`way points"' o puntos de ruta, los cuales están numerados, y entre los cuales vigilante se desplazará durante su patrulla.
+
+El campo de visión es sólo estético, la forma en la que nos detectan (y que por supuesto sí coincide con el campo de luz) es la siguiente: se traza una linea desde el inicio del cono de visión del enemigo al personaje principal, en todo momento y a partir de ahí se pueden dar una serie de factores:
+
+\begin{itemize}
+	\item Si la línea trazada choca con algún elemento que no sea el actor principal, no le podrá ver.
+	\item Si la línea trazada choca con el actor principal, pero no forman un ángulo oportuno que indicase que el actor está dentro del cono, no le podrá ver.
+	\item Si la línea trazada choca con el actor principal y además está en un ángulo que indique que está dentro del cono, le verá y empezará la persecución y el ataque.
+\end{itemize}
+
+Si bien las torretas no tenían ningún tipo de \gls{blueprint} de animación, tendremos que hacer uno para los vigilantes. Además, cabe destacar que el modelo que da vida al vigilante es modular, lo que ha sido un pequeño quebradero de cabeza a la hora de animarlo.
+
+\clearpage
 
 \section{Características a desarrollar}
 
+\begin{enumerate}
+	\item Inteligencia artificial: Torretas.
+	\begin{itemize}
+		\item Creación del árbol de comportamiento.
+		\item Creación de las comprobaciones del árbol.
+		\item Creación de la tarea de Patrulla.
+		\item Creación de la tarea de Ataque.
+		\item Creación del proyectil a disparar (y sus cualidades).
+	\end{itemize}
+	\item Inteligencia artificial: Vigilantes.
+	\begin{itemize}
+		\item Creación del árbol de comportamiento (*).
+		\item Creación de las comprobaciones del árbol (*).
+		\item Creación de la tarea de Patrulla (*).
+		\item Creación de la tarea de Alerta por sonido.
+		\item Creación de la tarea de Seguimiento (*).
+		\item Creación de la tarea de Ataque.
+	\end{itemize}
+\end{enumerate}
+
+\midrule
+
+Para la realización (o parte de la realización) de las mecánicas marcadas con un asterisco (*), todas ellas referentes al vigilante, se siguieron las siguientes referencias (que en realidad son partes de una misma):
+\begin{itemize}
+	\item \url{https://youtu.be/VAAHKNoIg0w}
+	\item \url{https://youtu.be/UrSxEtOOHy8}
+	\item \url{https://youtu.be/_Oll-Cl_JQw}
+	\item \url{https://youtu.be/1TWNMkj4FP0}
+	\item \url{https://youtu.be/sr9-w5jiUow}
+\end{itemize}
+
+No obstante, tenemos que tener en cuenta lo siguiente:
+\begin{enumerate}
+	\item Si bien se siguió como referencia, el propósito que se persigue no es el mismo, por lo tanto el sistema ha recibido cambios sustanciales.
+	\item Nuestro "`bot"' tiene una tarea más, que es la de rotarse hacia un sonido generado en su rango.
+	\item Se han eliminado algunas tareas y se han añadido algunas propias, por ejemplo la tarea de "`rotate to target"' no existía y, al no hacerlo, el personaje rotaba sin ningún tipo de animación, lo que se traducía en un resultado muy artificial.
+	\item Se han implementado funcionalidades realmente importantes sobre la base que se ha utilizado: Se nos permitía añadir a uno o varios enemigos siguiendo los mismos puntos, pero si queríamos tener diferentes enemigos patrullando en diferentes lugares del mapa era imposible, y se ha añadido a la funcionalidad.
+\end{enumerate}
+
+\clearpage
+
 \section{Diseño}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 5-001: Torreta - Comprobaciones del árbol de comportamiento}
+		\textbf{Asunto}&Torreta - Comprobaciones del árbol de comportamiento\\
+		\textbf{Resumen}&Se requiere que, continuamente, se obtenga la información precisa para pasar de un nodo a otro del árbol de comportamiento de las torretas.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea un servicio con el fin de ser el nodo principal del árbol de comportamiento que gestionará las consultas precisas para que la inteligencia artificial funcione (se actualice) correctamente.\\
+		\textbf{Motivación}&Forma estándar de hacerlo.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 5-001: Torreta - Comprobaciones del árbol de comportamiento}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 5-002: Torreta - Comportamiento de patrulla}
+		\textbf{Asunto}&Torreta - Comportamiento de patrulla\\
+		\textbf{Resumen}&Se requiere que la torreta esté en un estado de espera siempre que no detecte al enemigo.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea una tarea que formará parte del árbol de comportamiento y recree ese comportamiento cuando sea oportuno (según lo que indique el servicio).\\
+		\textbf{Motivación}&Forma estándar de hacerlo.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 5-002: Torreta - Comportamiento de patrulla}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 5-003: Torreta - Comportamiento de seguimiento}
+		\textbf{Asunto}&Torreta - Comportamiento de seguimiento\\
+		\textbf{Resumen}&Se requiere que la torreta siga al jugador cuando lo detecte y no pueda dispararle.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea una tarea que formará parte del árbol de comportamiento y recree ese comportamiento cuando sea oportuno (según lo que indique el servicio).\\
+		\textbf{Motivación}&Forma estándar de hacerlo.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 5-003: Torreta - Comportamiento de ataque}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 5-004: Torreta - Comportamiento de ataque}
+		\textbf{Asunto}&Torreta - Comportamiento de ataque\\
+		\textbf{Resumen}&Se requiere que la torreta dispare al jugador cuando lo detecte y pueda dispararle.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea una tarea que formará parte del árbol de comportamiento y recree ese comportamiento cuando sea oportuno (según lo que indique el servicio).\\
+		\textbf{Motivación}&Forma estándar de hacerlo.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 5-004: Torreta - Comportamiento de ataque}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 5-005: Vigilante - Comprobaciones del árbol de comportamiento}
+		\textbf{Asunto}&Vigilante - Comprobaciones del árbol de comportamiento\\
+		\textbf{Resumen}&Se requiere que, continuamente, se obtenga la información precisa para pasar de un nodo a otro del árbol de comportamiento del vigilante.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea un servicio con el fin de ser el nodo principal del árbol de comportamiento que gestionará las consultas precisas para que la inteligencia artificial funcione (se actualice) correctamente.\\
+		\textbf{Motivación}&Forma estándar de hacerlo.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 5-005: Vigilante - Comprobaciones del árbol de comportamiento}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 5-006: Vigilante - Elegir el siguiente punto de ruta}
+		\textbf{Asunto}& Vigilante - Elegir el siguiente punto de ruta\\
+		\textbf{Resumen}&Se requiere que el vigilante gestione sus puntos de ruta y elija el próximo al completar uno.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea una tarea que formará parte del árbol de comportamiento y recree ese comportamiento cuando sea oportuno (según lo que indique el servicio).\\
+		\textbf{Motivación}&Forma estándar de hacerlo.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 5-006: Vigilante - Elegir el siguiente punto de ruta}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 5-007: Vigilante - Rotar hacia el siguiente punto de ruta}
+		\textbf{Asunto}& Vigilante - Rotar hacia el siguiente punto de ruta\\
+		\textbf{Resumen}&Cuando el vigilante sepa a qué punto debe dirigirse, debe rotar suavemente hacia él.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea una tarea que formará parte del árbol de comportamiento y recree ese comportamiento cuando sea oportuno (según lo que indique el servicio).\\
+		\textbf{Motivación}&Forma estándar de hacerlo.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 5-007: Vigilante - Rotar hacia el siguiente punto de ruta}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 5-008: Vigilante - Desplazarse hasta el siguiente punto de ruta}
+		\textbf{Asunto}& Vigilante - Desplazarse hasta el siguiente punto de ruta\\
+		\textbf{Resumen}&Cuando el vigilante sepa a qué punto debe dirigirse y rote hacia él, debe dirigirse andando hacia él.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea una tarea que formará parte del árbol de comportamiento y recree ese comportamiento cuando sea oportuno (según lo que indique el servicio).\\
+		\textbf{Motivación}&Forma estándar de hacerlo.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 5-008: Vigilante - Desplazarse hasta el siguiente punto de ruta}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 5-009: Vigilante - Rotar hacia la ubicación del ruido}
+		\textbf{Asunto}& Vigilante - Rotar hacia la ubicación del ruido\\
+		\textbf{Resumen}&Cuando el vigilante oiga un ruido, debe rotar hacia él.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea una tarea que formará parte del árbol de comportamiento y recree ese comportamiento cuando sea oportuno (según lo que indique el servicio).\\
+		\textbf{Motivación}&Forma estándar de hacerlo.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 5-009: Vigilante - Rotar hacia la ubicación del ruido}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 5-010: Vigilante - Perseguir al protagonista}
+		\textbf{Asunto}& Vigilante - Perseguir al protagonista\\
+		\textbf{Resumen}&Cuando el vigilante vea al protagonista, si no está en rango, debe correr hacia él.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea una tarea que formará parte del árbol de comportamiento y recree ese comportamiento cuando sea oportuno (según lo que indique el servicio).\\
+		\textbf{Motivación}&Forma estándar de hacerlo.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 5-010: Vigilante - Perseguir al protagonista}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 5-011: Vigilante - Atacar al protagonista}
+		\textbf{Asunto}& Vigilante - Atacar al protagonista\\
+		\textbf{Resumen}&Cuando el vigilante vea al protagonista, si no está en rango, debe correr hacia él.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea una tarea que formará parte del árbol de comportamiento y recree ese comportamiento cuando sea oportuno (según lo que indique el servicio).\\
+		\textbf{Motivación}&Forma estándar de hacerlo.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 5-011: Vigilante - Atacar al protagonista}
+\end{table*}
+
+\clearpage
 
 \section{Implementación}
 
+\begin{asigResponsabilidad}{5-001}{Torreta - Comprobaciones del árbol de comportamiento}
+{[void] ReceiveTickAI () - Servicio "`TurretChecks"'}
+\pasoPseudo{1. Se obtiene el objeto asociado a la IA y se extrae de él si detecta al personaje (mediante un componente de la clase "`AIPerception"' configurado únicamente en visibilidad):}
+\pasoPseudo{1.1. Si detecta al personaje:}
+\pasoPseudo{1.1.1. Cambia la variable "`bCanShoot"' a verdadero.}
+\pasoPseudo{1.2. Si \textbf{no} detecta al personaje:}
+\pasoPseudo{1.2.1. Cambia la variable "`bCanShoot"' a falso.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{5-002}{Torreta - Comportamiento de patrulla}
+{[void] ReceiveExecuteAI () - Tarea "`TurretIdle"'}
+\pasoPseudo{1. Se elije un valor al azar entre -30 y 30.}
+\pasoPseudo{2. Se aplica el vector de rotación (0,[valor],0) a la rotación de la cabeza de la torreta (encargada del giro vertical), siendo "`[valor]"' el valor obtenido en el paso anterior.}
+\pasoPseudo{3. Se elije un valor al azar entre -180 y 180.}
+\pasoPseudo{4. Se aplica el vector de rotación (0,0,[valor]) a la rotación de la columna intermedia de la torreta (encargada del giro horizontal), siendo "`[valor]"' el valor obtenido en el paso anterior.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{5-003}{Torreta - Comportamiento de seguimiento}
+{[void] ReceiveExecuteAI () - Tarea "`TurretFollowing"'}
+\pasoPseudo{1. Se calcula el vector de rotación que habría que aplicar para que la cabeza de la torreta mirase al objetivo, en este caso el personaje.}
+\pasoPseudo{2. Se aplica a la columna de la torreta el vector rotación calculado, pero sólo su componente "`Pitch"' (su componente Y). Con esto la torreta mirará horizontalmente en la dirección del jugador.}
+\pasoPseudo{3. Se aplica a la cabeza de la torreta el vector rotación calculado, pero sólo su componente "`Yaw"' (su componente Z). Con esto la torreta mirará verticalmente en la dirección del jugador.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{5-004}{Torreta - Comportamiento de ataque}
+{[void] ReceiveExecuteAI () - Tarea "`TurretShooting"'}
+\pasoPseudo{1. Se calcula la dirección en la que tiene que salir la bala.}
+\pasoPseudo{2. Se aplican dichos cambios a la bala para que salga orientada en la posición correcta.}
+\pasoPseudo{3. Se spawnea la bala (se emplaza en el mundo) en la posición de indicada en el \gls{blueprint} de la torreta (justo a la salida del cañón). Como el \gls{blueprint} de la bala tiene un componente proyectil adherido, se dispara la bala según su configuración (velocidad, tiempo de autodestrucción, etc.).}
+\pasoPseuco{4. Se aplica un cooldown (tiempo de espera) de un segundo hasta que se pueda volver a ejecutar esta tarea.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{5-005}{Vigilante - Comprobaciones del árbol de comportamiento}
+{[void] ReceiveTickAI () - Servicio "`HumanoidChecks"'}
+\pasoPseudo{1. Se calcula la distancia entre el vigilante y el personaje principal:}
+\pasoPseudo{1.1. Si la distancia está en rango:}
+\pasoPseudo{1.1.1. Se comprueba si el vigilante puede ver al jugador:}
+\pasoPseudo{1.1.1.1. Si puede verlo:}
+\pasoPseudo{1.2.1. Se cambia el estado del vigilante a "`búsqueda"'.}
+\pasoPseudo{1.1.1.2. Si \textbf{no} puede verlo:}
+\pasoPseudo{1.1.1.2.1. Se comprueba si el vigilante puede oír al jugador:}
+\pasoPseudo{1.1.1.2.1.1. Si puede oírlo:}
+\pasoPseudo{1.1.1.2.1.1.1. Si el vigilante se encuentra en estado de "`patrulla"' o de "`alerta por sonido"' se establece el cambia (o no) el estado del vigilante a "`alerta por sonido"'}
+\pasoPseudo{1.1.1.2.1.2. Si \textbf{no} puede oírlo:}
+\pasoPseudo{1.1.1.2.1.2.1. Se cambia el estado del vigilante a "`patrulla"'.}
+\pasoPseudo{1.1.1.2.1.2.2. Se borra el "`foco"' del vigilante.}
+\pasoPseudo{1.2. Si la distancia \textbf{no} está en rango:}
+\pasoPseudo{1.2.1. Se cambia el estado del vigilante a "`patrulla"'.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{5-006}{Vigilante - Elegir el siguiente punto de ruta}
+{[void] ReceiveExecuteAI () - Tarea "`NextRoute"'}
+\pasoPseudo{1. Obtiene el próximo ID de ruta. Si aún no hay o se ha superado el máximo total de rutas será el ID 0. En caso de que haya más de una ruta con el mismo ID, obtiene el más cercano.}
+\pasoPseuso{2. Fija como objetivo destino la localización del punto de ruta encontrado.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{5-007}{Vigilante - Rotar hacia el siguiente punto de ruta}
+{[void] ReceiveExecuteAI () - Tarea "`RotateToRoute"'}
+\pasoPseudo{1. Obtiene el vector rotador necesario para rotar desde la posición actual hasta una posición en la que encare el punto destino.}
+\pasoPseuso{2. Nos quedamos sólo como el componente Z ("`Yaw"') de dicho vector.}
+\pasoPseuso{3. Calculamos si debe rotar hacia la izquierda o hacia la derecha.}
+\pasoPseuso{4. Le comunicamos al \gls{blueprint} de animación el resultado: "`-1"' si debe rotar a la izquierda y "`1"' si debe rotar a la derecha. Si no debe rotar, le remitimos "`0"'.}
+\pasoPseuso{5. Procedemos a rotar al personaje de forma suave, pero sólo en su componente Z ("`Yaw"').}
+\pasoPseuso{6. Cuando acaba el movimiento de rotación totalmente, le comunicamos al \gls{blueprint} de animación que ha acabado la rotación para que el personaje deje de rotar, es decir, le enviamos un "`0"'.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{5-008}{Vigilante - Desplazarse hasta el siguiente punto de ruta}
+{-}
+\pasoPseudo{1. Utilizamos el nodo predefinido "`MoveTo"', del árbol de comportamiento, enviándole como parámetro la localización del punto de ruta que obtuvimos antes.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{5-009}{Vigilante - Rotar hacia la ubicación del ruido}
+{[void] ReceiveExecuteAI () - Tarea "`RotateToNoise"'}
+\pasoPseudo{(Similar al visto en "`RotateToRoute"', salvo que esta vez rotará hacia el ruido. Se omite por su parecido.)}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{5-010}{Vigilante - Perseguir al protagonista}
+{[void] ReceiveExecuteAI () - Tarea "`MoveToEnemy"'}
+\pasoPseudo{1. Comprueba el estado actual del comportamiento del vigilante:}
+\pasoPseudo{1.1. Si el estado es "`patrulla"' o "`alerta por sonido"':}
+\pasoPseudo{1.1.1. Acaba la ejecución.}
+\pasoPseudo{1.2. Si el estado es "`perseguir"' o "`atacar"':}
+\pasoPseudo{1.2.1. Se establece como foco del vigilante al protagonista.}
+\pasoPseudo{1.2.2. Rotamos al vigilante para que encare al personaje principal.}
+\pasoPseudo{1.2.3. Le indicamos al personaje que persiga al jugador y le indicamos un radio de aceptación, que nos servirá para detener este movimiento.}
+\pasoPseudo{1.2.4. Cuando el enemigo alcanza al personaje, cambia su estado a "`atacar"'.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{5-011}{Vigilante - Atacar al protagonista}
+{[void] ReceiveExecuteAI () - Tarea "`AttackToEnemy"'}
+\pasoPseudo{1. Lanza un láser en la dirección del protagonista.}
+\pasoPseudo{2. Lanza el evento de muerte del personaje.}
+\end{asigResponsabilidad}
+
+\clearpage
+
 \section{Pruebas}
+
+Para la realización de las pruebas de esta iteración se ha decidido crear un mapa llamado \textbf{"`Test\_EnemiesMechanics"'} que no será accesible desde el juego (pero sí desde la versión de editor del desarrollador) cuyo objetivo no es otro que testear la inteligencia artificial de los enemigos que hemos creado.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.6]{figures/test-map-4.png}
+		\caption{Fotograma del mapa de pruebas empleado en la iteración 5}
+\end{figure*}
+
+Este mapa se divide en dos partes, una en la que podremos probar el comportamiento del vigilante y otra en la que podremos hacer lo propio con el de ambas torretas, con las coberturas necesarias para probar las distintas facetas de la inteligencia artificial (por ejemplo, que las torretas no nos disparen a través de las paredes).
+
+Las pruebas que se realizarán en esta sección serán por enemigo y no por funcionalidad como hemos visto en los anteriores capítulos. Esto es porque toda la funcionalidad se ejecuta en secuencia, y es muy difícil probar una funcionalidad del comportamiento específicamente. Además, lo que nos interesa es el comportamiento global del enemigo, definido en la introducción de este capítulo y en el documento de diseño.
+
+Se han realizado las siguientes pruebas:
+
+\clearpage
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Comportamiento global - Torretas}
+		\begin{enumerate}
+			\item Si la torreta no tiene forma de vernos, permanece en fase de búsqueda.
+			\item En cuanto la torreta tenga la posibilidad de vernos (esté mirando o no) se girará hacia nosotros y disparará.
+			\item Una vez que la torreta dispare, no podrá volver a disparar inmediatamente (deberá esperar 1 segundo entre tiro y tiro).
+			\item Si la torreta deja de vernos, en ese mismo instante pasará a fase de búsqueda, olvidándose por completo de nosotros.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Comportamiento global - Torretas}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Comportamiento global - Vigilantes}
+		\begin{enumerate}
+			\item El vigilante sólo podrá vernos si nos introducimos dentro de su cono de visión.
+			\item El vigilante sólo no podrá oírnos si vamos agachados.
+			\item Si el vigilante está patrullando: irá de un punto a otro, rotando antes de partir hacia el siguiente punto.
+			\item Si el vigilante nos oye, se girará hacia nosotros (si no nos está persiguiendo ya).
+			\item Si el vigilante ve al personaje, entonces correrá hacia él.
+			\item Si después de correr detrás del personaje lo pierde, volverá a su estado de patrulla habitual.
+			\item Si después de correr detrás del personaje logra alcanzarlo, lo atacará y el personaje morirá.
+			\item Si el vigilante ve al personaje y está cerca, lo atacará directamente.
+			\item Si abandonamos el área del vigilante, este no nos seguirá.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Comportamiento global - Vigilantes}
+\end{table*}
 
 \section{Despliegue}
 

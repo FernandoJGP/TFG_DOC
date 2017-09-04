@@ -102,7 +102,29 @@ Además, se implementarán:
 	\item \textbf{Display digital}: Están vinculados con una placa de presión. Muestran el peso actual y el peso objetivo necesario para activar la placa de presión.
 \end{enumerate}
 
-\subsection{Peligros a implementar}
+\clearpage
+
+\subsubsection{Obteniendo y perdiendo poderes}
+
+La forma en la que nuestro personaje podrá utilizar habilidades especiales o perder el derecho a usarlas es entrando en contacto con un "`orbe dorado"' o una "`barrera mágica"', respectivamente.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.42]{figures/powerup.png}
+		\caption{Captura del modelo de "`orbe dorado"'}
+\end{figure*}
+
+Además, las "`barreras mágicas"' funcionan como \textbf{delimitador de puzles}: si intentamos entrar con alguna estatuilla ("`pickable"') a través de ella, la estatuilla se le quitará a nuestro personaje y se \textbf{devolverá a su ubicación por defecto}. Lo mismo pasará si intentamos arrojar estas estatuillas, haciendo uso de las físicas, a través de la barrera aunque nuestro personaje no cruce por ellas.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.42]{figures/powerdown.png}
+		\caption{Imagen del modelo de "`barrera mágica"'}
+\end{figure*}
+
+\clearpage
+
+\subsection{Peligros y obstáculos}
 
 Se implementarán:
 
@@ -118,19 +140,720 @@ El resto de peligros vendrán en forma de enemigos, que se implementarán durante 
 
 \clearpage
 
+\subsection{Coleccionables}
+
+Durante su viaje, el protagonista podrá encontrar coleccionables repartidos por los templos, obteniendo logros en el proceso. Estos coleccionables tienen forma de katana, y para recogerlos sólo tiene que entrar en contacto con ellos.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.5]{figures/collectible.png}
+		\caption{Imagen del modelo de coleccionable}
+\end{figure*}
+
+Cada coleccionable tiene un "`ID"', una vez recogido, esa ID se guardará en el archivo de guardado "`Achievements"' evitando que el coleccionable aparezca en futuras partidas o cuando se cargue el juego.
+
+Cuando se alcance un número de coleccionables total que esté relacionado con un logro, aparecerá en pantalla el mismo.
+
+\clearpage
+
 \section{Características a desarrollar}
+
+\begin{enumerate}
+	\item Mecánica de puzle: Botón.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Palanca.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Placa de presión.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Palanca de presión con bordes.
+	\begin{itemize}
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Puerta activable.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Puerta auto-activable por poder.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Ascensor.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Recoger "`pickables"'.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Soltar "`pickables"'.
+	\begin{itemize}
+		\item Implementación del código.
+	\end{itemize}
+	\item Mecánica de puzle: Orbe dorado.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Barrera mágica.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Expositor de "`pickables"'.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Rampa y cilindro (puzle de físicas).
+	\begin{itemize}
+		\item Implementación del código / configuración.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Mecánica de puzle: Display digital.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Peligros y obstáculos: Láser movible.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Peligros y obstáculos: Bloque movible.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Peligros y obstáculos: Bloque movible con pinchos.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+	\item Coleccionables.
+	\begin{itemize}
+		\item Implementación del código.
+		\item Realización / obtención del modelo usado.
+	\end{itemize}
+\end{enumerate}
 
 \clearpage
 
 \section{Diseño}
 
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-001: Botón}
+		\textbf{Asunto}&Botón\\
+		\textbf{Resumen}&Se requiere que el usuario pueda activar objetos pulsando un botón. Se quiere que no pueda activarlo sin querer estando de espaldas o mirando hacia otro sitio.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea un modelo de botón y se implementa que el usuario pueda activarlo cuando esté dentro de su caja de colisión asociada y pulse el botón de "`acción"' mirándolo.\\
+		\textbf{Motivación}&Es la solución más fácil para el fin que estamos buscando.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-001: Botón}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-002: Palanca}
+		\textbf{Asunto}&Palanca\\
+		\textbf{Resumen}&Se requiere que el usuario pueda activar objetos accionando una palanca. Se quiere que no pueda activarla sin querer estando de espaldas o mirando hacia otro sitio.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se obtendrá un modelo de palanca y se implementa que el usuario pueda activarla cuando esté dentro de su caja de colisión asociada y pulse el botón de "`acción"' mirándola, de manera similar al botón.\\
+		\textbf{Motivación}&Solución usada anteriormente.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-002: Palanca}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-003: Placa de presión}
+		\textbf{Asunto}&Placa de presión\\
+		\textbf{Resumen}&Se requiere que el usuario pueda estar encima de placas de presión para activar o desactivar objetos. También queremos que pueda arrojar "`pickables"' a la placa. Además, las placas pueden requerir un peso mínimo para activarse.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea un modelo de placa de presión y se implementa sólo se activen si cumplen el peso mínimo (pudiendo ser cero), ya sea porque esté el protagonista encima o algún "`pickable"'.\\
+		\textbf{Motivación}&Es la solución más fácil para el fin que estamos buscando.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-003: Placa de presión}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-004: Placa de presión con bordes}
+		\textbf{Asunto}&Placa de presión con bordes\\
+		\textbf{Resumen}&Se requiere exactamente lo mismo que en las placas de presión ordinarias, pero esta vez que el modelo tenga bordes para que sea más cómodo colocar "`pickables"'.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se hereda de la placa de presión ordinaria y se modifica el modelo, sin modificar el código.\\
+		\textbf{Motivación}&Es la solución más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-004: Placa de presión con bordes}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-005: Puerta activable}
+		\textbf{Asunto}&Puerta activable\\
+		\textbf{Resumen}&Se requiere que este tipo de puertas puedan activarse o desactivarse.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&La puerta heredará de "`activatables"' y se mantendrá abierta o cerrada en función de si un objeto "`powerable"' le da poder o no.\\
+		\textbf{Motivación}&Es la solución más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-005: Puerta activable}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-006: Puerta auto-activable por poder}
+		\textbf{Asunto}&Puerta auto-activable por poder\\
+		\textbf{Resumen}&Se requiere que este tipo de puertas se activen automáticamente si el personaje tiene poderes, cuando detecten que éste está cerca.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando el jugador entre en contacto con la caja de colisión asociada a la puerta, se comprobará si el personaje tiene poderes y, en función, de eso se abrirá o no..\\
+		\textbf{Motivación}&Es la solución más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-006: Puerta auto-activable por poder}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-007: Ascensor}
+		\textbf{Asunto}&Ascensor\\
+		\textbf{Resumen}&Se requiere la implementación de un ascensor que nos lleve, verticalmente (en principio), de un punto a otro.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&El ascensor heredará de "`moveable"' e incorporará dentro de sí mismo una palanca para activar o desactivar el propio ascensor (o lo que será lo mismo, movernos al punto de inicio o al de destino).\\
+		\textbf{Motivación}&Es la solución más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-007: Ascensor}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-008: Recoger "`pickables"'}
+		\textbf{Asunto}&Recoger "`pickables"'\\
+		\textbf{Resumen}&Se requiere que el personaje pueda recoger objetos marcados como "`pickables"' y transportarlos en su cinturón. Se requiere además que sólo pueda coger uno al mismo tiempo.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando el personaje esté en contacto con la caja de colisión del "`pickable"', si pulta el botón acción el pickable se atará a su modelo, a la altura del cinturón (desactivando las físicas del "`pickable"', puesto que en caso contrario tendremos problemas de colisiones). Antes de cogerlo, se comprobará si ya tenemos un "`pickable"' en nuestro cinturón.\\
+		\textbf{Motivación}&Es la solución más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-008: Recoger "`pickables"'}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-009: Soltar "`pickables"'}
+		\textbf{Asunto}&Soltar "`pickables"'\\
+		\textbf{Resumen}&Se requiere que el personaje pueda soltar los "`pickables"' y que esté trasportando en su cinturón.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando el personaje tenga un "`pickable"' con él y pulse el botón "`acción"' lo soltará delante de él.\\
+		\textbf{Motivación}&Es la solución más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-009: Soltar "`pickables"'}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-010: Orbe dorado}
+		\textbf{Asunto}&Orbe dorado\\
+		\textbf{Resumen}&Se requiere que el personaje pueda ganar habilidades especiales recogiendo orbes dorados. Sólo lo podrá recoger si no tiene poderes aún.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando el personaje entre en la caja de colisión relacionada con el "`orbe dorado"', ganará poderes y todos los orbes del nivel se desactivarán: cambiarán su textura a una transparente y no será posible ganar poderes de nuevo, hasta que los perdamos.\\
+		\textbf{Motivación}&Es la solución más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-010: Orbe dorado}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-011: Barrera mágica}
+		\textbf{Asunto}&Barrera mágica\\
+		\textbf{Resumen}&Se requiere que el personaje pierda los poderes al entrar en contacto con la barrera mágica y, además, que le sea imposible al jugador pasar "`pickables"' de una lado de la barrera mágica al otro.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando el personaje entre en la caja de colisión relacionada con el la "`barrera mágica"' se le quitarán los poderes, se activarán todos los orbes dorados del nivel y se comprobará si está acarreando algún "`pickable"' con él, en caso positivo se devolverá a su ubicación de inicio. Igualmente, si es un "`pickable"' el que entra en contacto con la caja de colisión, se devolverá igualmente a su posición de inicio (el jugador podría hacer esto lanzando el "`pickable"' a la barrera, gracias a las físicas del mismo).\\
+		\textbf{Motivación}&Es la solución más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-011: Barrera mágica}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-012: Expositor de pickables}
+		\textbf{Asunto}&Expositor de pickables\\
+		\textbf{Resumen}&Se requiere una forma fácil de emplazar "`pickables"' en el nivel y que sean visibles por el jugador. En este caso se quiere que estén en una peana acompañados de una luz y que se pueda seleccionar el tipo de "`pickable"' que se quiere colocar en la peana.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Creamos un \gls{blueprint} con el modelo de peana y colocamos arriba del mismo un actor hijo de la clase "`pickable"', pudiendo seleccionarse posteriormente (cuando se coloque en el escenario) el tipo de "`pickable"' que se quiere que contenga el expositor.\\
+		\textbf{Motivación}&Es la solución más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-012: Expositor de pickables}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-013: Rampa y cilindro (puzle de físicas)}
+		\textbf{Asunto}&Rampa y cilindro (puzle de físicas)\\
+		\textbf{Resumen}&Se requiere que el personaje pueda caminar en una rampa colocada encima de un cilindro y esta modifique su rotación ajustándose al peso del personaje.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crean los modelos de rampa y cilindro, se sitúa la rampa encima de éste último y se le activan las físicas, bloqueando las físicas en ejes de localización y rotación pertinentes para evitar que la tabla o rampa pueda abandonar su posición totalmente.\\
+		\textbf{Motivación}&Es la solución más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-013: Rampa y cilindro (puzle de físicas)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-014: Display digital}
+		\textbf{Asunto}&Display digital\\
+		\textbf{Resumen}&Se requiere de la creación de algún display que nos muestre información sobre el peso actual y objetivo de un placa de presión (con o sin bordes).\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea el modelo relacionado, que contenga un "`Text Render"' (en el que se imprimirá el peso actual y el obejtivo) y delegaremos en la placa de presión, desde la que se seleccionará el display asociado, al que le enviará información cuando se actualice.\\
+		\textbf{Motivación}&Es la solución más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-014: Display digital}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-015: Láser movible}
+		\textbf{Asunto}&Láser movible\\
+		\textbf{Resumen}&Se requiere que estos láseres maten al personaje si no está teletransportándose y, además, que puedan moverse a una determinada velocidad, hacia una determinada posición, etc. una vez emplazados en un mapa.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se desarrollará una lógica de movimiento, basada en variables públicas, para que una vez que sean emplazados en el escenario se pueda modificar su velocidad, dirección, tiempo de descanso antes de las idas o venidas, etc. Al contacto con el usuario, si no están usando la habilidad de teletransporte, matarán al mismo.\\
+		\textbf{Motivación}&Es la solución más simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-015: Láser movible}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-016: Bloque movible}
+		\textbf{Asunto}&Bloque movible\\
+		\textbf{Resumen}&Se requiere que se puedan emplazar en los mapas bloques movibles que empujen al jugador, pueda pisar sobre ellos, etc. para usarse con propósitos múltiples.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Se crea el modelo relacionado y se permite determinan variables públicas para que, una vez emplazado en un mapa, se pueda modificar su velocidad, trayectoria, etc.\\
+		\textbf{Motivación}&Es la solución más fácil.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-016: Bloque movible}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-017: Bloque movible con pinchos}
+		\textbf{Asunto}&Bloque movible con pinchos\\
+		\textbf{Resumen}&Se requiere que estos bloques hagan lo mismo que los anteriores pero que puedan tener pinchos por cada una de sus caras.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Heredan de los bloques movibles y además se le permite al usuario configurar en qué cara tendrán pinchos, pudiendo seleccionar independientemente cada una de ellas.\\
+		\textbf{Motivación}&Es la solución más simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-017: Bloque movible con pinchos}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
+		{Memorando técnico 4-018: Coleccionables}
+		\textbf{Asunto}&Coleccionables\\
+		\textbf{Resumen}&Se requiere que el personaje pueda recoger coleccionables.\\
+		\midrule
+		\textbf{Factores causantes}&-\\
+		\textbf{Solución}&Cuando el personaje entre en contacto con la caja de colisión del coleccionable, se eliminará este del mapa y se guardará en el archivo de guardado "`Achievements"' que se ha obtenido.\\
+		\textbf{Motivación}&Es la solución más simple.\\
+		\textbf{Cuestiones abiertas}&-\\
+		\textbf{Alternativas}&-\\
+	\end{coolTable}
+	\caption{Memorando técnico 4-018: Coleccionables}
+\end{table*}
+
 \clearpage
 
 \section{Implementación}
 
+\begin{asigResponsabilidad}{4-001}{Botón}
+{[void] ActorBeginOverlap () - Clase Button}
+\pasoPseudo{0. El usuario pulsa el botón "`acción"' dentro de la caja de colisión del botón:}
+\pasoPseudo{1. Se comprueba si el botón no está "`ocupado"' y si el personaje está mirando al botón}
+\pasoPseudo{1.1. Si cumple los requisitos de la comprobación:}
+\pasoPseudo{1.1.1. Se marca la variable "`bIsBusy"' como verdadera.}
+\pasoPseudo{1.1.2. Se mueve el pulsador del botón hacia abajo (animación).}
+\pasoPseudo{1.1.3. Se marca la variable "`bIsActivated"' al contrario de lo que estaba (verdadero si era falso, o falso si era verdadero).}
+\pasoPseudo{1.1.4. Se reproduce un sonido en la localización del botón.}
+\pasoPseudo{1.1.5. Si comprueba si el botón está activo:}
+\pasoPseudo{1.1.5.1. Si está activo:}
+\pasoPseudo{1.1.5.1.1. Se activan todos los "`activatables"' vinculados.}
+\pasoPseudo{1.1.5.1. Si no está activo:}
+\pasoPseudo{1.1.5.1.1. Se desactivan todos los "`activatables"' vinculados.}
+\pasoPseudo{1.1.6. Se comprueba la variable "`TimeToToggle"':}
+\pasoPseudo{1.1.6.1. Si la variable "`TimeToToggle"' es mayor que 0:}
+\pasoPseudo{1.1.6.1.1. Se reproduce un sonido de cuenta atrás en la localización.}
+\pasoPseudo{1.1.6.1.2. Se espera el tiempo indicado en la variable "`TimeToToggle"'.}
+\pasoPseudo{1.1.6.1.2. Se repiten los pasos 1.1.4. y 1.1.5. (e hijos)}
+\pasoPseudo{1.1.6.2. Si la variable "`TimeToToggle"' es menor o igual que 0:}
+\pasoPseudo{1.1.6.2.1. No hace nada.}
+\pasoPseudo{1.1.7. Se devuelve el botón a su posición original.}
+\pasoPseudo{1.1.7. Se devuelve reproduce un sonido en la localización del botón.}
+\pasoPseudo{1.1.8. Se marca la variable "`bIsBusy"' como falsa.}
+\pasoPseudo{1.1.9. Se comprueba si el sonido de cuenta atrás se está reproduciendo:}
+\pasoPseudo{1.1.9.1. Si se está reproduciendo:}
+\pasoPseudo{1.1.9.1.1. Se para el sonido.}
+\pasoPseudo{1.1.9.2. Si no se está reproduciendo:}
+\pasoPseudo{1.1.9.2.1. No hace nada.}
+\pasoPseudo{1.2. Si no cumple los requisitos de la comprobación:}
+\pasoPseudo{1.2.1. No pasa nada.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{4-002}{Palanca}
+{[void] ActorBeginOverlap () - Clase Lever}
+\pasoPseudo{0. El usuario pulsa el botón "`acción"' dentro de la caja de colisión de la palanca:}
+\pasoPseudo{1. Se comprueba si la palanca no está "`ocupada"' y si el personaje está mirando a la palanca:}
+\pasoPseudo{1.1. Si cumple los requisitos de la comprobación:}
+\pasoPseudo{1.1.1. Se marca la variable "`bIsBusy"' como verdadera.}
+\pasoPseudo{1.1.2. Se rota la manivela de la palanca (animación).}
+\pasoPseudo{1.1.3. Se marca la variable "`bIsActivated"' al contrario de lo que estaba (verdadero si era falso, o falso si era verdadero).}
+\pasoPseudo{1.1.4. Se reproduce un sonido en la localización de la palanca.}
+\pasoPseudo{1.1.5. Si comprueba si la palanca está activo:}
+\pasoPseudo{1.1.5.1. Si está activo:}
+\pasoPseudo{1.1.5.1.1. Se activan todos los "`activatables"' vinculados.}
+\pasoPseudo{1.1.5.1. Si no está activo:}
+\pasoPseudo{1.1.5.1.1. Se desactivan todos los "`activatables"' vinculados.}
+\pasoPseudo{1.1.6. Se comprueba la variable "`TimeToToggle"':}
+\pasoPseudo{1.1.6.1. Si la variable "`TimeToToggle"' es mayor que 0:}
+\pasoPseudo{1.1.6.1.1. Se reproduce un sonido de cuenta atrás en la localización.}
+\pasoPseudo{1.1.6.1.2. Se espera el tiempo indicado en la variable "`TimeToToggle"'.}
+\pasoPseudo{1.1.6.1.2. Se repiten los pasos 1.1.4. y 1.1.5. (e hijos)}
+\pasoPseudo{1.1.6.2. Si la variable "`TimeToToggle"' es menor o igual que 0:}
+\pasoPseudo{1.1.6.2.1. No hace nada.}
+\pasoPseudo{1.1.7. Se rota la palanca a su posición original.}
+\pasoPseudo{1.1.7. Se devuelve reproduce un sonido en la localización de la palanca.}
+\pasoPseudo{1.1.8. Se marca la variable "`bIsBusy"' como falsa.}
+\pasoPseudo{1.1.9. Se comprueba si el sonido de cuenta atrás se está reproduciendo:}
+\pasoPseudo{1.1.9.1. Si se está reproduciendo:}
+\pasoPseudo{1.1.9.1.1. Se para el sonido.}
+\pasoPseudo{1.1.9.2. Si no se está reproduciendo:}
+\pasoPseudo{1.1.9.2.1. No hace nada.}
+\pasoPseudo{1.2. Si no cumple los requisitos de la comprobación:}
+\pasoPseudo{1.2.1. No pasa nada.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{4-003}{Placa de presión - Añadir peso a la placa}
+{[void] ActorBeginOverlap () - Clase PressurePlate (1/2)}
+\pasoPseudo{1. Se comprueba si el actor es el jugador:}
+\pasoPseudo{1.1. Si es el jugador:}
+\pasoPseudo{1.1.1. Se comprueba el peso objetivo:}
+\pasoPseudo{1.1.1.1. Si es mayor que cero:}
+\pasoPseudo{1.1.1.1.1. Se añade el peso del personaje (80 Kg) al peso actual de la placa.}
+\pasoPseudo{1.1.1.1.2. Salta al paso 2.}
+\pasoPseudo{1.1.1.2. Si es menor o igual a cero:}
+\pasoPseudo{1.2. Si no es el jugador:}
+\pasoPseudo{1.2.1. Se comprueba si el actor tiene la etiqueta "`pickup"':}
+\pasoPseudo{1.2.1.1. Si tiene la etiqueta "`pickup"':}
+\pasoPseudo{1.2.1.1.1. Se extrae el peso del "`pickup"'.}
+\pasoPseudo{1.2.1.1.2. Se añade el peso al peso actual de la placa.}
+\pasoPseudo{1.2.1.1.3. Salta al paso 2.}
+\pasoPseudo{1.2.1.2. Si no tiene la etiqueta "`pickup"':}
+\pasoPseudo{1.2.1.2.1. No se hace nada y \textbf{el algoritmo termina}.}
+\pasoPseudo{2. Se actualiza el display de la placa de presión (si hubiese uno asociado).}
+\pasoPseudo{3. Se comprueba si el peso actual es mayor o igual que el peso objetivo:}
+\pasoPseudo{3.1. Si se cumple:}
+\pasoPseudo{3.1.1. Se comprueba que la placa no esté activada aún:}
+\pasoPseudo{3.1.1.1. Si está activada:}
+\pasoPseudo{3.1.1.1.1. No se hace nada y \textbf{el algoritmo termina}.}
+\pasoPseudo{3.1.1.2. Si no está activada:}
+\pasoPseudo{3.1.1.2.1. Comprueba que el array "`OtherPowerablesNeeded"' tenga una longitud mayor que 0:}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{4-003}{Placa de presión - Añadir peso a la placa (2/2)}
+{[void] ActorBeginOverlap () - Clase PressurePlate}
+\pasoPseudo{3.1.1.2.1.1. Si se cumple:}
+\pasoPseudo{3.1.1.2.1.1.1. Comprueba que todos los otros elementos necesarios para activar el "`activatable"' están activados también:}
+\pasoPseudo{3.1.1.2.1.1.1.1. Si están todos activados:}
+\pasoPseudo{3.1.1.2.1.1.1.1.1. Reproduce sonido en la localización.}
+\pasoPseudo{3.1.1.2.1.1.1.1.2. Desplaza la placa de presión levemente hacia abajo.}
+\pasoPseudo{3.1.1.2.1.1.1.1.3. Activa todos los objetos "`activatables"' asociados.}
+\pasoPseudo{3.1.1.2.1.1.1.1.4. Se marca la variable "`bIsActivated"' de la placa de presión como verdadera.}
+\pasoPseudo{3.1.1.2.1.1.1.2. Si no están todos activados:}
+\pasoPseudo{3.1.1.2.1.1.1.2.1. No se hace nada y \textbf{el algoritmo termina}.}
+\pasoPseudo{3.1.1.2.1.2. Si no se cumple:}
+\pasoPseudo{3.1.1.2.1.2.1. Reproduce sonido en la localización.}
+\pasoPseudo{3.1.1.2.1.2.2. Desplaza la placa de presión levemente hacia abajo.}
+\pasoPseudo{3.1.1.2.1.2.3. Activa todos los objetos "`activatables"' asociados.}
+\pasoPseudo{3.1.1.2.1.2.4. Se marca la variable "`bIsActivated"' de la placa de presión como verdadera.}
+\pasoPseudo{3.2. Si no se cumple:}
+\pasoPseudo{3.2.1. No se hace nada y \textbf{el algoritmo termina}.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{4-003}{Placa de presión - Restar peso a la placa}
+{[void] ActorEndOverlap () - Clase PressurePlate}
+\pasoPseudo{(Se realiza de forma similar al anterior, esta vez restando pesos.)}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{4-004}{Placa de presión con bordes - Restar peso a la placa}
+{[void] ActorBeginOverlap () - Clase PressurePlateWithBorders}
+\pasoPseudo{(Se realiza de forma similar al de la placa común.)}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{4-004}{Placa de presión con bordes - Restar peso a la placa}
+{[void] ActorEndOverlap () - Clase PressurePlateWithBorders}
+\pasoPseudo{(Se realiza de forma similar al de la placa común, esta vez restando pesos.)}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{4-005}{Puerta activable - Abrir}
+{[void] Enable () - Clase ActivatableByPoweredSlidingDoor}
+\pasoPseudo{1. Reproduce sonido de apertura en la localización de la puerta.}
+\pasoPseudo{2. Realiza a la vez:}
+\pasoPseudo{2.1. Desplaza suavemente la puerta izquierda hacia su izquierda.}
+\pasoPseudo{2.2. Desplaza suavemente la puerta derecha hacia su derecha.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{4-005}{Puerta activable - Cerrar}
+{[void] Disable () - Clase ActivatableByPoweredSlidingDoor}
+\pasoPseudo{1. Reproduce sonido de cierre en la localización de la puerta.}
+\pasoPseudo{2. Realiza a la vez:}
+\pasoPseudo{2.1. Devuelve la puerta izquierda, suavemente, a su posición original.}
+\pasoPseudo{2.2. Devuelve la puerta derecha, suavemente, a su posición original.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{4-006}{Puerta auto-activable por poder - Abrir}
+{[void] ActorBeginOverlap () - Clase GoldenSlidingDoor}
+\pasoPseudo{1. Comprueba que el el actor que ha entrado en la caja de colisión sea el personaje principal y que además éste tenga poderes:}
+\pasoPseudo{1.1. Si se cumple:}
+\pasoPseudo{1.1.1. Reproduce sonido de apertura en la localización de la puerta.}
+\pasoPseudo{1.1.2. Realiza a la vez:}
+\pasoPseudo{1.1.2.1. Desplaza suavemente la puerta izquierda hacia su izquierda.}
+\pasoPseudo{1.1.2.2. Desplaza suavemente la puerta derecha hacia su derecha.}
+\pasoPseudo{1.2. Si no se cumple:}
+\pasoPseudo{1.2.1. No hace nada.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{4-006}{Puerta auto-activable por poder - Cerrar}
+{[void] ActorEndOverlap () - Clase GoldenSlidingDoor}
+\pasoPseudo{1. Comprueba que el el actor que ha dejado la caja de colisión sea el personaje principal:}
+\pasoPseudo{1.1. Si se cumple:}
+\pasoPseudo{1.1.1. Comprueba si la puerta estaba abierta:}
+\pasoPseudo{1.1.1.1. Si estaba abierta:}
+\pasoPseudo{1.1.1.1.1. Realiza a la vez:}
+\pasoPseudo{1.1.1.1.1.1. Devuelve la puerta izquierda, suavemente, a su posición original.}
+\pasoPseudo{1.1.1.1.1.2. Devuelve la puerta derecha, suavemente, a su posición original.}
+\pasoPseudo{1.1.1.2. Si no estaba abierta:}
+\pasoPseudo{1.1.1.2.1. No hace nada.}
+\pasoPseudo{1.2. Si no se cumple:}
+\pasoPseudo{1.2.1. No hace nada.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{4-008 y 4-009}{Recoger y soltar "`pickables"'}
+{[void] ActorBeginOverlap () - Clase Pickable}
+\pasoPseudo{0. El usuario pulsa el botón "`acción"' dentro de la caja de colisión del "`pickable"':}
+\pasoPseudo{1. Se comprueba si el "`pickable"' no está "`ocupado"':}
+\pasoPseudo{1.1. Si cumple los requisitos de la comprobación:}
+\pasoPseudo{1.1.1. Se marca la variable "`bIsBusy"' como verdadera.}
+\pasoPseudo{1.1.2. Se comprueba si el "`pickable"' estaba en nuestro poder ya o no:}
+\pasoPseudo{1.1.2.1. Si estaba en nuestro poder:}
+\pasoPseudo{1.1.2.1.1. Se desata el modelo del "`pickable"' del cinturón de nuestro personaje.}
+\pasoPseudo{1.1.2.1.2. Se mueve el "`pickable"' justo delante de nuestro personaje.}
+\pasoPseudo{1.1.2.1.3. Se activan las físicas y colisiones del "`pickable"'.}
+\pasoPseudo{1.1.2.1.4. Se marca la variable "`bIsPicked"' a falso.}
+\pasoPseudo{1.1.2.1.5. Se marca la variable "`bIsBusy"' a falso.}
+\pasoPseudo{1.1.2.1. Si estaba \textbf{no} en nuestro poder:}
+\pasoPseudo{1.1.2.1.1. Se comprueba si nuestro personaje ya tiene un "`pickable"' en el cinturón:}
+\pasoPseudo{1.1.2.1.1.1. Si ya tenía uno:}
+\pasoPseudo{1.1.2.1.1.1.1. Se marca la variable "`bIsBusy"' como falsa.}
+\pasoPseudo{1.1.2.1.1.1.2. No se más hace nada y \textbf{el algoritmo termina}.}
+\pasoPseudo{1.1.2.1.1.1. Si ya \textbf{no} tenía uno:}
+\pasoPseudo{1.1.2.1.1.1.1. Se desactivan las físicas de colisiones del "`pickable"'.}
+\pasoPseudo{1.1.2.1.1.1.2. Se mueve el "`pickable"' a la posición predeterminada del cinturón del personaje.}
+\pasoPseudo{1.1.2.1.1.1.3. Se ata el "`pickable"' al modelo de nuestro personaje.}
+\pasoPseudo{1.1.2.1.1.1.4. Se marca la variable "`bIsPicked"' como verdadera.}
+\pasoPseudo{1.1.2.1.1.1.4. Se marca la variable "`bIsBusy"' como falsa.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{4-010}{Recoger orbe dorado}
+{[void] ActorBeginOverlap () - Clase PowerUp}
+\pasoPseudo{1. Cuando un actor entra en colisión con la caja de colisión del orbe dorado, se comprueba si es el personaje principal y que no tiene poderes:}
+\pasoPseudo{1.1. Si se cumplen los requisitos:}
+\pasoPseudo{1.1.1. Se le otorgan habilidades especiales al protagonista.}
+\pasoPseudo{1.1.2. Se desactivan este y el resto de orbes dorados del nivel.}
+\pasoPseudo{1.2. Si no cumple los requisitos:}
+\pasoPseudo{1.2.1. No se hace nada.}
+\end{asigResponsabilidad}
+
+\begin{asigResponsabilidad}{4-011}{Barrera mágica}
+{[void] ActorBeginOverlap () - Clase PowerDown}
+\pasoPseudo{1. Cuando un actor entra en colisión con la caja de colisión de la barrera mágica, se comprueba si es el personaje principal:}
+\pasoPseudo{1.1. Si es el personaje principal:}
+\pasoPseudo{1.1.1. Se le quitan los poderes.}
+\pasoPseudo{1.1.2. Se activan todos las orbes dorados del nivel de nuevo.}
+\pasoPseudo{1.1.3. Si el actor tiene alún "`pickup"' atado a su modelo, se desata y éste se devuelve a su posición original.}
+\pasoPseudo{1.2. Si \textbf{no} es el personaje principal:}
+\pasoPseudo{1.2.1. Se comprueba si es el actor tiene la etiqueta "`pickup"':}
+\pasoPseudo{1.2.1.1. Si tiene la etiqueta:}
+\pasoPseudo{1.2.1.1.1. Este actor se devuelve a su posición original.}
+\pasoPseudo{1.2.1.2. Si tiene \textbf{no} la etiqueta:}
+\pasoPseudo{1.2.1.2.1. No se hace nada.}
+\end{asigResponsabilidad}
+
 \clearpage
 
 \section{Pruebas}
+
+Para la realización de todas las pruebas de esta iteración se ha decidido reutilizar el mapa llamado \textbf{"`Test\_BasicMechanics"'}, que recordemos no es accesible desde el juego (pero sí desde la versión de editor del desarrollador), y lo hemos decidido actualizar para dar cabida al testeo de las nuevas mecánicas.
+
+\begin{figure*}[htb]
+	\centering
+		\includegraphics[scale=0.6]{figures/test-map-3.png}
+		\caption{Imagen del mapa de pruebas empleado en la iteración 4}
+\end{figure*}
+
+Este mapa contiene lo necesario para probar las mecánicas de puzles que hemos implementado en esta iteración: palancas, botones, placas de presión, placas de presión con bordes, ascensores, "`pickables"' de distinto tipo, puertas, láseres, bloques movibles, bloques movibles con pinchos, etc.
+
+En este mapa se han realizado las siguientes pruebas:
+
+\clearpage
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Botón (4-001)}
+		\begin{enumerate}
+			\item Si presionamos el botón dos veces seguidas, la segunda no hará nada.
+			\item Si el botón tiene un parámetro de "`TimeToToggle"' mayor que 0, se activará al pulsarlo pero deberá tardar ese tiempo en desactivarse (por ejemplo, si es una puerta la abrirá y cuando pase el tiempo allí estipulado la volverá a cerrar). Mientras que se activa / desactiva debemos escuchar un sonido de cuenta atrás.
+			\item El botón debe activar cada uno de los "`powerables"' vinculados a él.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Botón (4-001)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Palanca (4-002)}
+		\begin{enumerate}
+			\item Si accionamos la palanca dos veces seguidas, la segunda no hará nada.
+			\item Si la palanca tiene un parámetro de "`TimeToToggle"' mayor que 0, se activará al accionarla pero deberá tardar ese tiempo en desactivarse (por ejemplo, si es una puerta la abrirá y cuando pase el tiempo allí estipulado la volverá a cerrar). Mientras que se activa / desactiva debemos escuchar un sonido de cuenta atrás.
+			\item La palanca debe activar cada uno de los "`powerables"' vinculados a ella.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Palanca (4-002)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Placa de presión, con y sin bordes, y display digital (4-003, 4-004 y 4-014)}
+		\begin{enumerate}
+			\item Cuando nos subimos o nos bajamos de una placa de presión con un display digital asociado, ésta actualizará el mismo. Además, si se alcanza el objetivo el fondo del display se volverá verde, en caso contrario será de color rojo.
+			\item Cuando nos subimos en una placa de presión sin peso objetivo (peso objetivo menor o igual a 0), esta se activará, activando también los "`powerables"' asociados si procede.
+			\item Cuando arrojamos un objeto del tipo "`pickable"' a una placa de presión sin peso objetivo (peso objetivo menor o igual a 0), esta se activará, activando también los "`powerables"' asociados si procede.
+			\item Cuando nos subimos en una placa de presión con peso objetivo (peso objetivo mayor que 0), nuestro peso se debe sumar al de la placa y activarse si procede.
+			\item Cuando nos bajamos de una placa de presión con peso objetivo (peso objetivo mayor que 0), nuestro peso se debe restar al de la placa y desactivarse si procede.
+			\item Cuando arrojamos un objeto del tipo "`pickable"' a una placa de presión con peso objetivo (peso objetivo mayor que 0), el peso del "`pickable"' se debe sumar al de la placa y activarse si procede.
+			\item Cuando recogemos (y sacamos fuera) un objeto del tipo "`pickable"' de una placa de presión con peso objetivo (peso objetivo mayor que 0), el peso del "`pickable"' se debe restar al de la placa y desactivarse si procede.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Placa de presión, con y sin bordes, y display digital (4-003, 4-004 y 4-014)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Orbe dorado (4-010)}
+		\begin{enumerate}
+			\item Cuando toquemos un orbe dorado sin tener poderes, ganaremos poderes y todos los orbes dorados (del nivel) se harán semi-trasparentes (se deshabilitarán).
+			\item Cuando toquemos un orbe dorado teniendo poderes, no pasará nada.
+			\item Si otro actor toca un orbe dorado, no pasará nada.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Orbe dorado (4-010)}
+\end{table*}
+
+\begin{table*}[h!]
+	\centering
+	\begin{coolTable}{p{\textwidth}}{1}
+		{Batería de pruebas: Barrera mágica (4-011)}
+		\begin{enumerate}
+			\item Cuando toquemos una barrera mágica con poderes se nos quitarán los mismos y se volverán a activar todas los "`orbes dorados"' del nivel.
+			\item Cuando toquemos una barrera mágica sin tener poderes no pasará nada, salvo que se reproducirá un sonido en la localización.
+			\item Si intentamos cruzar la barrera mágica, teniendo poderes o no, mientras portamos un objeto "`pickable"' no nos pasará nada pero notaremos que el objeto ya no está porque se ha devuelto a su emplazamiento original.
+			\item Si intentamos lanzar, haciendo uso de las físicas, un objeto "`pickable"' a través de la barrera mágica, al cruzarla será devuelto a su emplazamiento original.
+		\end{enumerate}
+	\end{coolTable}
+	\caption{Batería de pruebas: Barrera mágica (4-011)}
+\end{table*}
 
 \clearpage
 
