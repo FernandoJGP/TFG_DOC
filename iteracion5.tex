@@ -362,7 +362,7 @@ No obstante, tenemos que tener en cuenta lo siguiente:
 \pasoPseudo{1. Se calcula la dirección en la que tiene que salir la bala.}
 \pasoPseudo{2. Se aplican dichos cambios a la bala para que salga orientada en la posición correcta.}
 \pasoPseudo{3. Se spawnea la bala (se emplaza en el mundo) en la posición de indicada en el \gls{blueprint} de la torreta (justo a la salida del cañón). Como el \gls{blueprint} de la bala tiene un componente proyectil adherido, se dispara la bala según su configuración (velocidad, tiempo de autodestrucción, etc.).}
-\pasoPseuco{4. Se aplica un cooldown (tiempo de espera) de un segundo hasta que se pueda volver a ejecutar esta tarea.}
+\pasoPseudo{4. Se aplica un cooldown (tiempo de espera) de un segundo hasta que se pueda volver a ejecutar esta tarea.}
 \end{asigResponsabilidad}
 
 \begin{asigResponsabilidad}{5-005}{Vigilante - Comprobaciones del árbol de comportamiento}
@@ -386,17 +386,17 @@ No obstante, tenemos que tener en cuenta lo siguiente:
 \begin{asigResponsabilidad}{5-006}{Vigilante - Elegir el siguiente punto de ruta}
 {[void] ReceiveExecuteAI () - Tarea "`NextRoute"'}
 \pasoPseudo{1. Obtiene el próximo ID de ruta. Si aún no hay o se ha superado el máximo total de rutas será el ID 0. En caso de que haya más de una ruta con el mismo ID, obtiene el más cercano.}
-\pasoPseuso{2. Fija como objetivo destino la localización del punto de ruta encontrado.}
+\pasoPseudo{2. Fija como objetivo destino la localización del punto de ruta encontrado.}
 \end{asigResponsabilidad}
 
 \begin{asigResponsabilidad}{5-007}{Vigilante - Rotar hacia el siguiente punto de ruta}
 {[void] ReceiveExecuteAI () - Tarea "`RotateToRoute"'}
 \pasoPseudo{1. Obtiene el vector rotador necesario para rotar desde la posición actual hasta una posición en la que encare el punto destino.}
-\pasoPseuso{2. Nos quedamos sólo como el componente Z ("`Yaw"') de dicho vector.}
-\pasoPseuso{3. Calculamos si debe rotar hacia la izquierda o hacia la derecha.}
-\pasoPseuso{4. Le comunicamos al \gls{blueprint} de animación el resultado: "`-1"' si debe rotar a la izquierda y "`1"' si debe rotar a la derecha. Si no debe rotar, le remitimos "`0"'.}
-\pasoPseuso{5. Procedemos a rotar al personaje de forma suave, pero sólo en su componente Z ("`Yaw"').}
-\pasoPseuso{6. Cuando acaba el movimiento de rotación totalmente, le comunicamos al \gls{blueprint} de animación que ha acabado la rotación para que el personaje deje de rotar, es decir, le enviamos un "`0"'.}
+\pasoPseudo{2. Nos quedamos sólo como el componente Z ("`Yaw"') de dicho vector.}
+\pasoPseudo{3. Calculamos si debe rotar hacia la izquierda o hacia la derecha.}
+\pasoPseudo{4. Le comunicamos al \gls{blueprint} de animación el resultado: "`-1"' si debe rotar a la izquierda y "`1"' si debe rotar a la derecha. Si no debe rotar, le remitimos "`0"'.}
+\pasoPseudo{5. Procedemos a rotar al personaje de forma suave, pero sólo en su componente Z ("`Yaw"').}
+\pasoPseudo{6. Cuando acaba el movimiento de rotación totalmente, le comunicamos al \gls{blueprint} de animación que ha acabado la rotación para que el personaje deje de rotar, es decir, le enviamos un "`0"'.}
 \end{asigResponsabilidad}
 
 \begin{asigResponsabilidad}{5-008}{Vigilante - Desplazarse hasta el siguiente punto de ruta}
@@ -479,6 +479,8 @@ Se han realizado las siguientes pruebas:
 	\end{coolTable}
 	\caption{Batería de pruebas: Comportamiento global - Vigilantes}
 \end{table*}
+
+\clearpage
 
 \section{Despliegue}
 

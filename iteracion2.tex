@@ -65,7 +65,7 @@ El sistema traza en todo momento, mientras que estemos cayendo y no estemos agar
 
 \clearpage
 
-Y cuando el personaje está agarrado algún saliente, se trazan:
+Y cuando el personaje está agarrado a algún saliente, se trazan:
 
 \begin{table*}[h!]
 	\centering
@@ -156,9 +156,9 @@ Para la realización (o parte de la realización) de las mecánicas marcadas con un
 No obstante, estando basada buena parte de esta iteración del proyecto en dichas referencias tenemos que tener en cuenta lo siguiente:
 \begin{enumerate}
 	\item \textbf{Están implementadas en diferentes lenguajes de programación}: esta ya es una diferencia de enorme de por sí, pero además no debemos olvidarnos que al tener que lidiar con los \glspl{blueprint} de animaciones desde C++ todo se hace de manera diferente, tanto es así que se necesitan instrucciones adicionales en el \gls{blueprint} de animaciones del personaje para que el sistema funcione correctamente.
-	\item \textbf{Cada una está realizada en diferentes versiones del motor}: lo que provocó que instrucciones no funcionaran instrucciones y hubiese que buscar alternativas.
+	\item \textbf{Cada una está realizada en diferentes versiones del motor}: lo que provocó que no funcionaran instrucciones y hubiese que buscar alternativas.
 	\item \textbf{Es una versión depurada en la que se han corregido numerosos fallos}: algunos de ellos de enorme importancia.
-	\item Se han modificado, añadido y eliminado funcionalidades, así como que se ha ampliado el sistema base con numerosas mejoras.
+	\item Se han modificado, añadido y eliminado funcionalidades, así como se ha ampliado el sistema base con numerosas mejoras.
 \end{enumerate}
 
 \clearpage
@@ -173,7 +173,7 @@ No obstante, estando basada buena parte de esta iteración del proyecto en dichas
 		\textbf{Resumen}&Se requiere obtener información del entorno para usarla en las posteriores funcionalidades del sistema de escalada a implementar.\\
 		\midrule
 		\textbf{Factores causantes}&-\\
-		\textbf{Solución}&La capsula de colisión del jugador se envolverá con una esfera de colisión, que siempre que tenga una superficie de escalada cerca empezará a funcionar: se trazarán líneas o esferas desde el personaje hacia diferentes puntos (o viceversa), siguiendo los canales de trazo que sean necesarios, para con esto detectar obstáculos, objetos escalables, etc.\\
+		\textbf{Solución}&La cápsula de colisión del jugador se envolverá con una esfera de colisión, que siempre que tenga una superficie de escalada cerca empezará a funcionar: se trazarán líneas o esferas desde el personaje hacia diferentes puntos (o viceversa), siguiendo los canales de trazo que sean necesarios, para con esto detectar obstáculos, objetos escalables, etc.\\
 		\textbf{Motivación}&Si queremos obtener información en tiempo real del entorno, es la única solución que nos sirve.\\
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
@@ -202,7 +202,7 @@ No obstante, estando basada buena parte de esta iteración del proyecto en dichas
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
 		{Memorando técnico 2-003: Agarrar un saliente pequeño para escalarlo}
 		\textbf{Asunto}&Agarrar un pequeño saliente y escalarlo\\
-		\textbf{Resumen}&Se requiere que nuestro personaje cuando nuestro personaje se agarre con suficiente holgura a un objeto escalable, lo escale sin más, sin tener que caer y soportarse sobre sus manos.\\
+		\textbf{Resumen}&Se requiere que cuando nuestro personaje se agarre con suficiente holgura a un objeto escalable, lo escale sin más, sin tener que caer y soportarse sobre sus manos.\\
 		\midrule
 		\textbf{Factores causantes}&-\\
 		\textbf{Solución}&Cuando el personaje esté en una posición en la que pueda agarrar y saltar directamente una de las superficies especiales se agarrará a ella y la escalará, sin necesidad de que el usuario interaccione más con el juego.\\
@@ -218,7 +218,7 @@ No obstante, estando basada buena parte de esta iteración del proyecto en dichas
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
 		{Memorando técnico 2-004: Escalar un saliente al que estemos agarrados}
 		\textbf{Asunto}&Escalar un saliente al que estemos agarrados\\
-		\textbf{Resumen}&Se requiere que nuestro personaje, estando agarrado de un saliente, puede saltarlo y subir al piso superior si puede.\\
+		\textbf{Resumen}&Se requiere que nuestro personaje, estando agarrado de un saliente, pueda saltarlo y subir al piso superior si puede.\\
 		\midrule
 		\textbf{Factores causantes}&-\\
 		\textbf{Solución}&Cuando el personaje esté agarrado a un saliente, si pulsa el botón "`saltar"', puede hacer fuerzas con los pies y no hay ningún impedimento que permita al personaje emplazarse en la posición de destino, podrá saltar el saliente e incoorporarse al siguiente nivel.\\
@@ -234,7 +234,7 @@ No obstante, estando basada buena parte de esta iteración del proyecto en dichas
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
 		{Memorando técnico 2-005: Soltar un saliente}
 		\textbf{Asunto}&Soltar un saliente\\
-		\textbf{Resumen}&Se quiere que un personaje que esté agarrado a un saliente pueda soltarse.\\
+		\textbf{Resumen}&Se quiere que cuando el personaje esté agarrado a un saliente pueda soltarse.\\
 		\midrule
 		\textbf{Factores causantes}&-\\
 		\textbf{Solución}&Cuando el personaje esté en un saliente y pulse el botón "`agachar"', se soltará del saliente.\\
@@ -317,7 +317,7 @@ No obstante, estando basada buena parte de esta iteración del proyecto en dichas
 		\textbf{Resumen}&Se requiere que el personaje pueda escalar zonas propicias para la escalada.\\
 		\midrule
 		\textbf{Factores causantes}&-\\
-		\textbf{Solución}&Cuando el personaje esté en frente y mirando una superficie escalable (no importa si está quieto, en movimiento, saltando o cayendo) si el usuario pulsa el botón de "`salto"' lo suficientemente cerca se iniciará la escalada.\\
+		\textbf{Solución}&Cuando el personaje esté enfrente y mirando una superficie escalable (no importa si está quieto, en movimiento, saltando o cayendo) si el usuario pulsa el botón de "`salto"' lo suficientemente cerca se iniciará la escalada.\\
 		\textbf{Motivación}&Es la solución más simple.\\
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\

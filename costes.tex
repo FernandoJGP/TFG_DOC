@@ -7,7 +7,7 @@ En este capítulo abordaremos una de las partes más importantes en la planificaci
 
 \section{Resumen de costes del proyecto}
 
-Uno de los aspectos más importantes para que un proyecto finalice con éxito es que esté bien presupuestado desde su inicio. No obstante, es un objetivo difícil de alcanzar, por tanto lo que se pretende con la realización de este capítulo es, primeramente, intentar que se ajuste lo máximo a la realidad y, en caso de que se desvíe demasiado de la misma, aprender de los errores cometidos para futuros proyectos.
+Uno de los aspectos más importantes para que un proyecto finalice con éxito es que esté bien presupuestado desde su inicio. No obstante, es un objetivo difícil de alcanzar. Por tanto lo que se pretende con la realización de este capítulo es, primeramente, intentar que se ajuste lo máximo a la realidad y, en caso de que se desvíe demasiado de la misma, aprender de los errores cometidos para futuros proyectos.
 
 La tabla que se muestra a continuación anticipa los costes a los que tendremos que hacer frente durante la ejecución del proyecto:
 
@@ -73,19 +73,19 @@ Nótese además que nomenclatura de los roles de nuestro proyecto se adaptan a le 
 
 \textit{Esta categoría incluye a las personas cuyo trabajo es tener a la compañía organizada y, en los mejores casos, financieramente saludables. Esto incluye a las personas que son ejecutivos, directores ejecutivos, personal legal, recursos humanos, personal de tecnología de la información, personal encargado de la administración de contenido y personal de administración general} \cite{gamasutra2014salarysurvey}.
 
-Como podemos apreciar en el texto extraído de la encuesta salarial el rol descrito coincide en un amplio porcentaje con el rol de "`jefe de proyecto"' que describíamos anteriormente (como se decía previamente, para más detalles sobre los roles de este proyecto, revisar la sección \ref{sec:adaptacionmetodologia}), por lo que queda justificada su relación.
+Como podemos apreciar en el texto extraído de la encuesta salarial el rol descrito coincide en un amplio porcentaje con el rol de "`jefe de proyecto"' que describíamos anteriormente (como se indicaba previamente, para más detalles sobre los roles de este proyecto, revisar la sección \ref{sec:adaptacionmetodologia}), por lo que queda justificada su relación.
 
 %Volviendo a los datos extraídos del informe debemos decir que, aunque en la encuesta no se menciona de manera explícita, consideraremos 12 pagas anuales, que es la división más frecuente \cite{12pagas}.%
 
 Ahora vamos a pasar a solucionar los problemas que nos planteaba la elección de la encuesta salarial:
 
-Para adaptar, en la medida de lo posible, un sueldo estadounidense a su equivalente español vamos a comparar el nivel de vida de ambos países usando el "`indice de coste de vida"' y, para ser más concretos, vamos a comparar el coste de vida de San Francisco (puesto que es el lugar en el que más empleos del sector videojuegos se concentran en EE.UU. \cite{gamedeveeuustates} y, por ende, del lugar que presumiblemente provienen más datos de la encuesta salarial) con el de Sevilla.
+Para adaptar, en la medida de lo posible, un sueldo estadounidense a su equivalente español vamos a comparar el nivel de vida de ambos países usando el "`índice de coste de vida"' y, para ser más concretos, vamos a comparar el coste de vida de San Francisco (puesto que es el lugar en el que más empleos del sector videojuegos se concentran en EE.UU. \cite{gamedeveeuustates} y, por ende, del lugar que presumiblemente provienen más datos de la encuesta salarial) con el de Sevilla.
 
 \begin{table*}[h!]
 	\centering
 	\begin{coolTable}{lr}{2}
-{Comparativa respecto al "`indice de coste de vida"'}
-	\textbf{Ciudad}&\textbf{Indice de coste de vida}\\
+{Comparativa respecto al "`índice de coste de vida"'}
+	\textbf{Ciudad}&\textbf{Índice de coste de vida}\\
 	\midrule
 	\textbf{San Francisco}&101,94\\
 	\textbf{Sevilla}&56,49\\
@@ -93,9 +93,9 @@ Para adaptar, en la medida de lo posible, un sueldo estadounidense a su equivale
 	\caption{Tabla comparativa costes de vida \cite{costoflivingindex}}
 \end{table*}
 
-Como observamos en la tabla, a San Francisco se le asigna un indice de \textbf{101,94} mientras que a Sevilla de \textbf{56,49} \cite{costoflivingindex}, por lo que aplicando una sencilla de operación de división entre ambos obtenemos el coeficiente por el que multiplicaremos los datos ofrecidos por "`Gamasutra"':
+Como observamos en la tabla, a San Francisco se le asigna un índice de \textbf{101,94} mientras que el de Sevilla es de \textbf{56,49} \cite{costoflivingindex}, por lo que aplicando una sencilla de operación de división entre ambos obtenemos el coeficiente por el que multiplicaremos los datos ofrecidos por "`Gamasutra"':
 
-\[Coeficiente_{CosteVida} = \cfrac{IndiceCosteVida_{SanFrancisco}}{IndiceCosteVida_{Sevilla}} = \cfrac{56,49}{101,94} = 0,55\]
+\[Coeficiente_{CosteVida} = \cfrac{ÍndiceCosteVida_{SanFrancisco}}{ÍndiceCosteVida_{Sevilla}} = \cfrac{56,49}{101,94} = 0,55\]
 
 Con la obtención de este coeficiente ya tenemos paliado el primer problema, pero no podemos aplicar directamente este coeficiente a los salarios hasta que no solucionemos el restante.
 
@@ -334,7 +334,7 @@ En el caso de este proyecto, al mes, son los siguientes:
 	\caption{Tabla de costes indirectos}
 \end{table*}
 
-[*]: En cuanto a licencias debemos tener en presente que Unreal Engine es un motor de uso gratuito pero, sin embargo, la compañía propietaria del motor, en este caso Epic Games, establece en su EULA una cláusula por la que habrá que abonar cierta cantidad, un loyalty, si se superan los 3.000\$ de beneficio por cuatrimestre. Esta cantidad en gira en torno a un 5\% de los beneficios que pasen de 3.000\$: por ejemplo, si se generan 5000\$ de beneficio habrá que remitirle a Epic Games aproximadamente 100\$ (el 5\% de 2000\$, resultado de la resta de 5.000\$ - 3.000\$).
+[*]: En cuanto a licencias debemos tener en presente que Unreal Engine es un motor de uso gratuito pero, sin embargo, la compañía propietaria del motor, en este caso Epic Games, establece en su EULA una cláusula por la que habrá que abonar cierta cantidad, un loyalty, si se superan los 3.000\$ de beneficio por cuatrimestre. Esta cantidad gira en torno a un 5\% de los beneficios que pasen de 3.000\$: por ejemplo, si se generan 5000\$ de beneficio habrá que remitirle a Epic Games aproximadamente 100\$ (el 5\% de 2000\$, resultado de la resta de 5.000\$ - 3.000\$).
 
 En este caso, el coste indirecto al mes no sería más que el sumatorio de todos los costes indirectos al mes:
 
@@ -391,7 +391,7 @@ El éxito de un presupuesto está muy subordinado a la correcta planificación que 
 
 \subsubsection{Costes de personal}
 
-Para ello, vamos a recuperar la "`tabla de desviación de tiempo por rol"' del capítulo planificación por mera comodidad:
+Para ello, vamos a recuperar la "`tabla de desviación de tiempo por rol"' del capítulo planificación:
 
 \begin{table*}[h!]
 	\centering
@@ -410,7 +410,7 @@ Lo que nos interesa aquí son las horas extra que ha desempañado cada rol (column
 
 \clearpage
 
-Con estos datos, vamos a proceder a calcular la cuantía por rol y, de paso, la total:
+Con estos datos, vamos a proceder a calcular la cuantía por rol, así como la total:
 
 \begin{table*}[h!]
 	\centering
@@ -447,7 +447,7 @@ Siguiendo el mismo procedimiento que con los costes materiales, y recordando que
 
 \subsubsection{Costes directos e inmateriales}
 
-Respecto a los costes directos e inmateriales no hace falta hacer ningún cálculo: el sobrecoste aquí es de \textbf{0 euros} ya sólo supusieron un desembolso único.
+Respecto a los costes directos e inmateriales no hace falta hacer ningún cálculo: el sobrecoste aquí es de \textbf{0 euros} ya que sólo supusieron un desembolso único.
 
 \subsubsection{Sobrecoste total}
 

@@ -9,12 +9,12 @@ Durante la primera iteración se abordará el desarrollo de las características má
 
 Nuestro objetivo principal en esta iteración es familiarizarnos con el entorno, con la programación en C++ y dejar lista la base sobre la que trabajaremos en el resto del proyecto. No obstante, también nos centraremos en dar vida al personaje, dotándolo de movimientos básicos, y la realización de algunas mecánicas más avanzadas como la de teletransporte.
 
-Nuestro personaje heredará de la clase "`ACharacter"' y se compondrá principalmente de una \textbf{capsula de colisión}, que será la encargada de gestionar las colisiones con el entorno (reduciendo drásticamente la complejidad computacional) y de un \textbf{modelo de personaje}, que irá dentro de la citada cápsula. Como se explica en la iteración cero, el modelo de personaje estará animado por un \gls{blueprint} de animación, que también se empezará a crear en esta iteración.
+Nuestro personaje heredará de la clase "`ACharacter"' y se compondrá principalmente de una \textbf{cápsula de colisión}, que será la encargada de gestionar las colisiones con el entorno (reduciendo drásticamente la complejidad computacional) y de un \textbf{modelo de personaje}, que irá dentro de la citada cápsula. Como se explica en la iteración cero, el modelo de personaje estará animado por un \gls{blueprint} de animación, que también se empezará a crear en esta iteración.
 
 \begin{figure*}[htb]
 	\centering
 		\includegraphics[scale=0.8]{figures/camara-preview.png}
-		\caption{Fotograma de los componentes básicos del personaje: capsula de colisión, modelo, cámara en primera persona real y cámara en tercera persona}
+		\caption{Fotograma de los componentes básicos del personaje: cápsula de colisión, modelo, cámara en primera persona real y cámara en tercera persona}
 \end{figure*}
 
 \clearpage
@@ -122,11 +122,11 @@ Por último, para conseguir un mayor realismo vamos a aplicar un pequeño truco pa
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
 		{Memorando técnico 1-001: Creación del personaje}
 		\textbf{Asunto}&Creación del personaje\\
-		\textbf{Resumen}&Consistiría en la creación de una capsula con la que interaccionarían lo deferentes actores del entorno al, por ejemplo, colisionar con nuestro personaje (en vez de hacerlo con él directamente, ya que es mucho más costoso de calcular) y que alojaría a un modelo de personaje en su interior, adjunto a la capsula.\\
+		\textbf{Resumen}&Consistiría en la creación de una cápsula con la que interaccionarían lo diferentes actores del entorno al, por ejemplo, colisionar con nuestro personaje (en vez de hacerlo con él directamente, ya que es mucho más costoso de calcular) y que alojaría a un modelo de personaje en su interior, adjunto a la cápsula.\\
 		\midrule
 		\textbf{Factores causantes}&-\\
-		\textbf{Solución}&Creamos nuestro personaje extendiendo la clase ACharacter y usamos la propiedad "`Mesh"', heredada de la clase padre y del tipo "`USkeletalMeshComponent"', para guardar nuestro modelo de personaje. Dependiendo del modelo de personaje debemos adelantar o retrasar un poco el mismo respecto al centro de la cápsula, rotarlo, etc para que la cámara que le añadamos, posteriormenete, a nuestro modelo de personaje no traspase con las paredes ni genere ningún otro inconveniente.\\
-		\textbf{Motivación}&Esta solución se propone por algo que ya se ha comentado previamente: al utilizar una cápsula de colisión (o un cubo, esfera, etc) estamos reduciendo el número de cálculos que se tienen que hacer en muchas circunstancias, como la citada de que el personaje choque con una pared.\\
+		\textbf{Solución}&Creamos nuestro personaje extendiendo la clase ACharacter y usamos la propiedad "`Mesh"', heredada de la clase padre y del tipo "`USkeletalMeshComponent"', para guardar nuestro modelo de personaje. Dependiendo del modelo de personaje debemos adelantar o retrasar un poco el mismo respecto al centro de la cápsula, rotarlo, etc. para que la cámara que le añadamos, posteriormenete, a nuestro modelo de personaje no traspase con las paredes ni genere ningún otro inconveniente.\\
+		\textbf{Motivación}&Esta solución se propone por algo que ya se ha comentado previamente: al utilizar una cápsula de colisión (o un cubo, esfera, etc.) estamos reduciendo el número de cálculos que se tienen que hacer en muchas circunstancias, como la citada de que el personaje choque con una pared.\\
 		\textbf{Cuestiones abiertas}&Como se comentaba, hay que estar al tanto de si tenemos que mover nuestro personaje respecto a la cápsula, algo que no sabremos hasta que estemos interaccionando ya con el entorno.\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
@@ -154,13 +154,13 @@ Por último, para conseguir un mayor realismo vamos a aplicar un pequeño truco pa
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
 		{Memorando técnico 1-003: Creación de la cámara TP}
 		\textbf{Asunto}&Creación de cámara en 3ra persona "`al hombro"'\\
-		\textbf{Resumen}&Se persigue la creación de una cámara más alejada al personaje que la anterior y que nos permita ver su cuerpo.\\
+		\textbf{Resumen}&Se persigue la creación de una cámara más alejada del personaje que la anterior que nos permita ver su cuerpo (y animaciones).\\
 		\midrule
 		\textbf{Factores causantes}&-\\
-		\textbf{Solución}&Creamos un "`camera arm"' (o brazo de cámara) para unir en un extremo la cabeza del personaje dicho brazo. Ahora creamos otro "`camera arm"', pero esta vez cambiando su rotación 90\% respecto al primero y lo unimos al extremo que queda libre del primer brazo de cámara. El final de este último brazo de cámara será el lugar en el que se emplace finalmente la cámara (con la rotación oportuna para que apunte al personaje).\\
-		\textbf{Motivación}&Esta elección es mucho más profesional que utilizar un simple brazo de cámara, que en nos dejaría el personaje demasiado en medio de la pantalla, tapando gran parte de ella.\\
+		\textbf{Solución}&Creamos un "`camera arm"' (o brazo de cámara) para unir en un extremo la cabeza del personaje y dicho brazo. Ahora creamos otro "`camera arm"', pero esta vez cambiando su rotación 90\% respecto al primero y lo unimos al extremo que queda libre del primer brazo de cámara. El final de este último brazo de cámara será el lugar en el que se emplace finalmente la cámara (con la rotación oportuna para que apunte al personaje).\\
+		\textbf{Motivación}&Esta elección es mucho más profesional que utilizar un simple brazo de cámara, que nos dejaría el personaje demasiado en medio de la pantalla, tapando gran parte de ella.\\
 		\textbf{Cuestiones abiertas}&-\\
-		\textbf{Alternativas}&La alternativa es usar sólo un brazo de cámara, pero si optásemos por esa decisión, al usar un solo brazo de cámara que saldría directamente de la cabeza del personaje el personaje estaría demasiado en medio de la pantalla y su cabeza estorbaría para ver correctamente.\\
+		\textbf{Alternativas}&La alternativa es usar sólo un brazo de cámara, pero si optásemos por esa decisión, al usar un solo brazo de cámara que saldría directamente de la cabeza del personaje, el personaje estaría demasiado en medio de la pantalla y su cabeza molestaría para ver correctamente.\\
 	\end{coolTable}
 	\caption{Memorando técnico 1-003: Creación de la cámara TP}
 \end{table*}
@@ -170,10 +170,10 @@ Por último, para conseguir un mayor realismo vamos a aplicar un pequeño truco pa
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
 		{Memorando técnico 1-004: Movimiento del personaje}
 		\textbf{Asunto}&Movimiento del personaje.\\
-		\textbf{Resumen}&En función de input proporcionado por el jugador se le añade al personaje movimiento en esa dirección.\\
+		\textbf{Resumen}&En función del input proporcionado por el jugador se le añade al personaje movimiento en esa dirección.\\
 		\midrule
 		\textbf{Factores causantes}&-\\
-		\textbf{Solución}&Al detectar un input por parte del jugador relacionado con una las cuatro acciones de movimiento (delante, atrás, izquierda o derecha) se añade movimiento al personaje en la dirección especificada. Se diferencia movimiento delante-atrás e izquierda-derecha, siendo el resultado final la combinación de ambos movimientos.\\
+		\textbf{Solución}&Al detectar un input por parte del jugador relacionado con una de las cuatro acciones de movimiento (delante, atrás, izquierda o derecha) se añade movimiento al personaje en la dirección especificada. Se diferencia movimiento delante-atrás e izquierda-derecha, siendo el resultado final la combinación de ambos movimientos.\\
 		\textbf{Motivación}&Solución propuesta por seguir el estándar.\\
 		\textbf{Cuestiones abiertas}&Debemos tener en cuenta que la solución generada deberá ser modificada en las siguientes iteraciones ya que no queremos que nuestro personaje pueda moverse en todo momento (por ejemplo, no queremos que el personaje se mueva hacia según qué sitios cuando esté agarrado a un saliente).\\
 		\textbf{Alternativas}&-\\
@@ -239,7 +239,7 @@ Por último, para conseguir un mayor realismo vamos a aplicar un pequeño truco pa
 		\textbf{Factores causantes}&-\\
 		\textbf{Solución}&Al accionar el botón asignado al salto y, si procede, el personaje empieza a saltar hasta que llegue al límite del salto o se suelte la tecla asignada.\\
 		\textbf{Motivación}&Solución propuesta por seguir el estándar.\\
-		\textbf{Cuestiones abiertas}&Muchas mecánicas futuras habrán uso de las mismas teclas destinadas para el salto, por lo que tendremos que estar atentos con ello.-\\
+		\textbf{Cuestiones abiertas}&Muchas mecánicas futuras harán uso de las mismas teclas destinadas para el salto, por lo que tendremos que estar atentos a ello.-\\
 		\textbf{Alternativas}&-\\
 	\end{coolTable}
 	\caption{Memorando técnico 1-008: Salto}
@@ -253,7 +253,7 @@ Por último, para conseguir un mayor realismo vamos a aplicar un pequeño truco pa
 		\textbf{Resumen}&Para evitar distintos obstáculos el personaje podrá agacharse pulsando el botón indicado.\\
 		\midrule
 		\textbf{Factores causantes}&-\\
-		\textbf{Solución}&Cuando la tecla "`Agachar"' se accione el personaje estéticamente se agachará y cambiaremos la altura de su capsula de colisión para que pueda acceder a zonas en las que agachado no podía. Al soltar el botón, el personaje volverá a ponerse de pié.\\
+		\textbf{Solución}&Cuando la tecla "`Agachar"' se accione el personaje estéticamente se agachará y cambiaremos la altura de su cápsula de colisión para que pueda acceder a zonas en las que agachado no podía. Al soltar el botón, el personaje volverá a ponerse de pie.\\
 		\textbf{Motivación}&Solución propuesta por seguir el estándar.\\
 		\textbf{Cuestiones abiertas}&La tecla usada para esta acción se volverá a usar con otras mecánicas, por lo que, de nuevo, tendremos que estar atentos en interacciones posteriores.\\
 		\textbf{Alternativas}&-\\
@@ -313,8 +313,8 @@ Por último, para conseguir un mayor realismo vamos a aplicar un pequeño truco pa
 	\centering
 	\begin{coolTable}{p{2.35cm}p{\textwidth-3.5cm}}{2}
 		{Memorando técnico 1-013: Control de máxima distancia de caída}
-		\textbf{Asunto}&Caja de colisión para controlar que el personaje no sobreviva si cae desde demasiado alto.\\
-		\textbf{Resumen}&Cuando el personaje caiga a un sitio desde demasiado alto, morirá.\\
+		\textbf{Asunto}&Caja de colisión para controlar que el personaje no sobreviva si cae desde una altura demasiado elevada.\\
+		\textbf{Resumen}&Cuando el personaje caiga a un sitio desde una altura demasiado elevada, morirá.\\
 		\midrule
 		\textbf{Factores causantes}&Caer a un sitio profundo\\
 		\textbf{Solución}&Implementar una "`trigger box"' o caja de colisión que, en el evento "`ActorBeginOverlap"' compruebe si el actor que ha entrado en la caja de colisión es un personaje y lo mate.\\
@@ -349,7 +349,7 @@ Por último, para conseguir un mayor realismo vamos a aplicar un pequeño truco pa
 		\textbf{Resumen}&Cuando el usuario desee ejecutar algún poder / habilidad especial, primero se comprobará si hay adrenalina suficiente (todos los poderes llevarán asociado un consumo de adrenalina) y, si hay suficiente, se ejecutará el poder y se restará la cantidad de adrenalina asociada a la actual. Si no hay ningún poder activo, se recargará con cada \gls{tick} del juego.\\
 		\midrule
 		\textbf{Factores causantes}&-\\
-		\textbf{Solución}&El consumo de adrenalina se delega a cada habilidad especial, siendo la función relacionada con esta la encargada de comprobar si hay adrenalina suficiente, restar la precisa, etc. y el sistema recargará automáticamente un punto de adrenalina con cada \gls{tick} del juego.\\
+		\textbf{Solución}&El consumo de adrenalina se delega a cada habilidad especial, siendo la función relacionada con ésta la encargada de comprobar si hay adrenalina suficiente, restar la precisa, etc. y el sistema recargará automáticamente un punto de adrenalina con cada \gls{tick} del juego.\\
 		\textbf{Motivación}&Solución propuesta por simplicidad.\\
 		\textbf{Cuestiones abiertas}&-\\
 		\textbf{Alternativas}&-\\
@@ -405,7 +405,7 @@ Por último, para conseguir un mayor realismo vamos a aplicar un pequeño truco pa
 
 \begin{asigResponsabilidad}{1-006}{Añade rotación vertical a la cámara para controladores}
 {[void] LookUpAtRate (Rate:float)}
-\pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento vertical de la cámara proveniente de un mando o similar (llamado "`LookUpRate"'), se hace eso del método "`AddControllerPitchInput"' de la clase APawn, pero esta vez le mandamos la multiplicación del (1) Rate que envía el usuario (porcentaje, entre "`-1.0"' y "`1.0"' que mueve, por ejemplo, el eje del joystick del mando asignado),  (2) de la sensibilidad vertical (definida como "`BaseLookUpRate"') y (3) por el tiempo en el que se renderiza cada frame.}
+\pasoPseudo{1. Cuando se hace uso del enlace asignado al movimiento vertical de la cámara proveniente de un mando o similar (llamado "`LookUpRate"'), se hace uso del método "`AddControllerPitchInput"' de la clase APawn, pero esta vez le mandamos la multiplicación del (1) Rate que envía el usuario (porcentaje, entre "`-1.0"' y "`1.0"' que mueve, por ejemplo, el eje del joystick del mando asignado),  (2) de la sensibilidad vertical (definida como "`BaseLookUpRate"') y (3) por el tiempo en el que se renderiza cada frame.}
 \cabeceraMetodosBajoNivel
 \pasoCodigo{1}{APawn}{[void] AddControllerPitchInput (Value:float)}{N/A}
 \pasoCodigo{1}{UWorld}{[Float] GetDeltaSeconds ()}{N/A}
@@ -557,9 +557,9 @@ En este mapa se han realizado las siguientes pruebas:
 			\item Probar movimiento hacia la izquierda del personaje (con y sin sprint). Comprobar que ambas animaciones se reproducen correctamente.
 			\item Probar movimiento hacia la derecha del personaje (con y sin sprint). Comprobar que ambas animaciones se reproducen correctamente.
 			\item Probar movimiento hacia delante-izquierda del personaje (con y sin sprint) y comprobar que las animaciones se mezclan correctamente en ambos casos.
-			\item Probar movimiento hacia delante-dererecha del personaje (con y sin sprint) y comprobar que las animaciones se mezclan correctamente en ambos casos.
+			\item Probar movimiento hacia delante-derecha del personaje (con y sin sprint) y comprobar que las animaciones se mezclan correctamente en ambos casos.
 			\item Probar movimiento hacia detrás-izquierda del personaje (con y sin sprint) y comprobar que las animaciones se mezclan correctamente en ambos casos.
-			\item Probar movimiento hacia detrás-dererecha del personaje (con y sin sprint) y comprobar que las animaciones se mezclan correctamente en ambos casos.
+			\item Probar movimiento hacia detrás-derecha del personaje (con y sin sprint) y comprobar que las animaciones se mezclan correctamente en ambos casos.
 			\item Repetir para mando o teclado y ratón (según lo que se haya usado previamente).
 		\end{enumerate}
 	\end{coolTable}
@@ -599,7 +599,7 @@ En este mapa se han realizado las siguientes pruebas:
 		\begin{enumerate}
 			\item Cuando pulsamos la tecla / botón "`saltar"' el personaje salta, reproduciendo la animación del salto.
 			\item Si, mientras estamos en un salto, dejamos de pulsar "`saltar"', el personaje dejará de ascender en su salto si aún lo está haciendo. Nota: Esto puede ser difícil de apreciar debido a la altura de salto.
-			\item Cuando el personaje toca el suelo, termina la animación de salto y empieza la correspondiente (parado, andando, corriendo, etc).
+			\item Cuando el personaje toca el suelo, termina la animación de salto y empieza la correspondiente (parado, andando, corriendo, etc.).
 		\end{enumerate}
 	\end{coolTable}
 	\caption{Batería de pruebas: Salto (1-008)}
@@ -613,7 +613,7 @@ En este mapa se han realizado las siguientes pruebas:
 			\item Si mantenemos pulsado "`agachar"' el personaje permanecerá agachado, reproduciendo la animación de inicio de agachado y, a continuación, la animación de agachado-parado.
 			\item Si soltamos "`agachar"' el personaje se levantará siempre que pueda hacerlo, reproduciendo la animación de fin de agachado, si no permanecerá agachado hasta que pueda.
 			\item Si nos movemos mientras que estamos agachado, el personaje se moverá en esa dirección y se reproducirá la animación oportuna.
-			\item Si rotamos mientras que estamos agachados, el personaje rotará conforme la dirección de la cámara, reproduciendo además la animación oportuna.
+			\item Si rotamos mientras que estamos agachado, el personaje rotará conforme la dirección de la cámara, reproduciendo además la animación oportuna.
 			\item Si pulsamos y soltamos "`agachar"' rápidamente, el personaje sólo se agachará por un instante.
 		\end{enumerate}
 	\end{coolTable}
